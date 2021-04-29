@@ -1,0 +1,40 @@
+---
+- name: 'prometheus | node exporter | download'
+  get_url:
+    url: https://github.com/prometheus/node_exporter/releases/download/v{{ prometheus_node_exporter_version }}/node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz
+    dest: /tmp
+  when: prometheus_node_exporter_enable == "true"
+
+- name: 'prometheus | node exporter | unarchive'
+  unarchive:
+    remote_src: yes
+    src: /tmp/node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz
+    dest: /tmp
+  when: prometheus_node_exporter_enable == "true"
+
+- name: 'prometheus | node exporter | move to /usr/local/bin'
+  copy:
+    src: /tmp/node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64/node_exporter
+    dest: /usr/local/bin/prometheus-node-exporter
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: prometheus_node_exporter_enable == "true"
+
+- name: 'prometheus | node exporter | install unit file to systemd'
+  template:
+    src: templates/systemd/prometheus_node_exporter.service.j2
+    dest: /etc/systemd/system/prometheus_node_exporter.service
+    owner: root
+    group: root
+    mode: 0600
+  when: prometheus_node_exporter_enable == "true"
+
+- name: 'prometheus | node exporter | configure systemd to use service'
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    state: started
+    name: node_exporter.service
+  when: prometheus_node_exporter_enable == "true"

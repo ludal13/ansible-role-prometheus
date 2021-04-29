@@ -1,0 +1,40 @@
+---
+- name: 'prometheus | mongodb exporter | download'
+  get_url:
+    url: https://github.com/percona/mongodb_exporter/releases/download/v{{ prometheus_mongodb_exporter_version }}/mongodb_exporter-{{ prometheus_mongodb_exporter_version }}.linux-amd64.tar.gz
+    dest: /tmp
+  when: prometheus_mongodb_exporter_enable == "true"
+
+- name: 'prometheus | mongodb exporter | unarchive'
+  unarchive:
+    remote_src: yes
+    src: /tmp/mongodb_exporter-{{ prometheus_mongodb_exporter_version }}.linux-amd64.tar.gz
+    dest: /tmp
+  when: prometheus_mongodb_exporter_enable == "true"
+
+- name: 'prometheus | mongodb exporter | move to /usr/local/bin'
+  copy:
+    src: /tmp/mongodb_exporter-{{ prometheus_mongodb_exporter_version }}.linux-amd64/mongodb_exporter
+    dest: /usr/local/bin/prometheus-mongodb-exporter
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: prometheus_mongodb_exporter_enable == "true"
+
+- name: 'prometheus | mongodb exporter | install unit file to systemd'
+  template:
+    src: templates/systemd/prometheus-mongodb-exporter.service.j2
+    dest: /etc/systemd/system/prometheus-mongodb-exporter.service
+    owner: root
+    group: root
+    mode: 0600
+  when: prometheus_mongodb_exporter_enable == "true"
+
+- name: 'prometheus | mongodb exporter | configure systemd to use service'
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    state: started
+    name: mongodb_exporter.service
+  when: prometheus_mongodb_exporter_enable == "true"

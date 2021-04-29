@@ -1,0 +1,10 @@
+[Unit]
+Description=Prometheus PHP-FPM Exporter
+After=network.target
+ 
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/prometheus-phpfpm-exporter
+ 
+[Install]
+WantedBy=multi-user.target

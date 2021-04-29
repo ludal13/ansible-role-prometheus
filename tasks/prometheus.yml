@@ -1,0 +1,65 @@
+---
+- name: 'prometheus | create docker network'
+  docker_network:
+    name: 'prometheus'
+  tags:
+    - prometheus
+  when: prometheus_enable == "true"
+
+- name: 'prometheus | create docker volume data'
+  docker_volume:
+    name: prometheus_data
+  register: register_docker_volume_prometheus__prometheus_data
+  when: prometheus_enable == "true"
+  tags:
+    - prometheus
+
+- name: 'prometheus | create prometheus directory to /etc'
+  file:
+    path: /etc/prometheus
+    state: directory
+    mode: '0755'
+  when: prometheus_enable == "true"
+  tags:
+    - prometheus
+
+- name: 'prometheus | copy config prometheus yml'
+  template:
+    src: templates/prometheus.yml.j2
+    dest: /etc/prometheus/prometheus.yml
+    owner: root
+    group: root
+    mode: 0644
+  when: prometheus_enable == "true"
+  tags:
+    - prometheus
+
+- name: 'prometheus | deploy container'
+  docker_container:
+    name: prometheus
+    hostname: '{{ inventory_hostname }}'
+    image: prom/prometheus:{{ awh_services_prometheus_version|default("latest") }}
+    volumes:
+      - /etc/prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.enable-admin-api'
+    networks:
+    - { name: prometheus }
+    ports:
+      - "9090:9090"
+    etc_hosts:
+      foo: 10.1.1.1
+      bar: 10.1.1.2
+    log_driver: syslog
+    log_options:
+      tag: docker_prometheus
+    restart_policy: 'unless-stopped'
+    pull: '{{ awh_services_docker_pull|default("no") }}'
+  when: prometheus_enable == "true"
+  tags: 
+    - prometheus

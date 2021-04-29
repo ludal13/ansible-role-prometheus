@@ -1,0 +1,67 @@
+---
+- name: 'prometheus | postgres exporter | download'
+  get_url:
+    url: https://github.com/prometheus-community/postgres_exporter/releases/download/v{{ prometheus_postgres_exporter_version }}/postgres_exporter-{{ prometheus_postgres_exporter_version }}.linux-amd64.tar.gz
+    dest: /tmp
+  when: prometheus_postgres_exporter_enable == "true"
+
+- name: 'prometheus | postgres exporter | unarchive'
+  unarchive:
+    remote_src: yes
+    src: /tmp/postgres_exporter-{{ prometheus_postgres_exporter_version }}.linux-amd64.tar.gz
+    dest: /tmp
+  when: prometheus_postgres_exporter_enable == "true"
+
+- name: 'prometheus | postgres exporter | move to /usr/local/bin'
+  copy:
+    src: /tmp/postgres_exporter-{{ prometheus_postgres_exporter_version }}.linux-amd64/postgres_exporter
+    dest: /usr/local/bin/prometheus-postgres-exporter
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: prometheus_postgres_exporter_enable == "true"
+
+- name: 'prometheus | mysql exporter | configuration'
+  copy:
+    dest: '/var/lib/prometheus/.my.cnf'
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+    content: |
+      [client]
+      user={{ prometheus_postgres_exporter_user }}
+      password={{ prometheus_postgres_exporter_password }}
+  when:
+    - prometheus_postgres_exporter_user is defined
+    - prometheus_postgres_exporter_enable == "true"
+  register: prometheus_postgres_exporter_configuration
+
+- name: 'prometheus | postgresql exporter | configuration'
+  copy:
+    dest: '/etc/default/prometheus-postgres-exporter'
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+    content: |
+      DATA_SOURCE_NAME='postgresql://{{ prometheus_exporter_postgresql_user }}:{{ prometheus_exporter_postgresql_password }}@{{ prometheus_exporter_postgresql_host }}:{{prometheus_exporter_postgresql_port }}/''
+      ARGS=''
+  when:
+    - prometheus_postgres_exporter_user is defined
+    - prometheus_postgres_exporter_password is defined
+    - prometheus_postgres_exporter_host is defined
+    - prometheus_postgres_exporter_port is defined
+    - prometheus_postgres_exporter_enable == "true"
+  register: prometheu_postgres_exporter_configuration
+
+- name: 'prometheus | postgres exporter | install unit file to systemd'
+  template:
+    src: templates/systemd/prometheus-postgres-exporter.service.j2
+    dest: /etc/systemd/system/prometheus-postgres-exporter.service
+    owner: root
+    group: root
+    mode: 0600
+  when: prometheus_postgres_exporter_enable == "true"
+

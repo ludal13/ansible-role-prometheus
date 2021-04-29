@@ -1,0 +1,10 @@
+[Unit]
+Description=Prometheus MongoDB Exporter
+After=network.target
+ 
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/prometheus-mongodb-exporter
+ 
+[Install]
+WantedBy=multi-user.target

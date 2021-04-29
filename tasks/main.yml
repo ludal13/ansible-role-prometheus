@@ -1,0 +1,6 @@
+---
+- name: 'prometheus | include asserts'
+  include_tasks: 'asserts.yml'
+
+- name: 'prometheus | install'
+  include_tasks: 'install.yml'
