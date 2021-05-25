@@ -40,7 +40,7 @@
 
 - name: 'prometheus | mysqld exporter | install unit file to systemd'
   template:
-    src: templates/systemd/prometheus-mysqld-exporter.service.j2
+    src: systemd/prometheus-mysqld-exporter.service.j2
     dest: /etc/systemd/system/prometheus-mysqld-exporter.service
     owner: root
     group: root
@@ -52,5 +52,5 @@
     daemon_reload: yes
     enabled: yes
     state: started
-    name: mysqld_exporter.service
+    name: prometheus-mysqld-exporter.service
   when: prometheus_mysqld_exporter_enable == "true"

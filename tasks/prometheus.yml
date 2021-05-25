@@ -1,40 +1,49 @@
 ---
-- name: 'prometheus | create docker network'
+- name: 'prometheus | server | assert | check mandatory vars are defined'
+  assert:
+    that:
+      - "prometheus_server_monitor is defined"
+  tags:
+    - prometheus
+
+- name: 'prometheus | server | create docker network'
   docker_network:
     name: 'prometheus'
   tags:
     - prometheus
-  when: prometheus_enable == "true"
+  when: prometheus_server_enable == "true"
 
-- name: 'prometheus | create docker volume data'
+- name: 'prometheus | server | create docker volume data'
   docker_volume:
     name: prometheus_data
   register: register_docker_volume_prometheus__prometheus_data
-  when: prometheus_enable == "true"
+  when: prometheus_server_enable == "true"
   tags:
     - prometheus
 
-- name: 'prometheus | create prometheus directory to /etc'
+- name: 'prometheus | server | create prometheus directory to /etc'
   file:
     path: /etc/prometheus
     state: directory
     mode: '0755'
-  when: prometheus_enable == "true"
+  when: prometheus_server_enable == "true"
   tags:
     - prometheus
 
-- name: 'prometheus | copy config prometheus yml'
+- name: 'prometheus | server | copy config prometheus yml'
   template:
-    src: templates/prometheus.yml.j2
+    src: prometheus.yml.j2
     dest: /etc/prometheus/prometheus.yml
     owner: root
     group: root
     mode: 0644
-  when: prometheus_enable == "true"
+  when:
+    - prometheus_server_enable == "true"
+    - prometheus_server_monitor is defined
   tags:
     - prometheus
 
-- name: 'prometheus | deploy container'
+- name: 'prometheus | server | deploy container'
   docker_container:
     name: prometheus
     hostname: '{{ inventory_hostname }}'
@@ -52,14 +61,12 @@
     - { name: prometheus }
     ports:
       - "9090:9090"
-    etc_hosts:
-      foo: 10.1.1.1
-      bar: 10.1.1.2
     log_driver: syslog
     log_options:
       tag: docker_prometheus
     restart_policy: 'unless-stopped'
     pull: '{{ awh_services_docker_pull|default("no") }}'
-  when: prometheus_enable == "true"
-  tags: 
+  when: prometheus_server_enable == "true"
+  tags:
     - prometheus
+

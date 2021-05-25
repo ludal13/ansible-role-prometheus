@@ -24,7 +24,7 @@
 
 - name: 'prometheus | mongodb exporter | install unit file to systemd'
   template:
-    src: templates/systemd/prometheus-mongodb-exporter.service.j2
+    src: systemd/prometheus-mongodb-exporter.service.j2
     dest: /etc/systemd/system/prometheus-mongodb-exporter.service
     owner: root
     group: root
@@ -36,5 +36,5 @@
     daemon_reload: yes
     enabled: yes
     state: started
-    name: mongodb_exporter.service
+    name: prometheus-mongodb-exporter.service
   when: prometheus_mongodb_exporter_enable == "true"

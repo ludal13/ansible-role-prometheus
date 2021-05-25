@@ -1,0 +1,85 @@
+# {{ ansible_managed }}
+
+global:
+  scrape_interval:     '{{ prometheus_server_global_scrape_interval | default(15) }}'s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: '{{ prometheus_server_global_evaluation_interval | default(15) }}'s # Evaluate rules every 15 seconds. The default is every 1 minute.
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+      monitor: '{{ prometheus_server_monitor }}'
+
+{% if prometheus_server_rules is defined %}
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+        - 'rules.yml'
+{% endif %}
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: '{{ prometheus_server_job_name | default("prometheus") }}'
+
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: '{{ prometheus_server_scrape_interval | default(5) }}'s
+    scrape_timeout: '{{ prometheus_server_scrape_timeout | default(5) }}'s
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ['localhost:9090']
+
+{% if (prometheus_node_exporter_enable is defined) and (prometheus_node_exporter_enable == "true") %}
+  - job_name: node
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% if prometheus_node_exporter_targets is defined %}
+{% for target in prometheus_node_exporter_targets %}
+        - {{ target }}:9100
+{% endfor %}
+{% endif %}
+{% endif %}
+
+{% if (prometheus_mysqld_exporter_enable is defined) and (prometheus_mysqld_exporter_enable == "true") %}
+  - job_name: mysql
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% if prometheus_mysql_exporter_targets is defined %}
+{% for target in prometheus_mysqld_exporter_targets %}
+        - {{ target }}:9104
+{% endfor %}
+{% endif %}
+{% endif %}
+
+{% if (prometheus_mongodb_exporter_enable is defined) and (prometheus_mongodb_exporter_enable == "true") %}
+  - job_name: mongodb
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets
+{% if prometheus_mongodb_exporter_targets is defined %}
+{% for target in prometheus_mongodb_exporter_targets %}
+        - {{ target }}:9001
+{% endfor %}
+{% endif %}
+{% endif %}
+
+{% if (prometheus_postgres_exporter_enable is defined) and (prometheus_postgres_exporter_enable == "true") %}
+  - job_name: postgresql
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% if prometheus_postgres_exporter_targets is defined %}
+{% for target in prometheus_postgres_exporter_targets %}
+        - {{ target }}:9187
+{% endfor %}
+{% endif %}
+{% endif %}
+

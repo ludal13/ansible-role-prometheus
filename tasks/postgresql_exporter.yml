@@ -22,7 +22,7 @@
     mode: 0755
   when: prometheus_postgres_exporter_enable == "true"
 
-- name: 'prometheus | mysql exporter | configuration'
+- name: 'prometheus | postgres exporter | configuration'
   copy:
     dest: '/var/lib/prometheus/.my.cnf'
     owner: root
@@ -58,10 +58,18 @@
 
 - name: 'prometheus | postgres exporter | install unit file to systemd'
   template:
-    src: templates/systemd/prometheus-postgres-exporter.service.j2
+    src: systemd/prometheus-postgres-exporter.service.j2
     dest: /etc/systemd/system/prometheus-postgres-exporter.service
     owner: root
     group: root
     mode: 0600
   when: prometheus_postgres_exporter_enable == "true"
 
+
+- name: 'prometheus | postgres exporter | configure systemd to use service'
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    state: started
+    name: prometheus-postgres-exporter.service
+  when: prometheus_postgres_exporter_enable == "true"

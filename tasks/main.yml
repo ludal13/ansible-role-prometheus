@@ -2,5 +2,33 @@
 - name: 'prometheus | include asserts'
   include_tasks: 'asserts.yml'
 
-- name: 'prometheus | install'
-  include_tasks: 'install.yml'
+- name: 'prometheus | server install'
+  include_tasks: 'prometheus.yml'
+  when:
+    - prometheus_server_enable is defined
+    - prometheus_server_enable == "true"
+
+- name: 'prometheus | Node exporter'
+  include_tasks: 'node_exporter.yml'
+  when:
+    - prometheus_node_exporter_enable is defined
+    - prometheus_node_exporter_enable == "true"
+
+- name: 'prometheus | MongoDB exporter'
+  include_tasks: 'mongodb_exporter.yml'
+  when:
+    - prometheus_mongodb_exporter_enable is defined
+    - prometheus_mongodb_exporter_enable == "true"
+
+- name: 'prometheus | MySQL exporter'
+  include_tasks: 'mysqld_exporter.yml'
+  when:
+    - prometheus_mysqld_exporter_enable is defined
+    - prometheus_mysqld_exporter_enable == "true"
+
+- name: 'prometheus | PostgreSQL exporter'
+  include_tasks: 'postgresql_exporter.yml'
+  when:
+    - prometheus_postgres_exporter_enable is defined
+    - prometheus_postgres_exporter_enable == "true"
+
