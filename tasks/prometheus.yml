@@ -43,7 +43,7 @@
   docker_container:
     name: prometheus
     hostname: '{{ inventory_hostname }}'
-    image: prom/prometheus:{{ awh_services_prometheus_version|default("latest") }}
+    image: prom/prometheus:{{ prometheus_server_version|default("latest") }}
     volumes:
       - /etc/prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus
