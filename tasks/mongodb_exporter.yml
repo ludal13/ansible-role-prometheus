@@ -34,5 +34,5 @@
     group: root
     mode: 0755
   notify:
-    - 'prometheus | mysqld exporter | restart service'
+    - 'prometheus | mongodb exporter | restart service'
 
