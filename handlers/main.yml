@@ -3,6 +3,7 @@
   docker_container:
     name: prometheus
     restart: yes
+  tags: ['prometheus']
 
 - name: 'prometheus | node exporter | restart service'
   systemd:
