@@ -1,0 +1,36 @@
+---
+- name: 'prometheus | server | restart container'
+  systemd:
+    name: openvpn@{{ ansible_hostname }}.service
+    state: started
+    enabled: yes
+  tags: ['prometheus']
+
+- name: 'prometheus | node exporter | restart service'
+  systemd:
+    name: prometheus-node-exporter.service
+    state: restarted
+    enabled: yes
+  tags: ['prometheus']
+
+- name: 'prometheus | mysqld exporter | restart service'
+  systemd:
+    name: prometheus-mysqld-exporter.service
+    state: restarted
+    enabled: yes
+  tags: ['prometheus']
+
+- name: 'prometheus | mongodb exporter | restart service'
+  systemd:
+    name: prometheus-mongodb-exporter.service
+    state: restarted
+    enabled: yes
+  tags: ['prometheus']
+
+- name: 'prometheus | postgres exporter | restart service'
+  systemd:
+    name: prometheus-postgres-exporter.service
+    state: restarted
+    enabled: yes
+  tags: ['prometheus']
+

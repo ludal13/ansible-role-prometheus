@@ -1,4 +1,18 @@
 ---
+- name: 'prometheus | mysqld exporter | install unit file to systemd'
+  template:
+    src: systemd/prometheus-mysqld-exporter.service.j2
+    dest: /etc/systemd/system/prometheus-mysqld-exporter.service
+    owner: root
+    group: root
+    mode: 0600
+
+- name: 'prometheus | mysqld exporter | configure systemd to use service'
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: prometheus-mysqld-exporter.service
+
 - name: 'prometheus | mysqld exporter | download'
   get_url:
     url: https://github.com/prometheus/mysqld_exporter/releases/download/v{{ prometheus_mysqld_exporter_version }}/mysqld_exporter-{{ prometheus_mysqld_exporter_version }}.linux-amd64.tar.gz
@@ -33,18 +47,6 @@
   when: 
     - prometheus_mysqld_exporter_user is defined
   register: prometheus_mysqld_exporter_configuration
+  notify:
+    - 'prometheus | mysqld exporter | restart service'
 
-- name: 'prometheus | mysqld exporter | install unit file to systemd'
-  template:
-    src: systemd/prometheus-mysqld-exporter.service.j2
-    dest: /etc/systemd/system/prometheus-mysqld-exporter.service
-    owner: root
-    group: root
-    mode: 0600
-
-- name: 'prometheus | mysqld exporter | configure systemd to use service'
-  systemd:
-    daemon_reload: yes
-    enabled: yes
-    state: started
-    name: prometheus-mysqld-exporter.service
