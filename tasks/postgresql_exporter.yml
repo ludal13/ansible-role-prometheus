@@ -31,7 +31,8 @@
       user={{ prometheus_postgres_exporter_user }}
       password={{ prometheus_postgres_exporter_password }}
   when:
-    - prometheus_postgres_exporter_enable == "true"
+    - prometheus_postgres_exporter_user is defined
+    - prometheus_postgres_exporter_password is defined
   register: prometheus_postgres_exporter_configuration
 
 - name: 'prometheus | postgresql exporter | configuration'
