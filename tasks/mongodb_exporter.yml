@@ -33,6 +33,14 @@
     owner: root
     group: root
     mode: 0755
+
+- name: 'prometheus | mongodb exporter | configuration'
+  template:
+    src: prometheus-mongodb-exporter.conf.j2
+    dest: /etc/default/prometheus-mongodb-exporter
+    owner: root
+    group: root
+    mode: 0600
   notify:
     - 'prometheus | mongodb exporter | restart service'
 
