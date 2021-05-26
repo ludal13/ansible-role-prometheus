@@ -31,55 +31,47 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-{% if 'node' in prometheus_exporter_packages %}
+{% if prometheus_node_exporter_targets is defined %}
   - job_name: node
     scrape_interval: 30s
     scrape_timeout: 10s
     static_configs:
       - targets:
-{% if prometheus_node_exporter_targets is defined %}
 {% for target in prometheus_node_exporter_targets %}
         - {{ target }}:9100
 {% endfor %}
 {% endif %}
-{% endif %}
 
-{% if 'mysqld' in prometheus_exporter_packages %}
+{% if prometheus_mysqld_exporter_targets is defined %}
   - job_name: mysql
     scrape_interval: 30s
     scrape_timeout: 10s
     static_configs:
       - targets:
-{% if prometheus_mysqld_exporter_targets is defined %}
 {% for target in prometheus_mysqld_exporter_targets %}
         - {{ target }}:9104
 {% endfor %}
 {% endif %}
-{% endif %}
 
-{% if 'mongodb' in prometheus_exporter_packages %}
+{% if prometheus_mongodb_exporter_targets is defined %}
   - job_name: mongodb
     scrape_interval: 30s
     scrape_timeout: 10s
     static_configs:
-      - targets
-{% if prometheus_mongodb_exporter_targets is defined %}
+      - targets:
 {% for target in prometheus_mongodb_exporter_targets %}
         - {{ target }}:9001
 {% endfor %}
 {% endif %}
-{% endif %}
 
-{% if 'postgresql' in prometheus_exporter_packages %}
+{% if prometheus_postgres_exporter_targets is defined %}
   - job_name: postgresql
     scrape_interval: 30s
     scrape_timeout: 10s
     static_configs:
       - targets:
-{% if prometheus_postgres_exporter_targets is defined %}
 {% for target in prometheus_postgres_exporter_targets %}
         - {{ target }}:9187
 {% endfor %}
-{% endif %}
 {% endif %}
 
