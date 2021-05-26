@@ -9,12 +9,18 @@
 - name: 'prometheus | assert | gather the package facts'
   ansible.builtin.package_facts:
     manager: auto
+  when:
+    - prometheus_server_enable is defined
+    - prometheus_server_enable == "true"
   tags:
     - prometheus
 
 - name: 'prometheus | assert | check if docker-ce is installed'
   assert:
     that: "'docker-ce' in ansible_facts.packages"
+  when:
+    - prometheus_server_enable is defined
+    - prometheus_server_enable == "true"
   tags:
     - prometheus
 
@@ -23,5 +29,9 @@
     that:
       - "'python-docker' in ansible_facts.packages"
       - "'python3-docker' in ansible_facts.packages"
+  when:
+    - prometheus_server_enable is defined
+    - prometheus_server_enable == "true"
   tags:
     - prometheus
+
