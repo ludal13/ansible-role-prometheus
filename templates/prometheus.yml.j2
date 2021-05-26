@@ -1,8 +1,8 @@
 # {{ ansible_managed }}
 
 global:
-  scrape_interval:     '{{ prometheus_server_global_scrape_interval | default(15) }}'s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
-  evaluation_interval: '{{ prometheus_server_global_evaluation_interval | default(15) }}'s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  scrape_interval:     {{ prometheus_server_global_scrape_interval | default(15) }}s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: {{ prometheus_server_global_evaluation_interval | default(15) }}s # Evaluate rules every 15 seconds. The default is every 1 minute.
 
   # Attach these labels to any time series or alerts when communicating with
   # external systems (federation, remote storage, Alertmanager).
@@ -22,8 +22,8 @@ scrape_configs:
   - job_name: '{{ prometheus_server_job_name | default("prometheus") }}'
 
     # Override the global default and scrape targets from this job every 5 seconds.
-    scrape_interval: '{{ prometheus_server_scrape_interval | default(5) }}'s
-    scrape_timeout: '{{ prometheus_server_scrape_timeout | default(5) }}'s
+    scrape_interval: {{ prometheus_server_scrape_interval | default(5) }}s
+    scrape_timeout:  {{ prometheus_server_scrape_timeout | default(5) }}s
 
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
@@ -31,7 +31,7 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-{% if (prometheus_node_exporter_enable is defined) and (prometheus_node_exporter_enable == "true") %}
+{% if 'node' in prometheus_exporter_packages %}
   - job_name: node
     scrape_interval: 30s
     scrape_timeout: 10s
@@ -44,7 +44,7 @@ scrape_configs:
 {% endif %}
 {% endif %}
 
-{% if (prometheus_mysqld_exporter_enable is defined) and (prometheus_mysqld_exporter_enable == "true") %}
+{% if 'mysql' in prometheus_exporter_packages %}
   - job_name: mysql
     scrape_interval: 30s
     scrape_timeout: 10s
@@ -57,7 +57,7 @@ scrape_configs:
 {% endif %}
 {% endif %}
 
-{% if (prometheus_mongodb_exporter_enable is defined) and (prometheus_mongodb_exporter_enable == "true") %}
+{% if 'mongodb' in prometheus_exporter_packages %}
   - job_name: mongodb
     scrape_interval: 30s
     scrape_timeout: 10s
@@ -70,7 +70,7 @@ scrape_configs:
 {% endif %}
 {% endif %}
 
-{% if (prometheus_postgres_exporter_enable is defined) and (prometheus_postgres_exporter_enable == "true") %}
+{% if 'postgresql' in prometheus_exporter_packages %}
   - job_name: postgresql
     scrape_interval: 30s
     scrape_timeout: 10s
