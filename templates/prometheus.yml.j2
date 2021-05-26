@@ -44,13 +44,13 @@ scrape_configs:
 {% endif %}
 {% endif %}
 
-{% if 'mysql' in prometheus_exporter_packages %}
+{% if 'mysqld' in prometheus_exporter_packages %}
   - job_name: mysql
     scrape_interval: 30s
     scrape_timeout: 10s
     static_configs:
       - targets:
-{% if prometheus_mysql_exporter_targets is defined %}
+{% if prometheus_mysqld_exporter_targets is defined %}
 {% for target in prometheus_mysqld_exporter_targets %}
         - {{ target }}:9104
 {% endfor %}

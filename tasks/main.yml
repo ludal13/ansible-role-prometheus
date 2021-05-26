@@ -21,7 +21,7 @@
 - name: 'prometheus | MySQL exporter'
   include_tasks: 'mysqld_exporter.yml'
   when:
-    - "'mysql' in prometheus_exporter_packages"
+    - "'mysqld' in prometheus_exporter_packages"
 
 - name: 'prometheus | PostgreSQL exporter'
   include_tasks: 'postgresql_exporter.yml'
