@@ -3,8 +3,6 @@
   docker_container:
     name: prometheus
     restart: yes
-  when:
-  - 'not register_docker_container_grafana.changed'
 
 - name: 'prometheus | node exporter | restart service'
   systemd:
