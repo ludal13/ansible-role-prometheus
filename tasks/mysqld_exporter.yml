@@ -9,7 +9,6 @@
     remote_src: yes
     src: /tmp/mysqld_exporter-{{ prometheus_mysqld_exporter_version }}.linux-amd64.tar.gz
     dest: /tmp
-  when: prometheus_mysqld_exporter_enable == "true"
 
 - name: 'prometheus | mysqld exporter | move to /usr/local/bin'
   copy:
