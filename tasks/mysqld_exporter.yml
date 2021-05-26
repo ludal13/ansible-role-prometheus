@@ -1,4 +1,31 @@
 ---
+- name: 'prometheus | mysqld exporter | get latest release from GitHub'
+  shell: curl --silent "https://api.github.com/repos/prometheus/mysqld_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
+  register: prometheus_mysqld_exporter_version
+  run_once: true
+
+- name: 'prometheus | mysqld exporter | download'
+  get_url:
+    url: https://github.com/prometheus/mysqld_exporter/releases/download/v{{ prometheus_mysqld_exporter_version.stdout }}/mysqld_exporter-{{ prometheus_mysqld_exporter_version.stdout }}.linux-amd64.tar.gz
+    dest: /tmp
+
+- name: 'prometheus | mysqld exporter | unarchive'
+  unarchive:
+    remote_src: yes
+    src: /tmp/mysqld_exporter-{{ prometheus_mysqld_exporter_version.stdout }}.linux-amd64.tar.gz
+    dest: /tmp
+
+- name: 'prometheus | mysqld exporter | move to /usr/local/bin'
+  copy:
+    src: /tmp/mysqld_exporter-{{ prometheus_mysqld_exporter_version.stdout }}.linux-amd64/mysqld_exporter
+    dest: /usr/local/bin/prometheus-mysqld-exporter
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - 'prometheus | mysqld exporter | restart service'
+
 - name: 'prometheus | mysqld exporter | install unit file to systemd'
   template:
     src: systemd/prometheus-mysqld-exporter.service.j2
@@ -13,26 +40,6 @@
     enabled: yes
     name: prometheus-mysqld-exporter.service
 
-- name: 'prometheus | mysqld exporter | download'
-  get_url:
-    url: https://github.com/prometheus/mysqld_exporter/releases/download/v{{ prometheus_mysqld_exporter_version }}/mysqld_exporter-{{ prometheus_mysqld_exporter_version }}.linux-amd64.tar.gz
-    dest: /tmp
-
-- name: 'prometheus | mysqld exporter | unarchive'
-  unarchive:
-    remote_src: yes
-    src: /tmp/mysqld_exporter-{{ prometheus_mysqld_exporter_version }}.linux-amd64.tar.gz
-    dest: /tmp
-
-- name: 'prometheus | mysqld exporter | move to /usr/local/bin'
-  copy:
-    src: /tmp/mysqld_exporter-{{ prometheus_mysqld_exporter_version }}.linux-amd64/mysqld_exporter
-    dest: /usr/local/bin/prometheus-mysqld-exporter
-    remote_src: yes
-    owner: root
-    group: root
-    mode: 0755
-
 - name: 'prometheus | mysqld exporter | configuration'
   copy:
     dest: '/var/lib/prometheus/.my.cnf'
@@ -44,9 +51,8 @@
       [client]
       user={{ prometheus_mysqld_exporter_user }}
       password={{ prometheus_mysqld_exporter_password }}
-  when: 
+  when:
     - prometheus_mysqld_exporter_user is defined
   register: prometheus_mysqld_exporter_configuration
   notify:
     - 'prometheus | mysqld exporter | restart service'
-

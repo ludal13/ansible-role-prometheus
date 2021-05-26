@@ -1,4 +1,31 @@
 ---
+- name: 'prometheus | mongodb exporter | get latest release from GitHub'
+  shell: curl --silent "https://api.github.com/repos/percona/mongodb_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
+  register: prometheus_mongodb_exporter_version
+  run_once: true
+
+- name: 'prometheus | mongodb exporter | download'
+  get_url:
+    url: https://github.com/percona/mongodb_exporter/releases/download/v{{ prometheus_mongodb_exporter_version.stdout }}/mongodb_exporter-{{ prometheus_mongodb_exporter_version.stdout }}.linux-amd64.tar.gz
+    dest: /tmp
+
+- name: 'prometheus | mongodb exporter | unarchive'
+  unarchive:
+    remote_src: yes
+    src: /tmp/mongodb_exporter-{{ prometheus_mongodb_exporter_version.stdout }}.linux-amd64.tar.gz
+    dest: /tmp
+
+- name: 'prometheus | mongodb exporter | move to /usr/local/bin'
+  copy:
+    src: /tmp/mongodb_exporter-{{ prometheus_mongodb_exporter_version.stdout }}.linux-amd64/mongodb_exporter
+    dest: /usr/local/bin/prometheus-mongodb-exporter
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - 'prometheus | mongodb exporter | restart service'
+
 - name: 'prometheus | mongodb exporter | install unit file to systemd'
   template:
     src: systemd/prometheus-mongodb-exporter.service.j2
@@ -11,28 +38,7 @@
   systemd:
     daemon_reload: yes
     enabled: yes
-    state: started
     name: prometheus-mongodb-exporter.service
-
-- name: 'prometheus | mongodb exporter | download'
-  get_url:
-    url: https://github.com/percona/mongodb_exporter/releases/download/v{{ prometheus_mongodb_exporter_version }}/mongodb_exporter-{{ prometheus_mongodb_exporter_version }}.linux-amd64.tar.gz
-    dest: /tmp
-
-- name: 'prometheus | mongodb exporter | unarchive'
-  unarchive:
-    remote_src: yes
-    src: /tmp/mongodb_exporter-{{ prometheus_mongodb_exporter_version }}.linux-amd64.tar.gz
-    dest: /tmp
-
-- name: 'prometheus | mongodb exporter | move to /usr/local/bin'
-  copy:
-    src: /tmp/mongodb_exporter-{{ prometheus_mongodb_exporter_version }}.linux-amd64/mongodb_exporter
-    dest: /usr/local/bin/prometheus-mongodb-exporter
-    remote_src: yes
-    owner: root
-    group: root
-    mode: 0755
 
 - name: 'prometheus | mongodb exporter | configuration'
   template:
@@ -43,4 +49,3 @@
     mode: 0600
   notify:
     - 'prometheus | mongodb exporter | restart service'
-
