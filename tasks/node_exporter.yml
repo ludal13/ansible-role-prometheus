@@ -3,14 +3,12 @@
   get_url:
     url: https://github.com/prometheus/node_exporter/releases/download/v{{ prometheus_node_exporter_version }}/node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz
     dest: /tmp
-  when: prometheus_node_exporter_enable == "true"
 
 - name: 'prometheus | node exporter | unarchive'
   unarchive:
     remote_src: yes
     src: /tmp/node_exporter-{{ prometheus_node_exporter_version }}.linux-amd64.tar.gz
     dest: /tmp
-  when: prometheus_node_exporter_enable == "true"
 
 - name: 'prometheus | node exporter | move to /usr/local/bin'
   copy:
@@ -20,7 +18,6 @@
     owner: root
     group: root
     mode: 0755
-  when: prometheus_node_exporter_enable == "true"
 
 - name: 'prometheus | node exporter | install unit file to systemd'
   template:
@@ -29,7 +26,6 @@
     owner: root
     group: root
     mode: 0600
-  when: prometheus_node_exporter_enable == "true"
 
 - name: 'prometheus | node exporter | configure systemd to use service'
   systemd:
@@ -37,4 +33,3 @@
     enabled: yes
     state: started
     name: prometheus-node-exporter.service
-  when: prometheus_node_exporter_enable == "true"

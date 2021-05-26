@@ -3,7 +3,6 @@
   get_url:
     url: https://github.com/prometheus/mysqld_exporter/releases/download/v{{ prometheus_mysqld_exporter_version }}/mysqld_exporter-{{ prometheus_mysqld_exporter_version }}.linux-amd64.tar.gz
     dest: /tmp
-  when: prometheus_mysqld_exporter_enable == "true"
 
 - name: 'prometheus | mysqld exporter | unarchive'
   unarchive:
@@ -20,7 +19,6 @@
     owner: root
     group: root
     mode: 0755
-  when: prometheus_mysqld_exporter_enable == "true"
 
 - name: 'prometheus | mysqld exporter | configuration'
   copy:
@@ -35,7 +33,6 @@
       password={{ prometheus_mysqld_exporter_password }}
   when: 
     - prometheus_mysqld_exporter_user is defined
-    - prometheus_mysqld_exporter_enable == "true"
   register: prometheus_mysqld_exporter_configuration
 
 - name: 'prometheus | mysqld exporter | install unit file to systemd'
@@ -45,7 +42,6 @@
     owner: root
     group: root
     mode: 0600
-  when: prometheus_mysqld_exporter_enable == "true"
 
 - name: 'prometheus | mysqld exporter | configure systemd to use service'
   systemd:
@@ -53,4 +49,3 @@
     enabled: yes
     state: started
     name: prometheus-mysqld-exporter.service
-  when: prometheus_mysqld_exporter_enable == "true"

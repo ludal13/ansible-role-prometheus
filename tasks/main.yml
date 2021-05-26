@@ -11,24 +11,19 @@
 - name: 'prometheus | Node exporter'
   include_tasks: 'node_exporter.yml'
   when:
-    - prometheus_node_exporter_enable is defined
-    - prometheus_node_exporter_enable == "true"
+    - "'node' in {{ prometheus_exporter_packages }}"
 
 - name: 'prometheus | MongoDB exporter'
   include_tasks: 'mongodb_exporter.yml'
   when:
-    - prometheus_mongodb_exporter_enable is defined
-    - prometheus_mongodb_exporter_enable == "true"
+    - "'mongodb' in {{ prometheus_exporter_packages }}"
 
 - name: 'prometheus | MySQL exporter'
   include_tasks: 'mysqld_exporter.yml'
   when:
-    - prometheus_mysqld_exporter_enable is defined
-    - prometheus_mysqld_exporter_enable == "true"
+    - "'mysql' in {{ prometheus_exporter_packages }}"
 
 - name: 'prometheus | PostgreSQL exporter'
   include_tasks: 'postgresql_exporter.yml'
   when:
-    - prometheus_postgres_exporter_enable is defined
-    - prometheus_postgres_exporter_enable == "true"
-
+    - "'postgresql' in {{ prometheus_exporter_packages }}"
