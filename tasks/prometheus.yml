@@ -11,13 +11,11 @@
     name: 'prometheus'
   tags:
     - prometheus
-  when: prometheus_server_enable == "true"
 
 - name: 'prometheus | server | create docker volume data'
   docker_volume:
     name: prometheus_data
   register: register_docker_volume_prometheus__prometheus_data
-  when: prometheus_server_enable == "true"
   tags:
     - prometheus
 
@@ -26,7 +24,6 @@
     path: /etc/prometheus
     state: directory
     mode: '0755'
-  when: prometheus_server_enable == "true"
   tags:
     - prometheus
 
@@ -37,11 +34,10 @@
     owner: root
     group: root
     mode: 0644
-  when:
-    - prometheus_server_enable == "true"
-    - prometheus_server_monitor is defined
   tags:
     - prometheus
+  notify:
+    - 'prometheus | server | restart container'
 
 - name: 'prometheus | server | deploy container'
   docker_container:
@@ -66,7 +62,7 @@
       tag: docker_prometheus
     restart_policy: 'unless-stopped'
     pull: '{{ awh_services_docker_pull|default("no") }}'
-  when: prometheus_server_enable == "true"
   tags:
     - prometheus
-
+  notify:
+    - 'prometheus | server | restart container'
