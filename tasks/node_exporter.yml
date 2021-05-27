@@ -1,6 +1,7 @@
 ---
 - name: 'prometheus | node exporter | get latest release from GitHub'
   shell: curl --silent "https://api.github.com/repos/prometheus/node_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
+  args:
     warn: false
   register: prometheus_node_exporter_version
   run_once: true

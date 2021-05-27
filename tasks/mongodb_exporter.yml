@@ -1,6 +1,7 @@
 ---
 - name: 'prometheus | mongodb exporter | get latest release from GitHub'
   shell: curl --silent "https://api.github.com/repos/percona/mongodb_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
+  args:
     warn: false
   register: prometheus_mongodb_exporter_version
   run_once: true
