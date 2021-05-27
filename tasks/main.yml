@@ -2,6 +2,9 @@
 - name: 'prometheus | include asserts'
   include_tasks: 'asserts.yml'
 
+- name: 'prometheus | requirements'
+  include_tasks: 'requirements.yml'
+
 - name: 'prometheus | server install'
   include_tasks: 'prometheus.yml'
   when:
