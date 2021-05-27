@@ -42,6 +42,14 @@
     enabled: yes
     name: prometheus-mysqld-exporter.service
 
+- name: 'prometheus | mysqld exporter | create configuration directory'
+  file:
+    path: /var/lib/prometheus
+    state: directory
+    mode: '0755'
+  tags:
+    - prometheus
+
 - name: 'prometheus | mysqld exporter | configuration'
   copy:
     dest: '/var/lib/prometheus/.my.cnf'
