@@ -42,25 +42,13 @@
     enabled: yes
     name: prometheus-mysqld-exporter.service
 
-- name: 'prometheus | mysqld exporter | create configuration directory'
-  file:
-    path: /var/lib/prometheus
-    state: directory
-    mode: '0755'
-  tags:
-    - prometheus
-
 - name: 'prometheus | mysqld exporter | configuration'
-  copy:
-    dest: '/var/lib/prometheus/.my.cnf'
+  template:
+    src: conf/prometheus-mysqld-exporter.j2
+    dest: /etc/default/prometheus-mysqld-exporter
     owner: root
     group: root
-    mode: 0644
-    backup: yes
-    content: |
-      [client]
-      user={{ prometheus_mysqld_exporter_user }}
-      password={{ prometheus_mysqld_exporter_password }}
+    mode: 0600
   when:
     - prometheus_mysqld_exporter_user is defined
   register: prometheus_mysqld_exporter_configuration

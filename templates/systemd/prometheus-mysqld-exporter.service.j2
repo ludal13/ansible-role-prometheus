@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 ExecStart=/usr/local/bin/prometheus-mysqld-exporter \
---config.my-cnf /var/lib/prometheus/.my.cnf \
+--config.my-cnf /etc/default/prometheus-mysqld-exporter \
 --collect.global_status \
 --collect.info_schema.innodb_metrics \
 --collect.auto_increment.columns \
