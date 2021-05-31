@@ -44,20 +44,12 @@
     name: prometheus-postgres-exporter.service
 
 - name: 'prometheus | postgres exporter | configuration'
-  copy:
-    dest: '/etc/default/prometheus-postgres-exporter'
+  template:
+    src: conf/prometheus-postgres-exporter.j2
+    dest: /etc/default/prometheus-postgres-exporter
     owner: root
     group: root
-    mode: 0644
-    backup: yes
-    content: |
-      DATA_SOURCE_NAME='postgresql://{{ prometheus_exporter_postgresql_user }}:{{ prometheus_exporter_postgresql_password }}@{{ prometheus_exporter_postgresql_host }}:{{prometheus_exporter_postgresql_port }}/''
-      ARGS=''
-  when:
-    - prometheus_postgres_exporter_user is defined
-    - prometheus_postgres_exporter_password is defined
-    - prometheus_postgres_exporter_host is defined
-    - prometheus_postgres_exporter_port is defined
+    mode: 0600
   register: prometheu_postgres_exporter_configuration
   notify:
     - 'prometheus | postgres exporter | restart service'

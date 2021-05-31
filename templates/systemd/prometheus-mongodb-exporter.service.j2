@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 ExecStart=/usr/local/bin/prometheus-mongodb-exporter
-EnvironmentFile=/etc/mongodb-exporter.conf
+EnvironmentFile=/etc/default/prometheus-mongodb-exporter
 
 [Install]
 WantedBy=multi-user.target
