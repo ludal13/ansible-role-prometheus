@@ -35,19 +35,11 @@
     owner: root
     group: root
     mode: 0600
+  notify:
+    - 'prometheus | mongodb exporter | restart service'
 
 - name: 'prometheus | mongodb exporter | configure systemd to use service'
   systemd:
     daemon_reload: yes
     enabled: yes
     name: prometheus-mongodb-exporter.service
-
-- name: 'prometheus | mongodb exporter | configuration'
-  template:
-    src: prometheus-mongodb-exporter.conf.j2
-    dest: /etc/default/prometheus-mongodb-exporter
-    owner: root
-    group: root
-    mode: 0600
-  notify:
-    - 'prometheus | mongodb exporter | restart service'

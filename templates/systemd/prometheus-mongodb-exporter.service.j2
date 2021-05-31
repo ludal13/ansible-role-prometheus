@@ -1,10 +1,14 @@
 [Unit]
 Description=Prometheus MongoDB Exporter
 After=network.target
- 
+
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/prometheus-mongodb-exporter
- 
+{% if (prometheus_mongodb_exporter_user is defined) and (prometheus_mongodb_exporter_pass is defined) %}
+ExecStart=/usr/local/bin/prometheus-mongodb-exporter --mongodb.uri=mongodb://{{ prometheus_mongodb_exporter_user }}:{{ prometheus_mongodb_exporter_pass }}@{{ prometheus_mongodb_exporter_host|default("localhost") }}:{{ prometheus_mongodb_exporter_port|default("27017") }}/{{ prometheus_mongodb_exporter_database|default("admin") }}
+{% else %}
+ExecStart=/usr/local/bin/prometheus-mongodb-exporter --mongodb.uri=mongodb://{{ prometheus_mongodb_exporter_host|default("localhost") }}:{{ prometheus_mongodb_exporter_port|default("27017") }}/{{ prometheus_mongodb_exporter_database|default("admin") }}
+{% endif %}
+
 [Install]
 WantedBy=multi-user.target
