@@ -1,0 +1,6 @@
+# {{ ansible_managed }}
+{% if (prometheus_mongodb_exporter_user is defined) and (prometheus_mongodb_exporter_pass is defined) %}
+MONGODB_URI=mongodb://{{ prometheus_mongodb_exporter_user }}:{{ prometheus_mongodb_exporter_pass }}@{{ prometheus_mongodb_exporter_host|default("localhost") }}:{{ prometheus_mongodb_exporter_port|default("27017") }}/{{ prometheus_mongodb_exporter_database|default("admin") }}
+{% else %}
+MONGODB_URI=mongodb://{{ prometheus_mongodb_exporter_host|default("localhost") }}:{{ prometheus_mongodb_exporter_port|default("27017") }}/{{ prometheus_mongodb_exporter_database|default("admin") }}
+{% endif %}
