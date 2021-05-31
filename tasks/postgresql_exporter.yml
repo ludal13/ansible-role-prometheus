@@ -3,7 +3,7 @@
   shell: curl --silent "https://api.github.com/repos/prometheus-community/postgres_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
   args:
     warn: false
-  register: prometheus_postgres_exporter_version
+  register: prometheus_postgres_exporter_latest_version
   run_once: true
 
 - name: 'prometheus | postgres exporter | download'
