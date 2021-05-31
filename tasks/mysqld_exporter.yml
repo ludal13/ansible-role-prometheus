@@ -8,7 +8,7 @@
 
 - name: 'prometheus | mysqld exporter | download'
   get_url:
-    url: https://github.com/prometheus/mysqld_exporter/releases/download/v{{ prometheus_mysqld_exporter_version|default(prometheus_mysqld_exporter_latest_version.stdout) }}/mysqld_exporter-{{ prometheus_mysqld_exporter_version.|default(prometheus_mysqld_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    url: https://github.com/prometheus/mysqld_exporter/releases/download/v{{ prometheus_mysqld_exporter_version|default(prometheus_mysqld_exporter_latest_version.stdout) }}/mysqld_exporter-{{ prometheus_mysqld_exporter_version|default(prometheus_mysqld_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
 - name: 'prometheus | mysqld exporter | unarchive'
