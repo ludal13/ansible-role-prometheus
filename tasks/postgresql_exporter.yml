@@ -8,18 +8,18 @@
 
 - name: 'prometheus | postgres exporter | download'
   get_url:
-    url: https://github.com/prometheus-community/postgres_exporter/releases/download/v{{ prometheus_postgres_exporter_version.stdout }}/postgres_exporter-{{ prometheus_postgres_exporter_version.stdout }}.linux-amd64.tar.gz
+    url: https://github.com/prometheus-community/postgres_exporter/releases/download/v{{ prometheus_postgres_exporter_version|default(prometheus_postgres_exporter_latest_version.stdout) }}/postgres_exporter-{{ prometheus_postgres_exporter_version|default(prometheus_postgres_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
 - name: 'prometheus | postgres exporter | unarchive'
   unarchive:
     remote_src: yes
-    src: /tmp/postgres_exporter-{{ prometheus_postgres_exporter_version.stdout }}.linux-amd64.tar.gz
+    src: /tmp/postgres_exporter-{{ prometheus_postgres_exporter_version|default(prometheus_postgres_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
 - name: 'prometheus | postgres exporter | move to /usr/local/bin'
   copy:
-    src: /tmp/postgres_exporter-{{ prometheus_postgres_exporter_version.stdout }}.linux-amd64/postgres_exporter
+    src: /tmp/postgres_exporter-{{ prometheus_postgres_exporter_version|default(prometheus_postgres_exporter_latest_version.stdout) }}.linux-amd64/postgres_exporter
     dest: /usr/local/bin/prometheus-postgres-exporter
     remote_src: yes
     owner: root

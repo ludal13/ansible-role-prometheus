@@ -3,23 +3,23 @@
   shell: curl --silent "https://api.github.com/repos/prometheus/mysqld_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
   args:
     warn: false
-  register: prometheus_mysqld_exporter_version
+  register: prometheus_mysqld_exporter_latest_version
   run_once: true
 
 - name: 'prometheus | mysqld exporter | download'
   get_url:
-    url: https://github.com/prometheus/mysqld_exporter/releases/download/v{{ prometheus_mysqld_exporter_version.stdout }}/mysqld_exporter-{{ prometheus_mysqld_exporter_version.stdout }}.linux-amd64.tar.gz
+    url: https://github.com/prometheus/mysqld_exporter/releases/download/v{{ prometheus_mysqld_exporter_version|default(prometheus_mysqld_exporter_latest_version.stdout) }}/mysqld_exporter-{{ prometheus_mysqld_exporter_version.|default(prometheus_mysqld_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
 - name: 'prometheus | mysqld exporter | unarchive'
   unarchive:
     remote_src: yes
-    src: /tmp/mysqld_exporter-{{ prometheus_mysqld_exporter_version.stdout }}.linux-amd64.tar.gz
+    src: /tmp/mysqld_exporter-{{ prometheus_mysqld_exporter_version|default(prometheus_mysqld_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
 - name: 'prometheus | mysqld exporter | move to /usr/local/bin'
   copy:
-    src: /tmp/mysqld_exporter-{{ prometheus_mysqld_exporter_version.stdout }}.linux-amd64/mysqld_exporter
+    src: /tmp/mysqld_exporter-{{ prometheus_mysqld_exporter_version|default(prometheus_mysqld_exporter_latest_version.stdout) }}.linux-amd64/mysqld_exporter
     dest: /usr/local/bin/prometheus-mysqld-exporter
     remote_src: yes
     owner: root
