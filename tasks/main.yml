@@ -8,7 +8,6 @@
 - name: 'prometheus | server install'
   include_tasks: 'prometheus.yml'
   when:
-    - prometheus_server_enable is defined
     - prometheus_server_enable == "true"
 
 - name: 'prometheus | Node exporter'
