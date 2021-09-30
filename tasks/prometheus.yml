@@ -43,7 +43,7 @@
   docker_container:
     name: prometheus
     hostname: '{{ inventory_hostname }}'
-    image: prom/prometheus:{{ prometheus_server_version|default("latest") }}
+    image: prom/prometheus:{{ prometheus_server_version }}
     volumes:
       - /etc/prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus
@@ -61,7 +61,7 @@
     log_options:
       tag: docker_prometheus
     restart_policy: 'unless-stopped'
-    pull: '{{ awh_services_docker_pull|default("no") }}'
+    pull: '{{ awh_services_docker_pull }}'
   tags:
     - prometheus
   notify:

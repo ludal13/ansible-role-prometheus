@@ -1,2 +1,2 @@
 # {{ ansible_managed }}
-DATA_SOURCE_NAME="user={{ prometheus_postgres_exporter_user|default("postgres") }} host={{ prometheus_postgres_exporter_host|default("/var/run/postgresql/") }} sslmode={{ prometheus_postgres_exporter_sslmode|default("disable") }}"
+DATA_SOURCE_NAME="user={{ prometheus_postgres_exporter_user }} host={{ prometheus_postgres_exporter_host }} sslmode={{ prometheus_postgres_exporter_sslmode }}"

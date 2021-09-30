@@ -1,8 +1,8 @@
 # {{ ansible_managed }}
 
 global:
-  scrape_interval:     {{ prometheus_server_global_scrape_interval | default(15) }}s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
-  evaluation_interval: {{ prometheus_server_global_evaluation_interval | default(15) }}s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  scrape_interval:     {{ prometheus_server_global_scrape_interval }}s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: {{ prometheus_server_global_evaluation_interval }}s # Evaluate rules every 15 seconds. The default is every 1 minute.
 
   # Attach these labels to any time series or alerts when communicating with
   # external systems (federation, remote storage, Alertmanager).
@@ -19,11 +19,11 @@ rule_files:
 # Here it's Prometheus itself.
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  - job_name: '{{ prometheus_server_job_name | default("prometheus") }}'
+  - job_name: '{{ prometheus_server_job_name }}'
 
     # Override the global default and scrape targets from this job every 5 seconds.
-    scrape_interval: {{ prometheus_server_scrape_interval | default(5) }}s
-    scrape_timeout:  {{ prometheus_server_scrape_timeout | default(5) }}s
+    scrape_interval: {{ prometheus_server_scrape_interval }}s
+    scrape_timeout:  {{ prometheus_server_scrape_timeout }}s
 
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.

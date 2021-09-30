@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-User={{ prometheus_postgres_exporter_user|default("postgres") }} 
+User={{ prometheus_postgres_exporter_user }} 
 ExecStart=/usr/local/bin/prometheus-postgres-exporter
 EnvironmentFile=/etc/default/prometheus-postgres-exporter
 

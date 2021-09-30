@@ -1,1 +1,20 @@
 ---
+awh_services_docker_pull: "no"
+
+prometheus_exporter_packages: []
+
+prometheus_mongodb_exporter_database: "database"
+prometheus_mongodb_exporter_host: "localhost"
+prometheus_mongodb_exporter_port: 27017
+
+prometheus_postgres_exporter_host: "/var/run/postgresql/"
+prometheus_postgres_exporter_sslmode: "disable"
+prometheus_postgres_exporter_user: "postgres"
+
+prometheus_server_enable: false
+prometheus_server_global_evaluation_interval: 15
+prometheus_server_global_scrape_interval: 15
+prometheus_server_job_name: "prometheus"
+prometheus_server_scrape_interval: 5
+prometheus_server_scrape_timeout: 5
+prometheus_server_version: "latest"
