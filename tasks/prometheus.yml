@@ -62,6 +62,7 @@
       tag: docker_prometheus
     restart_policy: 'unless-stopped'
     pull: '{{ awh_services_docker_pull }}'
+    etc_hosts: '{{ prometheus_nodes_ip }}'
   tags:
     - prometheus
   notify:
