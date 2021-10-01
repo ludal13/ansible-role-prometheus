@@ -14,6 +14,8 @@ prometheus_postgres_exporter_host: "/var/run/postgresql/"
 prometheus_postgres_exporter_sslmode: "disable"
 prometheus_postgres_exporter_user: "postgres"
 
+prometheus_retention_time: "15d"
+
 prometheus_server_enable: false
 prometheus_server_global_evaluation_interval: 15
 prometheus_server_global_scrape_interval: 15
