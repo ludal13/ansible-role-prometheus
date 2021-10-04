@@ -6,7 +6,7 @@ prometheus_exporter_packages: []
 prometheus_nodes_ip:
   localhost: "127.0.0.1"
 
-prometheus_mongodb_exporter_database: "database"
+prometheus_mongodb_exporter_database: "admin"
 prometheus_mongodb_exporter_host: "localhost"
 prometheus_mongodb_exporter_port: 27017
 
