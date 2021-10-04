@@ -28,7 +28,7 @@
   notify:
     - 'prometheus | mongodb exporter | restart service'
   when:
-    - prometheus_mongodb_exporter_version < '0.2'
+    - prometheus_mongodb_exporter_latest_version.stdout < '0.2'
 
 - name: 'prometheus | mongodb exporter > v0.2 | move to /usr/local/bin'
   copy:
@@ -41,7 +41,7 @@
   notify:
     - 'prometheus | mongodb exporter | restart service'
   when:
-    - prometheus_mongodb_exporter_version > '0.2'
+    - prometheus_mongodb_exporter_latest_version.stdout > '0.2'
 
 - name: 'prometheus | mongodb exporter | install unit file to systemd'
   template:
