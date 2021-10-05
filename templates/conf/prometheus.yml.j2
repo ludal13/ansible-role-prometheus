@@ -74,3 +74,14 @@ scrape_configs:
         - {{ target }}:9187
 {% endfor %}
 {% endif %}
+
+{% if prometheus_phpfpm_exporter_targets is defined %}
+  - job_name: phpfpm
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_phpfpm_exporter_targets %}
+        - {{ target }}:9253
+{% endfor %}
+{% endif %}

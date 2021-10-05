@@ -29,3 +29,8 @@
   include_tasks: 'postgresql_exporter.yml'
   when:
     - "'postgresql' in prometheus_exporter_packages"
+
+- name: 'prometheus | PHP Fpm exporter'
+  include_tasks: 'phpfpm_exporter.yml'
+  when:
+    - "'phpfpm' in prometheus_exporter_packages"

@@ -4,7 +4,7 @@ After=network.target
  
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/prometheus-phpfpm-exporter
+ExecStart=/bin/bash /usr/local/bin/prometheus-phpfpm-exporter-script.sh
  
 [Install]
 WantedBy=multi-user.target

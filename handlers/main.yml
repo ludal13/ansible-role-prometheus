@@ -33,3 +33,9 @@
     enabled: yes
   tags: ['prometheus']
 
+- name: 'prometheus | phpfpm exporter | restart service'
+  systemd:
+    name: prometheus-phpfpm-exporter.service
+    state: restarted
+    enabled: yes
+  tags: ['prometheus']

@@ -1,0 +1,2 @@
+#!/bin/bash
+/usr/local/bin/prometheus-phpfpm-exporter $(ls -1 {{ prometheus_phpfpm_sockets_directory }} | awk '{print "--phpfpm.socket-paths {{ prometheus_phpfpm_sockets_directory }}" $1}' |head -c -1)
