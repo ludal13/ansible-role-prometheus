@@ -85,3 +85,14 @@ scrape_configs:
         - {{ target }}:9253
 {% endfor %}
 {% endif %}
+
+{% if prometheus_apache_exporter_targets is defined %}
+  - job_name: apache
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_apache_exporter_targets %}
+        - {{ target }}:9117
+{% endfor %}
+{% endif %}
