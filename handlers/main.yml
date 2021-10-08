@@ -39,3 +39,10 @@
     state: restarted
     enabled: yes
   tags: ['prometheus']
+
+- name: 'prometheus | apache exporter | restart service'
+  systemd:
+    name: prometheus-apache-exporter.service
+    state: restarted
+    enabled: yes
+  tags: ['prometheus']

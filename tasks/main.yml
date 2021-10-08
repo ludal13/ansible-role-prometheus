@@ -34,3 +34,8 @@
   include_tasks: 'phpfpm_exporter.yml'
   when:
     - "'phpfpm' in prometheus_exporter_packages"
+
+- name: 'prometheus | Apache exporter'
+  include_tasks: 'apache_exporter.yml'
+  when:
+    - "'apache' in prometheus_exporter_packages"

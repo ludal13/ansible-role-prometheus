@@ -12,28 +12,28 @@ It has been tested on :
 Role variables
 --------------
 
-| Variable                                     | Type    | Choices                                      | Default     | Comment         |
-|----------------------------------------------|---------|----------------------------------------------|-------------|-----------------|
-| prometheus_server_enable                     | string  | true / false                                 |             |                 |
-| prometheus_server_version                    | string  |                                              |  latest     |                 |
-| prometheus_server_monitor                    | string  |                                              |             |                 |
-| prometheus_server_global_scrape_interval     | string  |                                              |  15         |                 |
-| prometheus_server_global_evaluation_interval | string  |                                              |  15         |                 |
-| prometheus_server_job_name                   | string  |                                              |  prometheus |                 |
-| prometheus_server_scrape_interval            | string  |                                              |  5          |                 |
-| prometheus_server_scrape_timeout             | string  |                                              |  5          |                 |
-| prometheus_exporter_packages                 | list    | node / mysqld / postgresql / mongodb /phpfpm |             |                 |
-| prometheus_node_exporter_targets             | list    |                                              |             |                 |
-| prometheus_mysqld_exporter_targets           | list    |                                              |             |                 |
-| prometheus_mongodb_exporter_targets          | list    |                                              |             |                 |
-| prometheus_postgres_exporter_targets         | list    |                                              |             |                 |
-| prometheus_mysqld_exporter_user              | string  |                                              |             |                 |
-| prometheus_mysqld_exporter_password          | string  |                                              |             |                 |
-| prometheus_mongodb_exporter_host             | string  |                                              | localhost   |                 |
-| prometheus_mongodb_exporter_port             | string  |                                              | 27017       |                 |
-| prometheus_mongodb_exporter_user             | string  |                                              |             |                 |
-| prometheus_mongodb_exporter_pass             | string  |                                              |             |                 |
-| prometheus_server_version                    | string  |                                              |  latest     |                 |
+| Variable                                     | Type    | Choices                                                | Default     | Comment         |
+|----------------------------------------------|---------|--------------------------------------------------------|-------------|-----------------|
+| prometheus_server_enable                     | string  | true / false                                           |             |                 |
+| prometheus_server_version                    | string  |                                                        |  latest     |                 |
+| prometheus_server_monitor                    | string  |                                                        |             |                 |
+| prometheus_server_global_scrape_interval     | string  |                                                        |  15         |                 |
+| prometheus_server_global_evaluation_interval | string  |                                                        |  15         |                 |
+| prometheus_server_job_name                   | string  |                                                        |  prometheus |                 |
+| prometheus_server_scrape_interval            | string  |                                                        |  5          |                 |
+| prometheus_server_scrape_timeout             | string  |                                                        |  5          |                 |
+| prometheus_exporter_packages                 | list    | node / mysqld / postgresql / mongodb / phpfpm / apache |             |                 |
+| prometheus_node_exporter_targets             | list    |                                                        |             |                 |
+| prometheus_mysqld_exporter_targets           | list    |                                                        |             |                 |
+| prometheus_mongodb_exporter_targets          | list    |                                                        |             |                 |
+| prometheus_postgres_exporter_targets         | list    |                                                        |             |                 |
+| prometheus_mysqld_exporter_user              | string  |                                                        |             |                 |
+| prometheus_mysqld_exporter_password          | string  |                                                        |             |                 |
+| prometheus_mongodb_exporter_host             | string  |                                                        | localhost   |                 |
+| prometheus_mongodb_exporter_port             | string  |                                                        | 27017       |                 |
+| prometheus_mongodb_exporter_user             | string  |                                                        |             |                 |
+| prometheus_mongodb_exporter_pass             | string  |                                                        |             |                 |
+| prometheus_server_version                    | string  |                                                        |  latest     |                 |
 
 Dependencies
 ------------

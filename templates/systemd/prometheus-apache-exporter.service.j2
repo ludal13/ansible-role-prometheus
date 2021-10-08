@@ -1,0 +1,10 @@
+[Unit]
+Description=Prometheus Apache Exporter
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/prometheus-apache-exporter --scrape_uri="http://localhost:{{ prometheus_apache_port }}/server-status/?auto"
+
+[Install]
+WantedBy=multi-user.target

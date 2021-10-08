@@ -1,0 +1,51 @@
+---
+- name: 'prometheus | apache exporter | get latest release from GitHub'
+  shell: curl --silent "https://api.github.com/repos/Lusitaniae/apache_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
+  args:
+    warn: false
+  register: prometheus_apache_exporter_latest_version
+  run_once: true
+
+- name: 'prometheus | apache exporter | download'
+  get_url:
+    url: https://github.com/Lusitaniae/apache_exporter/releases/download/v{{ prometheus_apache_exporter_version|default(prometheus_apache_exporter_latest_version.stdout) }}/apache_exporter-{{ prometheus_apache_exporter_version|default(prometheus_apache_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    dest: /tmp
+
+- name: 'prometheus | apache exporter | unarchive'
+  unarchive:
+    remote_src: yes
+    src: /tmp/apache_exporter-{{ prometheus_apache_exporter_version|default(prometheus_apache_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    dest: /tmp
+
+- name: 'prometheus | apache exporter | move to /usr/local/bin'
+  copy:
+    src: /tmp/apache_exporter-{{ prometheus_apache_exporter_version|default(prometheus_apache_exporter_latest_version.stdout) }}.linux-amd64/apache_exporter
+    dest: /usr/local/bin/prometheus-apache-exporter
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - 'prometheus | apache exporter | restart service'
+
+- name: 'prometheus | apache exporter | install startup script'
+  template:
+    src: scripts/prometheus-apache-exporter-script.sh.j2
+    dest: /usr/local/bin/prometheus-apache-exporter-script.sh
+    owner: root
+    group: root
+    mode: 0600
+
+- name: 'prometheus | apache exporter | install unit file to systemd'
+  template:
+    src: systemd/prometheus-apache-exporter.service.j2
+    dest: /etc/systemd/system/prometheus-apache-exporter.service
+    owner: root
+    group: root
+    mode: 0600
+
+- name: 'prometheus | apache exporter | configure systemd to use service'
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: prometheus-apache-exporter.service

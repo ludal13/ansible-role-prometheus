@@ -1,6 +1,8 @@
 ---
 awh_services_docker_pull: "no"
 
+prometheus_apache_port: 8080
+
 prometheus_exporter_packages: []
 
 prometheus_nodes_ip:
