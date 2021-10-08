@@ -8,18 +8,18 @@
 
 - name: 'prometheus | varnish exporter | download'
   get_url:
-    url: https://github.com/jonnenauha/prometheus_varnish_exporter/releases/download/v{{ prometheus_varnish_exporter_version|default(prometheus_varnish_exporter_latest_version.stdout) }}/varnish_exporter-{{ prometheus_varnish_exporter_version|default(prometheus_varnish_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    url: https://github.com/jonnenauha/prometheus_varnish_exporter/releases/download/{{ prometheus_varnish_exporter_version|default(prometheus_varnish_exporter_latest_version.stdout) }}/prometheus_varnish_exporter-{{ prometheus_varnish_exporter_version|default(prometheus_varnish_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
 - name: 'prometheus | varnish exporter | unarchive'
   unarchive:
     remote_src: yes
-    src: /tmp/varnish_exporter-{{ prometheus_varnish_exporter_version|default(prometheus_varnish_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    src: /tmp/prometheus_varnish_exporter-{{ prometheus_varnish_exporter_version|default(prometheus_varnish_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
 - name: 'prometheus | varnish exporter | move to /usr/local/bin'
   copy:
-    src: /tmp/varnish_exporter-{{ prometheus_varnish_exporter_version|default(prometheus_varnish_exporter_latest_version.stdout) }}.linux-amd64/varnish_exporter
+    src: /tmp/prometheus_varnish_exporter-{{ prometheus_varnish_exporter_version|default(prometheus_varnish_exporter_latest_version.stdout) }}.linux-amd64/prometheus_varnish_exporter
     dest: /usr/local/bin/prometheus-varnish-exporter
     remote_src: yes
     owner: root
