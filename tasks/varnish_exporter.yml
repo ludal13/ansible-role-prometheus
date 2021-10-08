@@ -1,0 +1,43 @@
+---
+- name: 'prometheus | varnish exporter | get latest release from GitHub'
+  shell: curl --silent "https://api.github.com/repos/jonnenauha/prometheus_varnish_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
+  args:
+    warn: false
+  register: prometheus_varnish_exporter_latest_version
+  run_once: true
+
+- name: 'prometheus | varnish exporter | download'
+  get_url:
+    url: https://github.com/jonnenauha/prometheus_varnish_exporter/releases/download/v{{ prometheus_varnish_exporter_version|default(prometheus_varnish_exporter_latest_version.stdout) }}/varnish_exporter-{{ prometheus_varnish_exporter_version|default(prometheus_varnish_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    dest: /tmp
+
+- name: 'prometheus | varnish exporter | unarchive'
+  unarchive:
+    remote_src: yes
+    src: /tmp/varnish_exporter-{{ prometheus_varnish_exporter_version|default(prometheus_varnish_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    dest: /tmp
+
+- name: 'prometheus | varnish exporter | move to /usr/local/bin'
+  copy:
+    src: /tmp/varnish_exporter-{{ prometheus_varnish_exporter_version|default(prometheus_varnish_exporter_latest_version.stdout) }}.linux-amd64/varnish_exporter
+    dest: /usr/local/bin/prometheus-varnish-exporter
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - 'prometheus | varnish exporter | restart service'
+
+- name: 'prometheus | varnish exporter | install unit file to systemd'
+  template:
+    src: systemd/prometheus-varnish-exporter.service.j2
+    dest: /etc/systemd/system/prometheus-varnish-exporter.service
+    owner: root
+    group: root
+    mode: 0600
+
+- name: 'prometheus | varnish exporter | configure systemd to use service'
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: prometheus-varnish-exporter.service

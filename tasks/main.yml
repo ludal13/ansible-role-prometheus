@@ -39,3 +39,8 @@
   include_tasks: 'apache_exporter.yml'
   when:
     - "'apache' in prometheus_exporter_packages"
+
+- name: 'prometheus | Varnish exporter'
+  include_tasks: 'varnish_exporter.yml'
+  when:
+    - "'varnish' in prometheus_exporter_packages"

@@ -107,3 +107,14 @@ scrape_configs:
         - {{ target }}:8404
 {% endfor %}
 {% endif %}
+
+{% if prometheus_varnish_exporter_targets is defined %}
+  - job_name: varnish
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_varnish_exporter_targets %}
+        - {{ target }}:9131
+{% endfor %}
+{% endif %}

@@ -46,3 +46,10 @@
     state: restarted
     enabled: yes
   tags: ['prometheus']
+
+- name: 'prometheus | varnish exporter | restart service'
+  systemd:
+    name: prometheus-varnish-exporter.service
+    state: restarted
+    enabled: yes
+  tags: ['prometheus']
