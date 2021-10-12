@@ -58,10 +58,21 @@ scrape_configs:
     scrape_interval: 30s
     scrape_timeout: 10s
     static_configs:
+{% if prometheus_mongodb_exporter_custom is defined %}
+{% for target in prometheus_mongodb_exporter_custom.values() %}
+      - targets: ['{{ target.node_name }}:9216']
+        labels:
+          environment: '{{ target.environment }}'
+          node_name: '{{ target.node_name }}'
+          service_name: '{{ target.service_name }}'
+          cluster: '{{ target.cluster }}'
+{% endfor %}
+{% else %}
       - targets:
 {% for target in prometheus_mongodb_exporter_targets %}
         - {{ target }}:9216
 {% endfor %}
+{% endif %}
 {% endif %}
 
 {% if prometheus_postgres_exporter_targets is defined %}
