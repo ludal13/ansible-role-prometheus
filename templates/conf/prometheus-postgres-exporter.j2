@@ -1,6 +1,6 @@
 # {{ ansible_managed }}
 {% if (prometheus_postgres_exporter_user is defined) and (prometheus_postgres_exporter_password is defined) %}
-DATA_SOURCE_NAME=postgresql://{{ prometheus_postgres_exporter_user }}:{{ prometheus_postgres_exporter_password }}@{{ prometheus_postgres_exporter_host }}:{{ prometheus_postgres_exporter_port }}/postgres?sslmode=prometheus_postgres_exporter_sslmode
+DATA_SOURCE_NAME=postgresql://{{ prometheus_postgres_exporter_user }}:{{ prometheus_postgres_exporter_password }}@{{ prometheus_postgres_exporter_host }}:{{ prometheus_postgres_exporter_port }}/postgres?sslmode={{ prometheus_postgres_exporter_sslmode }}
 {% else %}
 DATA_SOURCE_NAME="user={{ prometheus_postgres_exporter_user }} host={{ prometheus_postgres_exporter_host }} sslmode={{ prometheus_postgres_exporter_sslmode }}"
 {% endif %}
