@@ -14,6 +14,7 @@ prometheus_mongodb_exporter_port: 27017
 
 prometheus_phpfpm_sockets_directory: "/run/php/"
 
+prometheus_postgres_exporter_systemd_user: "postgres"
 prometheus_postgres_exporter_host: "/var/run/postgresql/"
 prometheus_postgres_exporter_sslmode: "disable"
 prometheus_postgres_exporter_user: "postgres"
