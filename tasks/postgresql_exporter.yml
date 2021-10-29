@@ -28,6 +28,17 @@
   notify:
     - 'prometheus | postgres exporter | restart service'
 
+- name: 'prometheus | postgres exporter | configuration'
+  template:
+    src: conf/prometheus-postgres-exporter.j2
+    dest: /etc/default/prometheus-postgres-exporter
+    owner: root
+    group: root
+    mode: 0600
+  register: prometheu_postgres_exporter_configuration
+  notify:
+    - 'prometheus | postgres exporter | restart service'
+
 - name: 'prometheus | postgres exporter | install unit file to systemd'
   template:
     src: systemd/prometheus-postgres-exporter.service.j2
@@ -42,14 +53,3 @@
     enabled: yes
     state: started
     name: prometheus-postgres-exporter.service
-
-- name: 'prometheus | postgres exporter | configuration'
-  template:
-    src: conf/prometheus-postgres-exporter.j2
-    dest: /etc/default/prometheus-postgres-exporter
-    owner: root
-    group: root
-    mode: 0600
-  register: prometheu_postgres_exporter_configuration
-  notify:
-    - 'prometheus | postgres exporter | restart service'

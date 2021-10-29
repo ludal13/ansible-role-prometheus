@@ -43,6 +43,16 @@
   when:
     - prometheus_mongodb_exporter_latest_version.stdout > '0.2'
 
+- name: 'prometheus | mongodb exporter | configuration'
+  template:
+    src: conf/prometheus-mongodb-exporter.j2
+    dest: /etc/default/prometheus-mongodb-exporter
+    owner: root
+    group: root
+    mode: 0600
+  notify:
+    - 'prometheus | mongodb exporter | restart service'
+
 - name: 'prometheus | mongodb exporter | install unit file to systemd'
   template:
     src: systemd/prometheus-mongodb-exporter.service.j2
@@ -58,13 +68,3 @@
     daemon_reload: yes
     enabled: yes
     name: prometheus-mongodb-exporter.service
-
-- name: 'prometheus | mongodb exporter | configuration'
-  template:
-    src: conf/prometheus-mongodb-exporter.j2
-    dest: /etc/default/prometheus-mongodb-exporter
-    owner: root
-    group: root
-    mode: 0600
-  notify:
-    - 'prometheus | mongodb exporter | restart service'

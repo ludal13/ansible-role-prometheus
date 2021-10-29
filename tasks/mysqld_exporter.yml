@@ -28,6 +28,19 @@
   notify:
     - 'prometheus | mysqld exporter | restart service'
 
+- name: 'prometheus | mysqld exporter | configuration'
+  template:
+    src: conf/prometheus-mysqld-exporter.j2
+    dest: /etc/default/prometheus-mysqld-exporter
+    owner: root
+    group: root
+    mode: 0600
+  when:
+    - prometheus_mysqld_exporter_user is defined
+  register: prometheus_mysqld_exporter_configuration
+  notify:
+    - 'prometheus | mysqld exporter | restart service'
+
 - name: 'prometheus | mysqld exporter | install unit file to systemd'
   template:
     src: systemd/prometheus-mysqld-exporter.service.j2
@@ -41,16 +54,3 @@
     daemon_reload: yes
     enabled: yes
     name: prometheus-mysqld-exporter.service
-
-- name: 'prometheus | mysqld exporter | configuration'
-  template:
-    src: conf/prometheus-mysqld-exporter.j2
-    dest: /etc/default/prometheus-mysqld-exporter
-    owner: root
-    group: root
-    mode: 0600
-  when:
-    - prometheus_mysqld_exporter_user is defined
-  register: prometheus_mysqld_exporter_configuration
-  notify:
-    - 'prometheus | mysqld exporter | restart service'
