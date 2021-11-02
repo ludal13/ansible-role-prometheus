@@ -30,7 +30,7 @@
 
 - name: 'prometheus | blackbox exporter | configuration'
   template:
-    src: conf/prometheus-blackbox-exporter.j2
+    src: conf/prometheus-blackbox-exporter.yml.j2
     dest: /etc/prometheus/prometheus-blackbox-exporter.yml
     owner: root
     group: root
