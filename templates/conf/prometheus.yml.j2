@@ -160,11 +160,11 @@ scrape_configs:
 {% endif %}
 
 //
-{% if prometheus_blackbox_exporter_targets is defined %}
+{% if prometheus_blackbox_exporter is defined %}
   # blacbox #
 {% for target in prometheus_blackbox_exporter_http.values() %}
   ## http check ##
-  - job_name: blackbox - url {{ target.name }}
+  - job_name: blackbox - url {{ target }}
     scrape_interval: 30s
     scrape_timeout: 10s
     metrics_path: {{ target.metrics_path }}
@@ -183,7 +183,7 @@ scrape_configs:
 {% endfor %}
 {% for target in prometheus_blackbox_exporter_ping.values() %}
   ## ping ##
-  - job_name: blackbox - ping {{ target.name }}
+  - job_name: blackbox - ping {{ target }}
     scrape_interval: 30s
     scrape_timeout: 10s
     params:
