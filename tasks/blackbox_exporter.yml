@@ -35,8 +35,6 @@
     owner: root
     group: root
     mode: 0600
-  when:
-    - prometheus_blackbox_exporter_user is defined
   register: prometheus_blackbox_exporter_configuration
   notify:
     - 'prometheus | blackbox exporter | restart service'
