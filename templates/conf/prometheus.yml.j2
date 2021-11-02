@@ -159,7 +159,6 @@ scrape_configs:
 {% endfor %}
 {% endif %}
 
-//
 {% if prometheus_blackbox_exporter is defined %}
   # blacbox #
 {% for target in prometheus_blackbox_exporter_http.values() %}
