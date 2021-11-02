@@ -32,6 +32,7 @@ scrape_configs:
       - targets: ['localhost:9090']
 
 {% if prometheus_node_exporter_targets is defined %}
+  # node exporter #
   - job_name: node
     scrape_interval: 30s
     scrape_timeout: 10s
@@ -43,6 +44,7 @@ scrape_configs:
 {% endif %}
 
 {% if prometheus_mysqld_exporter_targets is defined %}
+  # mysql exporter #
   - job_name: mysql
     scrape_interval: 30s
     scrape_timeout: 10s
@@ -65,6 +67,7 @@ scrape_configs:
 {% endif %}
 
 {% if prometheus_mongodb_exporter_targets is defined %}
+  # mongoDB exporter #
   - job_name: mongodb
     scrape_interval: 30s
     scrape_timeout: 10s
@@ -87,6 +90,7 @@ scrape_configs:
 {% endif %}
 
 {% if prometheus_postgres_exporter_targets is defined %}
+  # postgresql exporter #
   - job_name: postgresql
     scrape_interval: 30s
     scrape_timeout: 10s
@@ -109,6 +113,7 @@ scrape_configs:
 {% endif %}
 
 {% if prometheus_phpfpm_exporter_targets is defined %}
+  # PHP-FPM exporter #
   - job_name: phpfpm
     scrape_interval: 30s
     scrape_timeout: 10s
@@ -120,6 +125,7 @@ scrape_configs:
 {% endif %}
 
 {% if prometheus_apache_exporter_targets is defined %}
+  # apache exporter #
   - job_name: apache
     scrape_interval: 30s
     scrape_timeout: 10s
@@ -131,6 +137,7 @@ scrape_configs:
 {% endif %}
 
 {% if prometheus_haproxy_exporter_targets is defined %}
+  # haproxy exporter #
   - job_name: haproxy
     scrape_interval: 30s
     scrape_timeout: 10s
@@ -149,5 +156,47 @@ scrape_configs:
       - targets:
 {% for target in prometheus_varnish_exporter_targets %}
         - {{ target }}:9131
+{% endfor %}
+{% endif %}
+
+//
+{% if prometheus_blackbox_exporter_targets is defined %}
+  # blacbox #
+{% for target in prometheus_blackbox_exporter_http.values() %}
+  ## http check ##
+  - job_name: blackbox - url {{ target.name }}
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    metrics_path: {{ target.metrics_path }}
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+        - {{target.host }}
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: localhost:9115
+{% endfor %}
+{% for target in prometheus_blackbox_exporter_ping.values() %}
+  ## ping ##
+  - job_name: blackbox - ping {{ target.name }}
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    params:
+      module: [icmp]
+    static_configs:
+      - targets:
+         - {{ target.host }}
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: localhost:9115
 {% endfor %}
 {% endif %}

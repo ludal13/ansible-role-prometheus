@@ -53,3 +53,10 @@
     state: restarted
     enabled: yes
   tags: ['prometheus']
+
+- name: 'prometheus | blackbox exporter | restart service'
+  systemd:
+    name: prometheus-blackbox-exporter.service
+    state: restarted
+    enabled: yes
+  tags: ['prometheus']

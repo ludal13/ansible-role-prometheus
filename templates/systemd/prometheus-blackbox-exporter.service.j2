@@ -1,0 +1,10 @@
+[Unit]
+Description=Prometheus Blacbox Exporter
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/prometheus-blackbox-exporter --config.file /etc/prometheus/prometheus-blackbox-exporter.yml
+
+[Install]
+WantedBy=multi-user.target

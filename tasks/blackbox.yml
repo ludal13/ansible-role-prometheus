@@ -1,0 +1,56 @@
+---
+- name: 'prometheus | blackbox exporter | get latest release from GitHub'
+  shell: curl --silent "https://api.github.com/repos/prometheus/blackbox_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
+  args:
+    warn: false
+  register: prometheus_blackbox_exporter_latest_version
+  run_once: true
+
+- name: 'prometheus | blackbox exporter | download'
+  get_url:
+    url: https://github.com/prometheus/blackbox_exporter/releases/download/v{{ prometheus_blackbox_exporter_version|default(prometheus_blackbox_exporter_latest_version.stdout) }}/blackbox_exporter-{{ prometheus_blackbox_exporter_version|default(prometheus_blackbox_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    dest: /tmp
+
+- name: 'prometheus | blackbox exporter | unarchive'
+  unarchive:
+    remote_src: yes
+    src: /tmp/blackbox_exporter-{{ prometheus_blackbox_exporter_version|default(prometheus_blackbox_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    dest: /tmp
+
+- name: 'prometheus | blackbox exporter | move to /usr/local/bin'
+  copy:
+    src: /tmp/blackbox_exporter-{{ prometheus_blackbox_exporter_version|default(prometheus_blackbox_exporter_latest_version.stdout) }}.linux-amd64/blackbox_exporter
+    dest: /usr/local/bin/prometheus-blackbox-exporter
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - 'prometheus | blackbox exporter | restart service'
+
+- name: 'prometheus | blackbox exporter | configuration'
+  template:
+    src: conf/prometheus-blackbox-exporter.j2
+    dest: /etc/prometheus/prometheus-blackbox-exporter.yml
+    owner: root
+    group: root
+    mode: 0600
+  when:
+    - prometheus_blackbox_exporter_user is defined
+  register: prometheus_blackbox_exporter_configuration
+  notify:
+    - 'prometheus | blackbox exporter | restart service'
+
+- name: 'prometheus | blackbox exporter | install unit file to systemd'
+  template:
+    src: systemd/prometheus-blackbox-exporter.service.j2
+    dest: /etc/systemd/system/prometheus-blackbox-exporter.service
+    owner: root
+    group: root
+    mode: 0600
+
+- name: 'prometheus | blackbox exporter | configure systemd to use service'
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: prometheus-blackbox-exporter.service
