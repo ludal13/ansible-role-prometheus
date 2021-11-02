@@ -46,6 +46,6 @@
     - "'varnish' in prometheus_exporter_packages"
 
 - name: 'prometheus | Blackbox exporter'
-  include_tasks: 'varnish_exporter.yml'
+  include_tasks: 'blackbox_exporter.yml'
   when:
     - "'blackbox' in prometheus_exporter_packages"
