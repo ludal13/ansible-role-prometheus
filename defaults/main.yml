@@ -31,3 +31,5 @@ prometheus_server_job_name: "prometheus"
 prometheus_server_scrape_interval: 5
 prometheus_server_scrape_timeout: 5
 prometheus_server_version: "latest"
+
+prometheus_blackbox_exporter_host: localhost

@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/prometheus-blackbox-exporter --config.file /etc/prometheus/prometheus-blackbox-exporter.yml
+ExecStart=/usr/local/bin/prometheus-blackbox-exporter --config.file /etc/default/prometheus-blackbox-exporter
 
 [Install]
 WantedBy=multi-user.target

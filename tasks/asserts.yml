@@ -27,7 +27,7 @@
 - name: 'prometheus | assert | check if docker pyhon libraries are installed'
   assert:
     that:
-      - "'python-docker' in ansible_facts.packages"
+      #- "'python-docker' in ansible_facts.packages"
       - "'python3-docker' in ansible_facts.packages"
   when:
     - prometheus_server_enable is defined

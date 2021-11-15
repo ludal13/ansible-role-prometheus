@@ -160,46 +160,47 @@ scrape_configs:
 {% endif %}
 
 {% if prometheus_blackbox_exporter is defined %}
-  # blacbox #
+  # blackbox #
 {% if prometheus_blackbox_exporter_http is defined %}
-{% for target in prometheus_blackbox_exporter_http.values() %}
   ## http check ##
-  - job_name: blackbox - url {{ target.service_name }}
+  - job_name: blackbox - url
     scrape_interval: 30s
     scrape_timeout: 10s
-    metrics_path: {{ target.metrics_path }}
+    metrics_path: /probe
     params:
       module: [http_2xx]
     static_configs:
       - targets:
-        - {{target.host }}
+{% for target in prometheus_blackbox_exporter_http %}
+        - {{target }}
+{% endfor %}
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
       - source_labels: [__param_target]
         target_label: instance
       - target_label: __address__
-        replacement: localhost:9115
-{% endfor %}
+        replacement: {{ prometheus_blackbox_exporter_host }}:9115
 {% endif %}
 {% if prometheus_blackbox_exporter_ping is defined %}
-{% for target in prometheus_blackbox_exporter_ping.values() %}
   ## ping ##
-  - job_name: blackbox - ping {{ target.service_name }}
+  - job_name: blackbox - ping
     scrape_interval: 30s
     scrape_timeout: 10s
     params:
       module: [icmp]
     static_configs:
       - targets:
-         - {{ target.host }}
+{% for target in prometheus_blackbox_exporter_ping %}
+         - {{ target }}
+{% endfor %}
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
       - source_labels: [__param_target]
         target_label: instance
       - target_label: __address__
-        replacement: localhost:9115
-{% endfor %}
+        replacement: {{ prometheus_blackbox_exporter_host }}:9115
 {% endif %}
 {% endif %}
+

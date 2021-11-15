@@ -30,8 +30,8 @@
 
 - name: 'prometheus | blackbox exporter | configuration'
   template:
-    src: conf/prometheus-blackbox-exporter.yml.j2
-    dest: /etc/prometheus/prometheus-blackbox-exporter.yml
+    src: conf/prometheus-blackbox-exporter.j2
+    dest: /etc/default/prometheus-blackbox-exporter
     owner: root
     group: root
     mode: 0600
@@ -52,3 +52,4 @@
     daemon_reload: yes
     enabled: yes
     name: prometheus-blackbox-exporter.service
+
