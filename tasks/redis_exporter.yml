@@ -8,7 +8,7 @@
 
 - name: 'prometheus | redis exporter | download'
   get_url:
-    url: https://github.com/oliver006/redis_exporter/releases/download/v{{ prometheus_redis_exporter_version|default(prometheus_redis_exporter_latest_version.stdout) }}/redis_exporter-{{ prometheus_redis_exporter_version|default(prometheus_redis_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    url: https://github.com/oliver006/redis_exporter/releases/download/v{{ prometheus_redis_exporter_version|default(prometheus_redis_exporter_latest_version.stdout) }}/redis_exporter-v{{ prometheus_redis_exporter_version|default(prometheus_redis_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
 - name: 'prometheus | redis exporter | unarchive'
