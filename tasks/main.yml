@@ -49,3 +49,8 @@
   include_tasks: 'blackbox_exporter.yml'
   when:
     - "'blackbox' in prometheus_exporter_packages"
+
+- name: 'prometheus | Redis exporter'
+  include_tasks: 'redis_exporter.yml'
+  when:
+    - "'redis' in prometheus_exporter_packages"
