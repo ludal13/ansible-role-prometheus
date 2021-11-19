@@ -35,7 +35,7 @@
     owner: root
     group: root
     mode: 0600
-  register: prometheu_postgres_exporter_configuration
+  register: prometheus_postgres_exporter_configuration
   notify:
     - 'prometheus | postgres exporter | restart service'
 
