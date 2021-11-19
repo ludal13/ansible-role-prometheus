@@ -33,3 +33,7 @@ prometheus_server_scrape_timeout: 5
 prometheus_server_version: "latest"
 
 prometheus_blackbox_exporter_host: localhost
+
+prometheus_redis_exporter_addr: "redis://localhost:6379"
+prometheus_redis_exporter_user: ""
+prometheus_redis_exporter_password: ""

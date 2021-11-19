@@ -1,0 +1,54 @@
+---
+- name: 'prometheus | redis exporter | get latest release from GitHub'
+  shell: curl --silent "https://api.github.com/repos/oliver006/redis_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
+  args:
+    warn: false
+  register: prometheus_redis_exporter_latest_version
+  run_once: true
+
+- name: 'prometheus | redis exporter | download'
+  get_url:
+    url: https://github.com/oliver006/redis_exporter/releases/download/v{{ prometheus_redis_exporter_version|default(prometheus_redis_exporter_latest_version.stdout) }}/redis_exporter-{{ prometheus_redis_exporter_version|default(prometheus_redis_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    dest: /tmp
+
+- name: 'prometheus | redis exporter | unarchive'
+  unarchive:
+    remote_src: yes
+    src: /tmp/redis_exporter-{{ prometheus_redis_exporter_version|default(prometheus_redis_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    dest: /tmp
+
+- name: 'prometheus | redis exporter | move to /usr/local/bin'
+  copy:
+    src: /tmp/redis_exporter-{{ prometheus_redis_exporter_version|default(prometheus_redis_exporter_latest_version.stdout) }}.linux-amd64/redis_exporter
+    dest: /usr/local/bin/prometheus-redis-exporter
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - 'prometheus | redis exporter | restart service'
+
+- name: 'prometheus | redis exporter | configuration'
+  template:
+    src: conf/prometheus-redis-exporter.j2
+    dest: /etc/default/prometheus-redis-exporter
+    owner: root
+    group: root
+    mode: 0600
+  register: prometheu_postgres_exporter_configuration
+  notify:
+    - 'prometheus | postgres exporter | restart service'
+
+- name: 'prometheus | redis exporter | install unit file to systemd'
+  template:
+    src: systemd/prometheus-redis-exporter.service.j2
+    dest: /etc/systemd/system/prometheus-redis-exporter.service
+    owner: root
+    group: root
+    mode: 0600
+
+- name: 'prometheus | redis exporter | configure systemd to use service'
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: prometheus-redis-exporter.service

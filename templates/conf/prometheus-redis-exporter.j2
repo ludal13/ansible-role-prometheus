@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+{% if (prometheus_redis_exporter_addr is defined) %}
+REDIS_ADDR={{ prometheus_redis_exporter_addr }}
+{% endif %}
+{% if (prometheus_redis_exporter_addr is defined) %}
+REDIS_USER={{ prometheus_redis_exporter_user }}
+{% endif %}
+{% if (prometheus_redis_exporter_addr is defined) %}
+REDIS_PASSWORD={{ prometheus_redis_exporter_password }}
+{% endif %}

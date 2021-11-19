@@ -1,10 +1,11 @@
 [Unit]
 Description=Prometheus Redis Exporter
 After=network.target
- 
+
 [Service]
 Type=simple
 ExecStart=/usr/local/bin/prometheus-redis-exporter
- 
+EnvironmentFile=/etc/default/prometheus-redis-exporter
+
 [Install]
 WantedBy=multi-user.target
