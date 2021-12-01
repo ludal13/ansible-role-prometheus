@@ -27,6 +27,8 @@ Role variables
 | prometheus_mysqld_exporter_targets           | list    |                                                                                    |                         |                 |
 | prometheus_mongodb_exporter_targets          | list    |                                                                                    |                         |                 |
 | prometheus_postgres_exporter_targets         | list    |                                                                                    |                         |                 |
+| prometheus_redis_exporter_targets            | list    |                                                                                    |                         |                 |
+| prometheus_proxysql_exporter_targets         | list    |                                                                                    |                         | [Enable exporter](https://proxysql.com/documentation/prometheus-exporter/)  |
 | prometheus_mysqld_exporter_user              | string  |                                                                                    |                         |                 |
 | prometheus_mysqld_exporter_password          | string  |                                                                                    |                         |                 |
 | prometheus_mongodb_exporter_host             | string  |                                                                                    | localhost               |                 |
