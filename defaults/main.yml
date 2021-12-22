@@ -12,7 +12,7 @@ prometheus_mongodb_exporter_database: "admin"
 prometheus_mongodb_exporter_host: "localhost"
 prometheus_mongodb_exporter_port: 27017
 
-prometheus_phpfpm_sockets_directory: "/run/php/"
+prometheus_phpfpm_sockets_directory: "/run/php/ /var/run/php"
 
 prometheus_postgres_exporter_systemd_user: "postgres"
 prometheus_postgres_exporter_host: "/var/run/postgresql/"
