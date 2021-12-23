@@ -205,6 +205,26 @@ scrape_configs:
 {% endif %}
 {% endif %}
 
+{% if prometheus_redis_multi_instances_exporter_targets is defined %}
+  # Redis exporter #
+  - job_name: 'redis_exporter_targets'
+    static_configs:
+      - targets:
+{% for target in prometheus_redis_multi_instances_exporter_targets %}
+        - {{ target }}
+{% endfor %}
+    metrics_path: /scrape
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - source_labels: [instance]
+        target_label: __address__
+        regex: 'redis://(.*):63..'
+        replacement: '${1}:9121'
+{% endif %}
+
 {% if prometheus_redis_exporter_targets is defined %}
   # Redis exporter #
   - job_name: redis
