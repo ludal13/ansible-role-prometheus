@@ -1,0 +1,96 @@
+---
+prometheus_server_enable: 'true'
+prometheus_server_monitor: 'wac'
+
+prometheus_exporter_packages:
+  - node
+  - phpfpm
+  - apache
+
+prometheus_node_exporter_targets:
+  # PPD
+  - preprod-server1
+  # PRD
+  - prod-server1
+  - prod-server2
+
+prometheus_phpfpm_exporter_targets:
+  # PPD
+  - preprod-server1
+  # PRD
+  - prod-server1
+  - prod-server2
+
+prometheus_apache_exporter_targets:
+  # PPD
+  - preprod-server1
+  # PRD
+  - prod-server1
+  - prod-server2
+
+prometheus_haproxy_exporter_targets:
+  # PPD
+  - preprod-server1
+  # PRD
+  - prod-server1
+  - prod-server2
+
+prometheus_varnish_exporter_targets:
+  # PPD
+  - preprod-server1
+  # PRD
+  - prod-server1
+  - prod-server2
+
+prometheus_mysqld_exporter_targets:
+  # PPD
+  - preprod-server1
+  # PRD
+  - prod-server1
+  - prod-server2
+
+prometheus_mysqld_exporter_custom:
+  # PPD
+  preprod-server1:
+    environment: 'preprod'
+    service_name: 'preprod'
+    cluster: 'preprod'
+    node_name: preprod-server1
+  # PRD
+  prod-server1:
+    environment: 'prod'
+    service_name: 'prod-bdd1'
+    cluster: 'prod'
+    node_name: prod-server1
+  prod-server2:
+    environment: 'prod'
+    service_name: 'prod-bdd2'
+    cluster: 'prod'
+    node_name: prod-server2
+
+prometheus_redis_multi_instances_exporter_targets:
+  # PPD
+  - redis://preprod-server1:6379
+  - redis://preprod-server1:6380
+  - redis://preprod-server1:6381
+  - redis://preprod-server1:6382
+  # PROD
+  - redis://prod-server1:6379
+  - redis://prod-server2:6379
+  - redis://prod-server2:6380
+
+prometheus_redis_exporter_targets:
+  # PPD
+  - preprod-server1
+  # PRD
+  - prod-server1
+  - prod-server2
+
+prometheus_nodes_ip:
+  # PPD
+  preprod-server1 : 10.0.1.10
+  # PRD
+  prod-server1    : 10.0.1.11
+  prod-server2    : 10.0.1.12
+
+prometheus_retention_time: "32d"
