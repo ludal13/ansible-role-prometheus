@@ -1,44 +1,44 @@
 ---
-- name: 'prometheus | php-opcache exporter | get latest release from GitHub'
+- name: 'prometheus | opcache exporter | get latest release from GitHub'
   shell: curl --silent "https://api.github.com/repos/MyOnlineStore/opcache-exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
   args:
     warn: false
-  register: prometheus_php-opcache_exporter_latest_version
+  register: prometheus_opcache_exporter_latest_version
   run_once: true
 
-- name: 'prometheus | php-opcache exporter | download'
+- name: 'prometheus | opcache exporter | download'
   get_url:
-    url: https://github.com/MyOnlineStore/opcache-exporter/releases/download/v{{ prometheus_php-opcache_exporter_version|default(prometheus_php-opcache_exporter_latest_version.stdout) }}/opcache_exporter-{{ prometheus_php-opcache_exporter_version|default(prometheus_php-opcache_exporter_latest_version.stdout) }}-linux-amd64
+    url: https://github.com/MyOnlineStore/opcache-exporter/releases/download/v{{ prometheus_opcache_exporter_version|default(prometheus_opcache_exporter_latest_version.stdout) }}/opcache_exporter-{{ prometheus_opcache_exporter_version|default(prometheus_opcache_exporter_latest_version.stdout) }}-linux-amd64
     dest: /tmp
 
-- name: 'prometheus | php-opcache exporter | move to /usr/local/bin'
+- name: 'prometheus | opcache exporter | move to /usr/local/bin'
   copy:
-    src: /tmp/opcache_exporter-{{ prometheus_php-opcache_exporter_version|default(prometheus_php-opcache_exporter_latest_version.stdout) }}-linux-amd64
-    dest: /usr/local/bin/prometheus-php-opcache-exporter
+    src: /tmp/opcache_exporter-{{ prometheus_opcache_exporter_version|default(prometheus_opcache_exporter_latest_version.stdout) }}-linux-amd64
+    dest: /usr/local/bin/prometheus-opcache-exporter
     remote_src: yes
     owner: root
     group: root
     mode: 0755
 
-- name: 'prometheus | php-opcache exporter | configuration'
+- name: 'prometheus | opcache exporter | configuration'
   template:
-    src: conf/prometheus-php-opcache-exporter.j2
-    dest: /etc/default/prometheus-php-opcache-exporter
+    src: conf/prometheus-opcache-exporter.j2
+    dest: /etc/default/prometheus-opcache-exporter
     owner: root
     group: root
     mode: 0600
-  register: prometheus_php-opcache_exporter_configuration
+  register: prometheus_opcache_exporter_configuration
 
-- name: 'prometheus | php-opcache exporter | install unit file to systemd'
+- name: 'prometheus | opcache exporter | install unit file to systemd'
   template:
-    src: systemd/prometheus-php-opcache-exporter.service.j2
-    dest: /etc/systemd/system/prometheus-php-opcache-exporter.service
+    src: systemd/prometheus-opcache-exporter.service.j2
+    dest: /etc/systemd/system/prometheus-opcache-exporter.service
     owner: root
     group: root
     mode: 0600
 
-- name: 'prometheus | php-opcache exporter | configure systemd to use service'
+- name: 'prometheus | opcache exporter | configure systemd to use service'
   systemd:
     daemon_reload: yes
     enabled: yes
-    name: prometheus-php-opcache-exporter.service
+    name: prometheus-opcache-exporter.service
