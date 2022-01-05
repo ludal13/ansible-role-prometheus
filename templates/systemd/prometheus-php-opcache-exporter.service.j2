@@ -1,0 +1,11 @@
+[Unit]
+Description=Prometheus PHP Opcache Exporter
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/prometheus-php-opcache-exporter
+EnvironmentFile=/etc/default/prometheus-php-opcache-exporter
+
+[Install]
+WantedBy=multi-user.target

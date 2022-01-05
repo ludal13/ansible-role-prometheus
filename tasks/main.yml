@@ -35,6 +35,11 @@
   when:
     - "'phpfpm' in prometheus_exporter_packages"
 
+- name: 'prometheus | PHP opcache exporter'
+  include_tasks: 'php-opcache_exporter.yml'
+  when:
+    - "'php-opcache' in prometheus_exporter_packages"
+
 - name: 'prometheus | Apache exporter'
   include_tasks: 'apache_exporter.yml'
   when:
