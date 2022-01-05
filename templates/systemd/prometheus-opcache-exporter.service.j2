@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/prometheus-opcache-exporter
+ExecStart=/usr/local/bin/prometheus-opcache-exporter $ARGS
 EnvironmentFile=/etc/default/prometheus-opcache-exporter
 
 [Install]
