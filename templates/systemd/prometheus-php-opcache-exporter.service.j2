@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/prometheus-php-opcache-exporter
-EnvironmentFile=/etc/default/prometheus-php-opcache-exporter
+ExecStart=/usr/local/bin/prometheus-opcache-exporter
+EnvironmentFile=/etc/default/prometheus-opcache-exporter
 
 [Install]
 WantedBy=multi-user.target

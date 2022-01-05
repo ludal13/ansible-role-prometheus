@@ -40,9 +40,9 @@
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | php-opcache exporter | restart service'
+- name: 'prometheus | opcache exporter | restart service'
   systemd:
-    name: prometheus-php-opcache-exporter.service
+    name: prometheus-opcache-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
