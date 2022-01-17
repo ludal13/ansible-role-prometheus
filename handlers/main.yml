@@ -68,7 +68,7 @@
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | redis exporter | restart service'
+- name: 'prometheus | redis exporter | restart service'
   systemd:
     name: prometheus-redis-exporter.service
     state: restarted
