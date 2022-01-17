@@ -25,8 +25,14 @@
     owner: root
     group: root
     mode: 0755
-  notify:
-    - 'prometheus | redis exporter | restart service'
+
+- name: 'prometheus | redis exporter | install unit file to systemd'
+  template:
+    src: systemd/prometheus-redis-exporter.service.j2
+    dest: /etc/systemd/system/prometheus-redis-exporter.service
+    owner: root
+    group: root
+    mode: 0600
 
 - name: 'prometheus | redis exporter | configuration'
   template:
@@ -38,14 +44,6 @@
   register: prometheus_redis_exporter_configuration
   notify:
     - 'prometheus | redis exporter | restart service'
-
-- name: 'prometheus | redis exporter | install unit file to systemd'
-  template:
-    src: systemd/prometheus-redis-exporter.service.j2
-    dest: /etc/systemd/system/prometheus-redis-exporter.service
-    owner: root
-    group: root
-    mode: 0600
 
 - name: 'prometheus | redis exporter | configure systemd to use service'
   systemd:
