@@ -248,3 +248,20 @@ scrape_configs:
         - {{ target }}:9121
 {% endfor %}
 {% endif %}
+
+{% if prometheus_proxysql_exporter_targets is defined %}
+  # ProxySQL exporter #
+  - job_name: proxysql
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_proxysql_exporter_targets %}
+        - {{ target }}:6070
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):6070'
+        replacement: '${1}'
+{% endfor %}
+{% endif %}
