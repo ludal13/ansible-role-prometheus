@@ -41,6 +41,11 @@ scrape_configs:
 {% for target in prometheus_node_exporter_targets %}
         - {{ target }}:9100
 {% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9100'
+        replacement: '${1}'
 {% endif %}
 
 {% if prometheus_mysqld_exporter_targets is defined %}
