@@ -270,3 +270,19 @@ scrape_configs:
         replacement: '${1}'
 {% endfor %}
 {% endif %}
+
+{% if prometheus_kong_exporter_targets is defined %}
+  # Kong exporter #
+  - job_name: kong
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    honor_labels: false
+    honor_timestamps: true
+    sample_limit: 0
+    static_configs:
+      - targets:
+{% for target in prometheus_kong_exporter_targets %}
+        - {{ target }}
+{% endfor %}
+{% endif %}
