@@ -1,4 +1,7 @@
 # {{ ansible_managed }}
 [client]
+{% if prometheus_mysqld_exporter_host is defined %}
+host={{ prometheus_mysqld_exporter_host }}
+{% endif%}
 user={{ prometheus_mysqld_exporter_user }}
 password={{ prometheus_mysqld_exporter_password }}
