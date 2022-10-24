@@ -127,6 +127,11 @@ scrape_configs:
 {% for target in prometheus_phpfpm_exporter_targets %}
         - {{ target }}:9253
 {% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9253'
+        replacement: '${1}'
 {% endif %}
 
 {% if prometheus_opcache_exporter_targets is defined %}
@@ -139,6 +144,11 @@ scrape_configs:
 {% for target in prometheus_opcache_exporter_targets %}
         - {{ target }}:9101
 {% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9101'
+        replacement: '${1}'
 {% endif %}
 
 {% if prometheus_apache_exporter_targets is defined %}
@@ -151,6 +161,11 @@ scrape_configs:
 {% for target in prometheus_apache_exporter_targets %}
         - {{ target }}:9117
 {% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9117'
+        replacement: '${1}'
 {% endif %}
 
 {% if prometheus_haproxy_exporter_targets is defined %}
@@ -163,6 +178,11 @@ scrape_configs:
 {% for target in prometheus_haproxy_exporter_targets %}
         - {{ target }}:8404
 {% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):8404'
+        replacement: '${1}'
 {% endif %}
 
 {% if prometheus_varnish_exporter_targets is defined %}
@@ -175,6 +195,11 @@ scrape_configs:
 {% for target in prometheus_varnish_exporter_targets %}
         - {{ target }}:9131
 {% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9131'
+        replacement: '${1}'
 {% endif %}
 
 {% if prometheus_blackbox_exporter is defined %}
@@ -252,6 +277,11 @@ scrape_configs:
 {% for target in prometheus_redis_exporter_targets %}
         - {{ target }}:9121
 {% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9121'
+        replacement: '${1}'
 {% endif %}
 
 {% if prometheus_proxysql_exporter_targets is defined %}
