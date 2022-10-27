@@ -69,6 +69,11 @@ scrape_configs:
         - {{ target }}:9104
 {% endfor %}
 {% endif %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9104'
+        replacement: '${1}'
 {% endif %}
 
 {% if prometheus_mongodb_exporter_targets is defined %}
