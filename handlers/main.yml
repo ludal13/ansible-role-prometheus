@@ -1,39 +1,39 @@
 ---
-- name: 'prometheus | server | restart container'
+- name: 'prometheus | server | restart container'
   docker_container:
     name: prometheus
     restart: yes
   tags: ['prometheus']
 
-- name: 'prometheus | node exporter | restart service'
+- name: 'prometheus | node exporter | restart service'
   systemd:
     name: prometheus-node-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | mysqld exporter | restart service'
+- name: 'prometheus | mysqld exporter | restart service'
   systemd:
     name: prometheus-mysqld-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | mongodb exporter | restart service'
+- name: 'prometheus | mongodb exporter | restart service'
   systemd:
     name: prometheus-mongodb-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | postgres exporter | restart service'
+- name: 'prometheus | postgres exporter  restart service'
   systemd:
     name: prometheus-postgres-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | phpfpm exporter | restart service'
+- name: 'prometheus | phpfpm exporter | restart service'
   systemd:
     name: prometheus-phpfpm-exporter.service
     state: restarted
@@ -47,14 +47,14 @@
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | apache exporter | restart service'
+- name: 'prometheus | apache exporter | restart service'
   systemd:
     name: prometheus-apache-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | varnish exporter | restart service'
+- name: 'prometheus | varnish exporter | restart service'
   systemd:
     name: prometheus-varnish-exporter.service
     state: restarted
@@ -68,14 +68,14 @@
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | redis exporter | restart service'
+- name: 'prometheus | redis exporter | restart service'
   systemd:
     name: prometheus-redis-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | memcached exporter | restart service'
+- name: 'prometheus | memcached exporter | restart service'
   systemd:
     name: prometheus-memcached-exporter.service
     state: restarted
