@@ -4,10 +4,32 @@ prometheus
 The present role :
   - installs prometheus server inside a Docker container
   - installs various prometheus exporter
+    - node
+    - blackbox
+    - apache
+    - varnish
+    - php-fpm
+    - opcache
+    - redis
+    - memcached
+    - mysql
+    - postgres
+    - mongodb
 
-It has been tested on :
+Please note that Docker and Haproxy their own embedded exporters.
+  - https://docs.docker.com/config/daemon/prometheus/
+  - https://www.haproxy.com/fr/blog/haproxy-exposes-a-prometheus-metrics-endpoint/
+
+The role has been successfully tested on :
   - Debian 9
   - Debian 10
+  - Debian 11
+
+Forced upgrade of installed exporters can be done by setting the extra parameters "exporter_upgrade" to "yes".
+
+```
+ansible-playbook playbook/myhost.yml -t prometheus -e "exporter_upgrade=yes"
+```
 
 Role variables
 --------------
@@ -79,12 +101,15 @@ Example variables
 TODO
 ----
 
-  - add options to memcacged exporter launch
-    - --memcached.address="localhost:11211"
-    - --memcached.timeout=1s
-    - --memcached.pid-file=""
-  - handle multi instances for memcached exporter
-  
+  - documentation
+    - review / enhance documentation
+  - memcached
+    - add options to exporter launch
+      - --memcached.address="localhost:11211"
+      - --memcached.timeout=1s
+      - --memcached.pid-file=""
+    - handle multi instances for memcached exporter
+
 License
 -------
 

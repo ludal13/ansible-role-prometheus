@@ -1,32 +1,6 @@
 ---
-- name: 'phpfpm exporter | get latest release from GitHub'
-  shell: curl --silent "https://api.github.com/repos/Lusitaniae/phpfpm_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
-  args:
-    warn: false
-  register: prometheus_phpfpm_exporter_latest_version
-  run_once: true
-
-- name: 'phpfpm exporter | download'
-  get_url:
-    url: https://github.com/Lusitaniae/phpfpm_exporter/releases/download/v{{ prometheus_phpfpm_exporter_version|default(prometheus_phpfpm_exporter_latest_version.stdout) }}/phpfpm_exporter-{{ prometheus_phpfpm_exporter_version|default(prometheus_phpfpm_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
-    dest: /tmp
-
-- name: 'phpfpm exporter | unarchive'
-  unarchive:
-    remote_src: yes
-    src: /tmp/phpfpm_exporter-{{ prometheus_phpfpm_exporter_version|default(prometheus_phpfpm_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
-    dest: /tmp
-
-- name: 'phpfpm exporter | move to /usr/local/bin'
-  copy:
-    src: /tmp/phpfpm_exporter-{{ prometheus_phpfpm_exporter_version|default(prometheus_phpfpm_exporter_latest_version.stdout) }}.linux-amd64/phpfpm_exporter
-    dest: /usr/local/bin/prometheus-phpfpm-exporter
-    remote_src: yes
-    owner: root
-    group: root
-    mode: 0755
-  notify:
-    - 'phpfpm exporter | restart service'
+- include_tasks: _common.yml
+  tags: ['prometheus_phpfpm']
 
 - name: 'phpfpm exporter | install startup script'
   template:
@@ -37,17 +11,3 @@
     mode: 0600
   notify:
     - 'prometheus | phpfpm exporter | restart service'
-
-- name: 'phpfpm exporter | install unit file to systemd'
-  template:
-    src: systemd/prometheus-phpfpm-exporter.service.j2
-    dest: /etc/systemd/system/prometheus-phpfpm-exporter.service
-    owner: root
-    group: root
-    mode: 0600
-
-- name: 'phpfpm exporter | configure systemd to use service'
-  systemd:
-    daemon_reload: yes
-    enabled: yes
-    name: prometheus-phpfpm-exporter.service

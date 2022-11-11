@@ -14,7 +14,7 @@
 ## include exporter install
 - name: 'exporters install'
   vars:
-    service: "{{ item }}"
+    exporter: "{{ item }}"
   include_tasks: "exporter/{{ item }}.yml"
   tags:
     - prometheus_node_exporter

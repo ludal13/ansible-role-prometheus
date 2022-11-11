@@ -1,0 +1,99 @@
+---
+
+# to build prometheus repo for another var: https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#when-should-i-use-also-how-to-interpolate-variables-or-dynamic-variable-names
+- set_fact:
+    prometheus_repo: "{{ lookup('vars', 'prometheus_repo_' ~ exporter) }}"
+
+#- name: debug
+#  debug:
+#    msg: "Repo: {{ prometheus_repo }}"
+
+- name: '{{ exporter }} exporter | check if exporter is already install'
+  stat:
+    path: /usr/local/bin/prometheus-{{ exporter }}-exporter
+  register: stat_result
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | stop old version'
+  systemd:
+    name: prometheus-{{ exporter }}-exporter.service
+    state: stopped
+  when: exporter_upgrade == "yes"
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | remove old version'
+  file:
+    path: /usr/local/bin/prometheus-{{ exporter }}-exporter
+    state: absent
+  when: exporter_upgrade == "yes"
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | create temp path'
+  file:
+    state: directory
+    path: /tmp/prometheus_exporter/{{ exporter }}
+  when: not stat_result.stat.exists or exporter_upgrade == "yes"
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | get latest release from GitHub'
+  shell: curl --silent "https://api.github.com/repos/{{ prometheus_repo }}/{{ exporter }}_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
+  args:
+    warn: false
+  register: prometheus_exporter_latest_version
+  run_once: true
+  when: not stat_result.stat.exists or exporter_upgrade == "yes"
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | download'
+  get_url:
+    url: "https://github.com/{{ prometheus_repo }}/{{ exporter }}_exporter/releases/download/v{{ prometheus_exporter_latest_version.stdout }}/{{ exporter }}_exporter-{{ prometheus_exporter_latest_version.stdout }}.{{ prometheus_os }}-{{ prometheus_arch }}.tar.gz"
+    dest: /tmp/prometheus_exporter/{{ exporter }}/
+  when: not stat_result.stat.exists or exporter_upgrade == "yes"
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | unarchive'
+  unarchive:
+    remote_src: yes
+    src: /tmp/prometheus_exporter/{{ exporter }}/{{ exporter }}_exporter-{{ prometheus_exporter_latest_version.stdout }}.{{ prometheus_os }}-{{ prometheus_arch }}.tar.gz
+    dest: /tmp/prometheus_exporter/{{ exporter }}/
+  when: not stat_result.stat.exists or exporter_upgrade == "yes"
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | move to /usr/local/bin'
+  copy:
+    src: /tmp/prometheus_exporter/{{ exporter }}/{{ exporter }}_exporter-{{ prometheus_exporter_latest_version.stdout }}.{{ prometheus_os }}-{{ prometheus_arch }}/{{ exporter }}_exporter
+    dest: /usr/local/bin/prometheus-{{ exporter }}-exporter
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - 'prometheus | {{ exporter }} exporter | restart service'
+  when: not stat_result.stat.exists or exporter_upgrade == "yes"
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | cleanup temp path'
+  file:
+    state: absent
+    path: /tmp/prometheus_exporter/{{ exporter }}
+
+- name: '{{ exporter }} exporter | systemd | copy unit file'
+  template:
+    src: systemd/prometheus-{{ exporter }}-exporter.service.j2
+    dest: /etc/systemd/system/prometheus-{{ exporter }}-exporter.service
+    owner: root
+    group: root
+    mode: 0600
+  notify:
+    - 'prometheus | {{ exporter }} exporter | restart service'
+  when: not stat_result.stat.exists or exporter_upgrade == "yes"
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | systemd | enable {{ exporter }}'
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: prometheus-{{ exporter }}-exporter.service
+  ignore_errors: '{{ ansible_check_mode }}'
+  when: not stat_result.stat.exists or exporter_upgrade == "yes"
+  tags: [ 'prometheus_{{ exporter }}' ]

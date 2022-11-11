@@ -1,29 +1,28 @@
 ---
-awh_services_docker_pull: "no"
+prometheus_docker_pull: "no"
 
-prometheus_apache_port: 8080
+exporter_upgrade: ""
 
-prometheus_exporter_packages: []
+prometheus_os: "linux"
+prometheus_arch: "amd64"
 
+## repos url
+prometheus_repo: ""
+prometheus_repo_apache: Lusitaniae
+prometheus_repo_blackbox: prometheus
+prometheus_repo_memcached: prometheus
+prometheus_repo_mongodb: percona
+prometheus_repo_mysqld: prometheus
+prometheus_repo_node: prometheus
+prometheus_repo_opcache: MyOnlineStore
+prometheus_repo_phpfpm: Lusitaniae
+prometheus_repo_postgres: prometheus-community
+prometheus_repo_redis: oliver006
+prometheus_repo_varnish: jonnenauha
+
+## server
 prometheus_nodes_ip:
   localhost: "127.0.0.1"
-
-prometheus_mongodb_exporter_database: "admin"
-prometheus_mongodb_exporter_host: "localhost"
-prometheus_mongodb_exporter_port: 27017
-
-prometheus_phpfpm_sockets_directory: "/run/php/"
-prometheus_phpfpm_sockets_directory_additional: "/var/run/php*.sock"
-
-prometheus_opcache_exporter_fcgi_uri: "unix:///var/run/www.sock"
-
-prometheus_postgres_exporter_systemd_user: "postgres"
-prometheus_postgres_exporter_host: "/var/run/postgresql/"
-prometheus_postgres_exporter_sslmode: "disable"
-prometheus_postgres_exporter_user: "postgres"
-prometheus_postgres_exporter_password: "changeme_"
-prometheus_postgres_exporter_port: 5432
-
 
 prometheus_retention_time: "15d"
 
@@ -35,7 +34,28 @@ prometheus_server_scrape_interval: 5
 prometheus_server_scrape_timeout: 5
 prometheus_server_version: "latest"
 
+## exporter
+prometheus_exporter_packages: []
+
+prometheus_apache_port: 8080
+
 prometheus_blackbox_exporter_host: localhost
+
+prometheus_mongodb_exporter_database: "admin"
+prometheus_mongodb_exporter_host: "localhost"
+prometheus_mongodb_exporter_port: 27017
+
+prometheus_opcache_exporter_fcgi_uri: "unix:///var/run/www.sock"
+
+prometheus_phpfpm_sockets_directory: "/run/php/"
+prometheus_phpfpm_sockets_directory_additional: "/var/run/php*.sock"
+
+prometheus_postgres_exporter_systemd_user: "postgres"
+prometheus_postgres_exporter_host: "/var/run/postgresql/"
+prometheus_postgres_exporter_sslmode: "disable"
+prometheus_postgres_exporter_user: "postgres"
+prometheus_postgres_exporter_password: "changeme_"
+prometheus_postgres_exporter_port: 5432
 
 prometheus_redis_exporter_addr: "redis://localhost:6379"
 prometheus_redis_exporter_user: ""

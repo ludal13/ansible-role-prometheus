@@ -1,26 +1,6 @@
 ---
-- name: 'opcache exporter | get latest release from GitHub'
-  shell: curl --silent "https://api.github.com/repos/MyOnlineStore/opcache-exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
-  args:
-    warn: false
-  register: prometheus_opcache_exporter_latest_version
-  run_once: true
-
-- name: 'opcache exporter | download'
-  get_url:
-    url: https://github.com/MyOnlineStore/opcache-exporter/releases/download/v{{ prometheus_opcache_exporter_version|default(prometheus_opcache_exporter_latest_version.stdout) }}/opcache_exporter-{{ prometheus_opcache_exporter_version|default(prometheus_opcache_exporter_latest_version.stdout) }}-linux-amd64
-    dest: /tmp
-
-- name: 'opcache exporter | move to /usr/local/bin'
-  copy:
-    src: /tmp/opcache_exporter-{{ prometheus_opcache_exporter_version|default(prometheus_opcache_exporter_latest_version.stdout) }}-linux-amd64
-    dest: /usr/local/bin/prometheus-opcache-exporter
-    remote_src: yes
-    owner: root
-    group: root
-    mode: 0755
-  notify:
-    - 'prometheus | opcache exporter | restart service'
+- include_tasks: _common.yml
+  tags: ['prometheus_opcache']
 
 - name: 'opcache exporter | configuration'
   template:
@@ -32,17 +12,3 @@
   register: prometheus_opcache_exporter_configuration
   notify:
     - 'prometheus | opcache exporter | restart service'
-
-- name: 'opcache exporter | install unit file to systemd'
-  template:
-    src: systemd/prometheus-opcache-exporter.service.j2
-    dest: /etc/systemd/system/prometheus-opcache-exporter.service
-    owner: root
-    group: root
-    mode: 0600
-
-- name: 'opcache exporter | configure systemd to use service'
-  systemd:
-    daemon_reload: yes
-    enabled: yes
-    name: prometheus-opcache-exporter.service

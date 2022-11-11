@@ -1,32 +1,6 @@
 ---
-- name: 'postgres exporter | get latest release from GitHub'
-  shell: curl --silent "https://api.github.com/repos/prometheus-community/postgres_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
-  args:
-    warn: false
-  register: prometheus_postgres_exporter_latest_version
-  run_once: true
-
-- name: 'postgres exporter | download'
-  get_url:
-    url: https://github.com/prometheus-community/postgres_exporter/releases/download/v{{ prometheus_postgres_exporter_version|default(prometheus_postgres_exporter_latest_version.stdout) }}/postgres_exporter-{{ prometheus_postgres_exporter_version|default(prometheus_postgres_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
-    dest: /tmp
-
-- name: 'postgres exporter | unarchive'
-  unarchive:
-    remote_src: yes
-    src: /tmp/postgres_exporter-{{ prometheus_postgres_exporter_version|default(prometheus_postgres_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
-    dest: /tmp
-
-- name: 'postgres exporter | move to /usr/local/bin'
-  copy:
-    src: /tmp/postgres_exporter-{{ prometheus_postgres_exporter_version|default(prometheus_postgres_exporter_latest_version.stdout) }}.linux-amd64/postgres_exporter
-    dest: /usr/local/bin/prometheus-postgres-exporter
-    remote_src: yes
-    owner: root
-    group: root
-    mode: 0755
-  notify:
-    - 'prometheus | postgres exporter | restart service'
+- include_tasks: _common.yml
+  tags: ['prometheus_postgres']
 
 - name: 'postgres exporter | configuration'
   template:
@@ -38,18 +12,3 @@
   register: prometheus_postgres_exporter_configuration
   notify:
     - 'prometheus | postgres exporter | restart service'
-
-- name: 'postgres exporter | install unit file to systemd'
-  template:
-    src: systemd/prometheus-postgres-exporter.service.j2
-    dest: /etc/systemd/system/prometheus-postgres-exporter.service
-    owner: root
-    group: root
-    mode: 0600
-
-- name: 'postgres exporter | configure systemd to use service'
-  systemd:
-    daemon_reload: yes
-    enabled: yes
-    state: started
-    name: prometheus-postgres-exporter.service
