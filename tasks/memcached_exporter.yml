@@ -19,7 +19,7 @@
 
 - name: 'prometheus | memcached exporter | move to /usr/local/bin'
   copy:
-    src: /tmp/memcached_exporter-v{{ prometheus_memcached_exporter_version|default(prometheus_memcached_exporter_latest_version.stdout) }}.linux-amd64/memcached_exporter
+    src: /tmp/memcached_exporter-{{ prometheus_memcached_exporter_version|default(prometheus_memcached_exporter_latest_version.stdout) }}.linux-amd64/memcached_exporter
     dest: /usr/local/bin/prometheus-memcached-exporter
     remote_src: yes
     owner: root
