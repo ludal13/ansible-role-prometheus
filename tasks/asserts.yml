@@ -1,12 +1,12 @@
 ---
-- name: 'prometheus | assert | check if ansible version >= 2.7'
+- name: 'assert | check if ansible version >= 2.7'
   assert:
     that: ansible_version.full is version_compare(2.7, '>=')
     msg: Ansible version 2.7 or later is required to use this version of the role
   tags:
     - prometheus
 
-- name: 'prometheus | assert | gather the package facts'
+- name: 'assert | gather the package facts'
   ansible.builtin.package_facts:
     manager: auto
   when:
@@ -15,7 +15,7 @@
   tags:
     - prometheus
 
-- name: 'prometheus | assert | check if docker-ce is installed'
+- name: 'assert | check if docker-ce is installed'
   assert:
     that: "'docker-ce' in ansible_facts.packages"
   when:
@@ -24,7 +24,7 @@
   tags:
     - prometheus
 
-- name: 'prometheus | assert | check if docker pyhon libraries are installed'
+- name: 'assert | check if docker pyhon libraries are installed'
   assert:
     that:
       #- "'python-docker' in ansible_facts.packages"
@@ -34,4 +34,3 @@
     - prometheus_server_enable == "true"
   tags:
     - prometheus
-

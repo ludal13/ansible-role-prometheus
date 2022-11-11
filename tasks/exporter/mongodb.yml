@@ -1,23 +1,23 @@
 ---
-- name: 'prometheus | mongodb exporter | get latest release from GitHub'
+- name: 'mongodb exporter | get latest release from GitHub'
   shell: curl --silent "https://api.github.com/repos/percona/mongodb_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
   args:
     warn: false
   register: prometheus_mongodb_exporter_latest_version
   run_once: true
 
-- name: 'prometheus | mongodb exporter | download'
+- name: 'mongodb exporter | download'
   get_url:
     url: https://github.com/percona/mongodb_exporter/releases/download/v{{ prometheus_mongodb_exporter_version|default(prometheus_mongodb_exporter_latest_version.stdout) }}/mongodb_exporter-{{ prometheus_mongodb_exporter_version|default(prometheus_mongodb_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
-- name: 'prometheus | mongodb exporter | unarchive'
+- name: 'mongodb exporter | unarchive'
   unarchive:
     remote_src: yes
     src: /tmp/mongodb_exporter-{{ prometheus_mongodb_exporter_version|default(prometheus_mongodb_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
-- name: 'prometheus | mongodb exporter < v0.2 | move to /usr/local/bin'
+- name: 'mongodb exporter < v0.2 | move to /usr/local/bin'
   copy:
     src: /tmp/mongodb_exporter
     dest: /usr/local/bin/prometheus-mongodb-exporter
@@ -30,7 +30,7 @@
   when:
     - prometheus_mongodb_exporter_latest_version.stdout < '0.2'
 
-- name: 'prometheus | mongodb exporter > v0.2 | move to /usr/local/bin'
+- name: 'mongodb exporter > v0.2 | move to /usr/local/bin'
   copy:
     src: /tmp/mongodb_exporter-{{ prometheus_mongodb_exporter_version|default(prometheus_mongodb_exporter_latest_version.stdout) }}.linux-amd64/mongodb_exporter
     dest: /usr/local/bin/prometheus-mongodb-exporter
@@ -43,7 +43,7 @@
   when:
     - prometheus_mongodb_exporter_latest_version.stdout > '0.2'
 
-- name: 'prometheus | mongodb exporter | configuration'
+- name: 'mongodb exporter | configuration'
   template:
     src: conf/prometheus-mongodb-exporter.j2
     dest: /etc/default/prometheus-mongodb-exporter
@@ -53,7 +53,7 @@
   notify:
     - 'prometheus | mongodb exporter | restart service'
 
-- name: 'prometheus | mongodb exporter | install unit file to systemd'
+- name: 'mongodb exporter | install unit file to systemd'
   template:
     src: systemd/prometheus-mongodb-exporter.service.j2
     dest: /etc/systemd/system/prometheus-mongodb-exporter.service
@@ -63,7 +63,7 @@
   notify:
     - 'prometheus | mongodb exporter | restart service'
 
-- name: 'prometheus | mongodb exporter | configure systemd to use service'
+- name: 'mongodb exporter | configure systemd to use service'
   systemd:
     daemon_reload: yes
     enabled: yes

@@ -1,18 +1,18 @@
 ---
-- name: 'prometheus | include asserts'
+- name: 'include asserts'
   include_tasks: 'asserts.yml'
 
-- name: 'prometheus | requirements'
+- name: 'requirements'
   include_tasks: 'requirements.yml'
 
 ## prometheus server install
-- name: 'prometheus | server install'
+- name: 'server install'
   include_tasks: 'server/prometheus.yml'
   when:
     - prometheus_server_enable == "true"
 
 ## include exporter install
-- name: 'prometheus | exporter install'
+- name: 'exporters install'
   vars:
     service: "{{ item }}"
   include_tasks: "exporter/{{ item }}.yml"

@@ -1,23 +1,23 @@
 ---
-- name: 'prometheus | mysqld exporter | get latest release from GitHub'
+- name: 'mysqld exporter | get latest release from GitHub'
   shell: curl --silent "https://api.github.com/repos/prometheus/mysqld_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
   args:
     warn: false
   register: prometheus_mysqld_exporter_latest_version
   run_once: true
 
-- name: 'prometheus | mysqld exporter | download'
+- name: 'mysqld exporter | download'
   get_url:
     url: https://github.com/prometheus/mysqld_exporter/releases/download/v{{ prometheus_mysqld_exporter_version|default(prometheus_mysqld_exporter_latest_version.stdout) }}/mysqld_exporter-{{ prometheus_mysqld_exporter_version|default(prometheus_mysqld_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
-- name: 'prometheus | mysqld exporter | unarchive'
+- name: 'mysqld exporter | unarchive'
   unarchive:
     remote_src: yes
     src: /tmp/mysqld_exporter-{{ prometheus_mysqld_exporter_version|default(prometheus_mysqld_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
-- name: 'prometheus | mysqld exporter | move to /usr/local/bin'
+- name: 'mysqld exporter | move to /usr/local/bin'
   copy:
     src: /tmp/mysqld_exporter-{{ prometheus_mysqld_exporter_version|default(prometheus_mysqld_exporter_latest_version.stdout) }}.linux-amd64/mysqld_exporter
     dest: /usr/local/bin/prometheus-mysqld-exporter
@@ -28,7 +28,7 @@
   notify:
     - 'prometheus | mysqld exporter | restart service'
 
-- name: 'prometheus | mysqld exporter | configuration'
+- name: 'mysqld exporter | configuration'
   template:
     src: conf/prometheus-mysqld-exporter.j2
     dest: /etc/default/prometheus-mysqld-exporter
@@ -41,7 +41,7 @@
   notify:
     - 'prometheus | mysqld exporter | restart service'
 
-- name: 'prometheus | mysqld exporter | install unit file to systemd'
+- name: 'mysqld exporter | install unit file to systemd'
   template:
     src: systemd/prometheus-mysqld-exporter.service.j2
     dest: /etc/systemd/system/prometheus-mysqld-exporter.service
@@ -49,7 +49,7 @@
     group: root
     mode: 0600
 
-- name: 'prometheus | mysqld exporter | configure systemd to use service'
+- name: 'mysqld exporter | configure systemd to use service'
   systemd:
     daemon_reload: yes
     enabled: yes

@@ -1,14 +1,13 @@
 ---
-- name: 'prometheus | update APT Cache'
+- name: 'requirement | update APT Cache'
   apt:
     update_cache: yes
     cache_valid_time: 3600
 
-- name: 'prometheus | pre-requirements install'
+- name: 'requirement | pre-requirements install'
   apt:
     name:
       - curl
       - jq
     state: present
   tags: ['prometheus']
-

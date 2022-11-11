@@ -1,23 +1,23 @@
 ---
-- name: 'prometheus | phpfpm exporter | get latest release from GitHub'
+- name: 'phpfpm exporter | get latest release from GitHub'
   shell: curl --silent "https://api.github.com/repos/Lusitaniae/phpfpm_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
   args:
     warn: false
   register: prometheus_phpfpm_exporter_latest_version
   run_once: true
 
-- name: 'prometheus | phpfpm exporter | download'
+- name: 'phpfpm exporter | download'
   get_url:
     url: https://github.com/Lusitaniae/phpfpm_exporter/releases/download/v{{ prometheus_phpfpm_exporter_version|default(prometheus_phpfpm_exporter_latest_version.stdout) }}/phpfpm_exporter-{{ prometheus_phpfpm_exporter_version|default(prometheus_phpfpm_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
-- name: 'prometheus | phpfpm exporter | unarchive'
+- name: 'phpfpm exporter | unarchive'
   unarchive:
     remote_src: yes
     src: /tmp/phpfpm_exporter-{{ prometheus_phpfpm_exporter_version|default(prometheus_phpfpm_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
-- name: 'prometheus | phpfpm exporter | move to /usr/local/bin'
+- name: 'phpfpm exporter | move to /usr/local/bin'
   copy:
     src: /tmp/phpfpm_exporter-{{ prometheus_phpfpm_exporter_version|default(prometheus_phpfpm_exporter_latest_version.stdout) }}.linux-amd64/phpfpm_exporter
     dest: /usr/local/bin/prometheus-phpfpm-exporter
@@ -26,9 +26,9 @@
     group: root
     mode: 0755
   notify:
-    - 'prometheus | phpfpm exporter | restart service'
+    - 'phpfpm exporter | restart service'
 
-- name: 'prometheus | phpfpm exporter | install startup script'
+- name: 'phpfpm exporter | install startup script'
   template:
     src: scripts/prometheus-phpfpm-exporter-script.sh.j2
     dest: /usr/local/bin/prometheus-phpfpm-exporter-script.sh
@@ -38,7 +38,7 @@
   notify:
     - 'prometheus | phpfpm exporter | restart service'
 
-- name: 'prometheus | phpfpm exporter | install unit file to systemd'
+- name: 'phpfpm exporter | install unit file to systemd'
   template:
     src: systemd/prometheus-phpfpm-exporter.service.j2
     dest: /etc/systemd/system/prometheus-phpfpm-exporter.service
@@ -46,7 +46,7 @@
     group: root
     mode: 0600
 
-- name: 'prometheus | phpfpm exporter | configure systemd to use service'
+- name: 'phpfpm exporter | configure systemd to use service'
   systemd:
     daemon_reload: yes
     enabled: yes

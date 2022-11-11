@@ -1,23 +1,23 @@
 ---
-- name: 'prometheus | postgres exporter | get latest release from GitHub'
+- name: 'postgres exporter | get latest release from GitHub'
   shell: curl --silent "https://api.github.com/repos/prometheus-community/postgres_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
   args:
     warn: false
   register: prometheus_postgres_exporter_latest_version
   run_once: true
 
-- name: 'prometheus | postgres exporter | download'
+- name: 'postgres exporter | download'
   get_url:
     url: https://github.com/prometheus-community/postgres_exporter/releases/download/v{{ prometheus_postgres_exporter_version|default(prometheus_postgres_exporter_latest_version.stdout) }}/postgres_exporter-{{ prometheus_postgres_exporter_version|default(prometheus_postgres_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
-- name: 'prometheus | postgres exporter | unarchive'
+- name: 'postgres exporter | unarchive'
   unarchive:
     remote_src: yes
     src: /tmp/postgres_exporter-{{ prometheus_postgres_exporter_version|default(prometheus_postgres_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
-- name: 'prometheus | postgres exporter | move to /usr/local/bin'
+- name: 'postgres exporter | move to /usr/local/bin'
   copy:
     src: /tmp/postgres_exporter-{{ prometheus_postgres_exporter_version|default(prometheus_postgres_exporter_latest_version.stdout) }}.linux-amd64/postgres_exporter
     dest: /usr/local/bin/prometheus-postgres-exporter
@@ -28,7 +28,7 @@
   notify:
     - 'prometheus | postgres exporter | restart service'
 
-- name: 'prometheus | postgres exporter | configuration'
+- name: 'postgres exporter | configuration'
   template:
     src: conf/prometheus-postgres-exporter.j2
     dest: /etc/default/prometheus-postgres-exporter
@@ -39,7 +39,7 @@
   notify:
     - 'prometheus | postgres exporter | restart service'
 
-- name: 'prometheus | postgres exporter | install unit file to systemd'
+- name: 'postgres exporter | install unit file to systemd'
   template:
     src: systemd/prometheus-postgres-exporter.service.j2
     dest: /etc/systemd/system/prometheus-postgres-exporter.service
@@ -47,7 +47,7 @@
     group: root
     mode: 0600
 
-- name: 'prometheus | postgres exporter | configure systemd to use service'
+- name: 'postgres exporter | configure systemd to use service'
   systemd:
     daemon_reload: yes
     enabled: yes

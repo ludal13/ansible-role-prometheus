@@ -1,23 +1,23 @@
 ---
-- name: 'prometheus | blackbox exporter | get latest release from GitHub'
+- name: 'blackbox exporter | get latest release from GitHub'
   shell: curl --silent "https://api.github.com/repos/prometheus/blackbox_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
   args:
     warn: false
   register: prometheus_blackbox_exporter_latest_version
   run_once: true
 
-- name: 'prometheus | blackbox exporter | download'
+- name: 'blackbox exporter | download'
   get_url:
     url: https://github.com/prometheus/blackbox_exporter/releases/download/v{{ prometheus_blackbox_exporter_version|default(prometheus_blackbox_exporter_latest_version.stdout) }}/blackbox_exporter-{{ prometheus_blackbox_exporter_version|default(prometheus_blackbox_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
-- name: 'prometheus | blackbox exporter | unarchive'
+- name: 'blackbox exporter | unarchive'
   unarchive:
     remote_src: yes
     src: /tmp/blackbox_exporter-{{ prometheus_blackbox_exporter_version|default(prometheus_blackbox_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
-- name: 'prometheus | blackbox exporter | move to /usr/local/bin'
+- name: 'blackbox exporter | move to /usr/local/bin'
   copy:
     src: /tmp/blackbox_exporter-{{ prometheus_blackbox_exporter_version|default(prometheus_blackbox_exporter_latest_version.stdout) }}.linux-amd64/blackbox_exporter
     dest: /usr/local/bin/prometheus-blackbox-exporter
@@ -28,7 +28,7 @@
   notify:
     - 'prometheus | blackbox exporter | restart service'
 
-- name: 'prometheus | blackbox exporter | configuration'
+- name: 'blackbox exporter | configuration'
   template:
     src: conf/prometheus-blackbox-exporter.j2
     dest: /etc/default/prometheus-blackbox-exporter
@@ -39,7 +39,7 @@
   notify:
     - 'prometheus | blackbox exporter | restart service'
 
-- name: 'prometheus | blackbox exporter | install unit file to systemd'
+- name: 'blackbox exporter | install unit file to systemd'
   template:
     src: systemd/prometheus-blackbox-exporter.service.j2
     dest: /etc/systemd/system/prometheus-blackbox-exporter.service
@@ -49,7 +49,7 @@
   notify:
     - 'prometheus | blackbox exporter | restart service'
 
-- name: 'prometheus | blackbox exporter | configure systemd to use service'
+- name: 'blackbox exporter | configure systemd to use service'
   systemd:
     daemon_reload: yes
     enabled: yes

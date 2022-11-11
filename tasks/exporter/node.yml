@@ -1,23 +1,23 @@
 ---
-- name: 'prometheus | node exporter | get latest release from GitHub'
+- name: 'node exporter | get latest release from GitHub'
   shell: curl --silent "https://api.github.com/repos/prometheus/node_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
   args:
     warn: false
   register: prometheus_node_exporter_latest_version
   run_once: true
 
-- name: 'prometheus | node exporter | download'
+- name: 'node exporter | download'
   get_url:
     url: https://github.com/prometheus/node_exporter/releases/download/v{{ prometheus_node_exporter_version|default(prometheus_node_exporter_latest_version.stdout) }}/node_exporter-{{ prometheus_node_exporter_version|default(prometheus_node_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
-- name: 'prometheus | node exporter | unarchive'
+- name: 'node exporter | unarchive'
   unarchive:
     remote_src: yes
     src: /tmp/node_exporter-{{ prometheus_node_exporter_version|default(prometheus_node_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
-- name: 'prometheus | node exporter | move to /usr/local/bin'
+- name: 'node exporter | move to /usr/local/bin'
   copy:
     src: /tmp/node_exporter-{{ prometheus_node_exporter_version|default(prometheus_node_exporter_latest_version.stdout) }}.linux-amd64/node_exporter
     dest: /usr/local/bin/prometheus-node-exporter
@@ -28,7 +28,7 @@
   notify:
     - 'prometheus | node exporter | restart service'
 
-- name: 'prometheus | node exporter | install unit file to systemd'
+- name: 'node exporter | install unit file to systemd'
   template:
     src: systemd/prometheus-node-exporter.service.j2
     dest: /etc/systemd/system/prometheus-node-exporter.service
@@ -36,7 +36,7 @@
     group: root
     mode: 0600
 
-- name: 'prometheus | node exporter | configure systemd to use service'
+- name: 'node exporter | configure systemd to use service'
   systemd:
     daemon_reload: yes
     enabled: yes
