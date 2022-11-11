@@ -5,62 +5,30 @@
 - name: 'prometheus | requirements'
   include_tasks: 'requirements.yml'
 
+## prometheus server install
 - name: 'prometheus | server install'
-  include_tasks: 'prometheus.yml'
+  include_tasks: 'server/prometheus.yml'
   when:
     - prometheus_server_enable == "true"
 
-- name: 'prometheus | Node exporter'
-  include_tasks: 'node_exporter.yml'
-  when:
-    - "'node' in prometheus_exporter_packages"
-
-- name: 'prometheus | MongoDB exporter'
-  include_tasks: 'mongodb_exporter.yml'
-  when:
-    - "'mongodb' in prometheus_exporter_packages"
-
-- name: 'prometheus | MySQL exporter'
-  include_tasks: 'mysqld_exporter.yml'
-  when:
-    - "'mysqld' in prometheus_exporter_packages"
-
-- name: 'prometheus | PostgreSQL exporter'
-  include_tasks: 'postgresql_exporter.yml'
-  when:
-    - "'postgresql' in prometheus_exporter_packages"
-
-- name: 'prometheus | PHP Fpm exporter'
-  include_tasks: 'phpfpm_exporter.yml'
-  when:
-    - "'phpfpm' in prometheus_exporter_packages"
-
-- name: 'prometheus | PHP opcache exporter'
-  include_tasks: 'opcache_exporter.yml'
-  when:
-    - "'opcache' in prometheus_exporter_packages"
-
-- name: 'prometheus | Apache exporter'
-  include_tasks: 'apache_exporter.yml'
-  when:
-    - "'apache' in prometheus_exporter_packages"
-
-- name: 'prometheus | Varnish exporter'
-  include_tasks: 'varnish_exporter.yml'
-  when:
-    - "'varnish' in prometheus_exporter_packages"
-
-- name: 'prometheus | Blackbox exporter'
-  include_tasks: 'blackbox_exporter.yml'
-  when:
-    - "'blackbox' in prometheus_exporter_packages"
-
-- name: 'prometheus | Redis exporter'
-  include_tasks: 'redis_exporter.yml'
-  when:
-    - "'redis' in prometheus_exporter_packages"
-
-- name: 'prometheus | Memcached exporter'
-  include_tasks: 'memcached_exporter.yml'
-  when:
-    - "'memcached' in prometheus_exporter_packages"
+## include exporter install
+- name: 'prometheus | exporter install'
+  vars:
+    service: "{{ item }}"
+  include_tasks: "exporter/{{ item }}.yml"
+  tags:
+    - prometheus_node_exporter
+    - prometheus_mysqld_exporter
+    - prometheus_postgresql_exporter
+    - prometheus_mongodb_exporter
+    - prometheus_apache_exporter
+    - prometheus_haproxy_exporter
+    - prometheus_varnish_exporter
+    - prometheus_redis_exporter
+    - prometheus_memcached_exporter
+    - prometheus_phpfpm_exporter
+    - prometheus_opcache_exporter
+    - prometheus_blackbox_exporter
+    - prometheus_kong_exporter
+  with_items:
+    - "{{ prometheus_exporter_packages }}"
