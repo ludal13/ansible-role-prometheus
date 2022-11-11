@@ -79,6 +79,12 @@ Example variables
 TODO
 ----
 
+  - add options to memcacged exporter launch
+    - --memcached.address="localhost:11211"
+    - --memcached.timeout=1s
+    - --memcached.pid-file=""
+  - handle multi instances for memcached exporter
+  
 License
 -------
 
