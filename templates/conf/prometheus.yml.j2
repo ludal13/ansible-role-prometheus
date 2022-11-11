@@ -140,7 +140,7 @@ scrape_configs:
 {% endif %}
 
 {% if prometheus_opcache_exporter_targets is defined %}
-  # PHP-FPM exporter #
+  # opcache exporter #
   - job_name: opcache
     scrape_interval: 30s
     scrape_timeout: 10s
