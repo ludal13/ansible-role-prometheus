@@ -35,6 +35,8 @@
     owner: root
     group: root
     mode: 0600
+  notify:
+    - 'prometheus | phpfpm exporter | restart service'
 
 - name: 'prometheus | phpfpm exporter | install unit file to systemd'
   template:

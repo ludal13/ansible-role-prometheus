@@ -46,10 +46,11 @@
     owner: root
     group: root
     mode: 0600
+  notify:
+    - 'prometheus | blackbox exporter | restart service'
 
 - name: 'prometheus | blackbox exporter | configure systemd to use service'
   systemd:
     daemon_reload: yes
     enabled: yes
     name: prometheus-blackbox-exporter.service
-

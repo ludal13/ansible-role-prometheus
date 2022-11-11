@@ -25,6 +25,8 @@
     owner: root
     group: root
     mode: 0755
+  notify:
+    - 'prometheus | memcached exporter | restart service'
 
 - name: 'prometheus | memcached exporter | install unit file to systemd'
   template:

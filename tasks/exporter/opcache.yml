@@ -19,6 +19,8 @@
     owner: root
     group: root
     mode: 0755
+  notify:
+    - 'prometheus | opcache exporter | restart service'
 
 - name: 'prometheus | opcache exporter | configuration'
   template:
@@ -28,6 +30,8 @@
     group: root
     mode: 0600
   register: prometheus_opcache_exporter_configuration
+  notify:
+    - 'prometheus | opcache exporter | restart service'
 
 - name: 'prometheus | opcache exporter | install unit file to systemd'
   template:
