@@ -8,7 +8,7 @@
 
 - name: 'prometheus | memcached exporter | download'
   get_url:
-    url: https://github.com/prometheus/memcached_exporter/releases/download/v{{ prometheus_memcached_exporter_version|default(prometheus_memcached_exporter_latest_version.stdout) }}/memcached_exporter-v{{ prometheus_memcached_exporter_version|default(prometheus_memcached_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    url: https://github.com/prometheus/memcached_exporter/releases/download/{{ prometheus_memcached_exporter_version|default(prometheus_memcached_exporter_latest_version.stdout) }}/memcached_exporter-v{{ prometheus_memcached_exporter_version|default(prometheus_memcached_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
 - name: 'prometheus | memcached exporter | unarchive'
