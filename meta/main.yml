@@ -5,5 +5,5 @@ galaxy_info:
   company: brainsys
   license: GPLv3
   min_ansible_version: 2.8
-  issue_tracker_url: https://github.com/brainsys-io/ansible-role-prometheus/issues
+  issue_tracker_url: https://github.com/ludal13/ansible-role-prometheus/issues
   github_branch: master
