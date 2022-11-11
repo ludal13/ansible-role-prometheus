@@ -346,7 +346,7 @@ scrape_configs:
     scrape_timeout: 10s
     static_configs:
       - targets:
-{% for target in prometheus_memcached_exporter_targets %}
+{% for target in prometheus_docker_exporter_targets %}
         - {{ target }}:9323
 {% endfor %}
     relabel_configs:
