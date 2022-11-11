@@ -2,7 +2,7 @@
 - name: 'prometheus | include asserts'
   include_tasks: 'asserts.yml'
 
-- name: 'prometheus | requirements'
+- name: 'prometheus | requirements'
   include_tasks: 'requirements.yml'
 
 - name: 'prometheus | server install'
@@ -59,3 +59,8 @@
   include_tasks: 'redis_exporter.yml'
   when:
     - "'redis' in prometheus_exporter_packages"
+
+- name: 'prometheus | Memcached exporter'
+  include_tasks: 'memcached_exporter.yml'
+  when:
+    - "'memcached' in prometheus_exporter_packages"
