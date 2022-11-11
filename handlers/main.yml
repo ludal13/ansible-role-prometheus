@@ -74,3 +74,10 @@
     state: restarted
     enabled: yes
   tags: ['prometheus']
+
+- name: 'prometheus | memcached exporter | restart service'
+  systemd:
+    name: prometheus-memcached-exporter.service
+    state: restarted
+    enabled: yes
+  tags: ['prometheus']
