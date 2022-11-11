@@ -14,7 +14,7 @@
 - name: 'prometheus | memcached exporter | unarchive'
   unarchive:
     remote_src: yes
-    src: /tmp/memcached_exporter-v{{ prometheus_memcached_exporter_version|default(prometheus_memcached_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    src: /tmp/memcached_exporter-{{ prometheus_memcached_exporter_version|default(prometheus_memcached_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
     dest: /tmp
 
 - name: 'prometheus | memcached exporter | move to /usr/local/bin'
