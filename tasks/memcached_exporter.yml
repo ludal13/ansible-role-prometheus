@@ -1,0 +1,52 @@
+---
+- name: 'prometheus | memcached exporter | get latest release from GitHub'
+  shell: curl --silent "https://api.github.com/repos/prometheus/memcached_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
+  args:
+    warn: false
+  register: prometheus_memcached_exporter_latest_version
+  run_once: true
+
+- name: 'prometheus | memcached exporter | download'
+  get_url:
+    url: https://github.com/prometheus/memcached_exporter/releases/download/v{{ prometheus_memcached_exporter_version|default(prometheus_memcached_exporter_latest_version.stdout) }}/memcached_exporter-v{{ prometheus_memcached_exporter_version|default(prometheus_memcached_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    dest: /tmp
+
+- name: 'prometheus | memcached exporter | unarchive'
+  unarchive:
+    remote_src: yes
+    src: /tmp/memcached_exporter-v{{ prometheus_memcached_exporter_version|default(prometheus_memcached_exporter_latest_version.stdout) }}.linux-amd64.tar.gz
+    dest: /tmp
+
+- name: 'prometheus | memcached exporter | move to /usr/local/bin'
+  copy:
+    src: /tmp/memcached_exporter-v{{ prometheus_memcached_exporter_version|default(prometheus_memcached_exporter_latest_version.stdout) }}.linux-amd64/memcached_exporter
+    dest: /usr/local/bin/prometheus-memcached-exporter
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+
+- name: 'prometheus | memcached exporter | install unit file to systemd'
+  template:
+    src: systemd/prometheus-memcached-exporter.service.j2
+    dest: /etc/systemd/system/prometheus-memcached-exporter.service
+    owner: root
+    group: root
+    mode: 0600
+
+# - name: 'prometheus | memcached exporter | configuration'
+#   template:
+#     src: conf/prometheus-memcached-exporter.j2
+#     dest: /etc/default/prometheus-memcached-exporter
+#     owner: root
+#     group: root
+#     mode: 0600
+#   register: prometheus_memcached_exporter_configuration
+#   notify:
+#     - 'prometheus | memcached exporter | restart service'
+
+- name: 'prometheus | memcached exporter | configure systemd to use service'
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: prometheus-memcached-exporter.service

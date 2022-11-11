@@ -1,0 +1,11 @@
+[Unit]
+Description=Prometheus Memcached Exporter
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/prometheus-memcached-exporter
+EnvironmentFile=/etc/default/prometheus-memcached-exporter
+
+[Install]
+WantedBy=multi-user.target
