@@ -39,7 +39,7 @@
   notify:
     - 'prometheus | server | restart container'
 
-- name: 'prometheus | server | deploy container'
+- name: 'prometheus | server | deploy container'
   docker_container:
     name: prometheus
     hostname: '{{ inventory_hostname }}'

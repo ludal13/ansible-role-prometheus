@@ -19,7 +19,7 @@ rule_files:
 # Here it's Prometheus itself.
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  - job_name: '{{ prometheus_server_job_name }}'
+  - job_name: '{{ prometheus_server_job_name }}'
 
     # Override the global default and scrape targets from this job every 5 seconds.
     scrape_interval: {{ prometheus_server_scrape_interval }}s
@@ -39,7 +39,7 @@ scrape_configs:
     static_configs:
       - targets:
 {% for target in prometheus_node_exporter_targets %}
-        - {{ target }}:9100
+        - {{ target }}:9100
 {% endfor %}
     relabel_configs:
       - source_labels: [ __address__ ]
@@ -66,7 +66,7 @@ scrape_configs:
 {% else %}
       - targets:
 {% for target in prometheus_mysqld_exporter_targets %}
-        - {{ target }}:9104
+        - {{ target }}:9104
 {% endfor %}
 {% endif %}
     relabel_configs:
@@ -94,7 +94,7 @@ scrape_configs:
 {% else %}
       - targets:
 {% for target in prometheus_mongodb_exporter_targets %}
-        - {{ target }}:9216
+        - {{ target }}:9216
 {% endfor %}
 {% endif %}
 {% endif %}
@@ -117,7 +117,7 @@ scrape_configs:
 {% else %}
       - targets:
 {% for target in prometheus_postgres_exporter_targets %}
-        - {{ target }}:9187
+        - {{ target }}:9187
 {% endfor %}
 {% endif %}
 {% endif %}
@@ -130,7 +130,7 @@ scrape_configs:
     static_configs:
       - targets:
 {% for target in prometheus_phpfpm_exporter_targets %}
-        - {{ target }}:9253
+        - {{ target }}:9253
 {% endfor %}
     relabel_configs:
       - source_labels: [ __address__ ]
@@ -147,7 +147,7 @@ scrape_configs:
     static_configs:
       - targets:
 {% for target in prometheus_opcache_exporter_targets %}
-        - {{ target }}:9101
+        - {{ target }}:9101
 {% endfor %}
     relabel_configs:
       - source_labels: [ __address__ ]
@@ -164,7 +164,7 @@ scrape_configs:
     static_configs:
       - targets:
 {% for target in prometheus_apache_exporter_targets %}
-        - {{ target }}:9117
+        - {{ target }}:9117
 {% endfor %}
     relabel_configs:
       - source_labels: [ __address__ ]
@@ -181,7 +181,7 @@ scrape_configs:
     static_configs:
       - targets:
 {% for target in prometheus_haproxy_exporter_targets %}
-        - {{ target }}:8404
+        - {{ target }}:8404
 {% endfor %}
     relabel_configs:
       - source_labels: [ __address__ ]
@@ -198,7 +198,7 @@ scrape_configs:
     static_configs:
       - targets:
 {% for target in prometheus_varnish_exporter_targets %}
-        - {{ target }}:9131
+        - {{ target }}:9131
 {% endfor %}
     relabel_configs:
       - source_labels: [ __address__ ]
@@ -228,7 +228,7 @@ scrape_configs:
       - source_labels: [__param_target]
         target_label: instance
       - target_label: __address__
-        replacement: {{ prometheus_blackbox_exporter_host }}:9115
+        replacement: {{ prometheus_blackbox_exporter_host }}:9115
 {% endif %}
 {% if prometheus_blackbox_exporter_ping is defined %}
   ## ping ##
@@ -240,7 +240,7 @@ scrape_configs:
     static_configs:
       - targets:
 {% for target in prometheus_blackbox_exporter_ping %}
-         - {{ target }}
+         - {{ target }}
 {% endfor %}
     relabel_configs:
       - source_labels: [__address__]
@@ -248,7 +248,7 @@ scrape_configs:
       - source_labels: [__param_target]
         target_label: instance
       - target_label: __address__
-        replacement: {{ prometheus_blackbox_exporter_host }}:9115
+        replacement: {{ prometheus_blackbox_exporter_host }}:9115
 {% endif %}
 {% endif %}
 
@@ -258,7 +258,7 @@ scrape_configs:
     static_configs:
       - targets:
 {% for target in prometheus_redis_multi_instances_exporter_targets %}
-        - {{ target }}
+        - {{ target }}
 {% endfor %}
     metrics_path: /scrape
     relabel_configs:
@@ -280,7 +280,7 @@ scrape_configs:
     static_configs:
       - targets:
 {% for target in prometheus_redis_exporter_targets %}
-        - {{ target }}:9121
+        - {{ target }}:9121
 {% endfor %}
     relabel_configs:
       - source_labels: [ __address__ ]
@@ -297,7 +297,7 @@ scrape_configs:
     static_configs:
       - targets:
 {% for target in prometheus_proxysql_exporter_targets %}
-        - {{ target }}:6070
+        - {{ target }}:6070
     relabel_configs:
       - source_labels: [ __address__ ]
         target_label: instance
@@ -318,7 +318,7 @@ scrape_configs:
     static_configs:
       - targets:
 {% for target in prometheus_kong_exporter_targets %}
-        - {{ target }}
+        - {{ target }}
 {% endfor %}
 {% endif %}
 
@@ -330,7 +330,7 @@ scrape_configs:
     static_configs:
       - targets:
 {% for target in prometheus_memcached_exporter_targets %}
-        - {{ target }}:9150
+        - {{ target }}:9150
 {% endfor %}
     relabel_configs:
       - source_labels: [ __address__ ]
@@ -347,7 +347,7 @@ scrape_configs:
     static_configs:
       - targets:
 {% for target in prometheus_docker_exporter_targets %}
-        - {{ target }}:9323
+        - {{ target }}:9323
 {% endfor %}
     relabel_configs:
       - source_labels: [ __address__ ]

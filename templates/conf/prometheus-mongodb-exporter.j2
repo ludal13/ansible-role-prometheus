@@ -1,6 +1,6 @@
 # {{ ansible_managed }}
 {% if (prometheus_mongodb_exporter_user is defined) and (prometheus_mongodb_exporter_pass is defined) %}
-MONGODB_URI=mongodb://{{ prometheus_mongodb_exporter_user }}:{{ prometheus_mongodb_exporter_pass }}@{{ prometheus_mongodb_exporter_host }}:{{ prometheus_mongodb_exporter_port }}/{{ prometheus_mongodb_exporter_database }}
+MONGODB_URI=mongodb://{{ prometheus_mongodb_exporter_user }}:{{ prometheus_mongodb_exporter_pass }}@{{ prometheus_mongodb_exporter_host }}:{{ prometheus_mongodb_exporter_port }}/{{ prometheus_mongodb_exporter_database }}
 {% else %}
 MONGODB_URI=mongodb://{{ prometheus_mongodb_exporter_host }}:{{ prometheus_mongodb_exporter_port }}/{{ prometheus_mongodb_exporter_database }}
 {% endif %}

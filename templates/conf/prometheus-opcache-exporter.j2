@@ -1,4 +1,4 @@
 # {{ ansible_managed }}
 {% if (prometheus_opcache_exporter_fcgi_uri is defined) %}
-ARGS='"--opcache.fcgi-uri="{{ prometheus_opcache_exporter_fcgi_uri }}"'
+ARGS='"--opcache.fcgi-uri="{{ prometheus_opcache_exporter_fcgi_uri }}"'
 {% endif %}

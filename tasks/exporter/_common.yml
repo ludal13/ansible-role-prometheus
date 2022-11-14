@@ -35,7 +35,7 @@
   when: not stat_result.stat.exists or exporter_upgrade == "yes"
   tags: [ 'prometheus_{{ exporter }}' ]
 
-- name: '{{ exporter }} exporter | get latest release from GitHub'
+- name: '{{ exporter }} exporter | get latest release from GitHub'
   shell: curl --silent "https://api.github.com/repos/{{ prometheus_repo }}/{{ exporter }}_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
   args:
     warn: false
