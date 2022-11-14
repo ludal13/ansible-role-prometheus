@@ -11,4 +11,4 @@
     mode: 0600
   register: prometheus_postgres_exporter_configuration
   notify:
-    - 'prometheus | postgres exporter | restart service'
+    - 'prometheus | postgres exporter | restart service'

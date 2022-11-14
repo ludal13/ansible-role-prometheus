@@ -10,4 +10,4 @@
     group: root
     mode: 0600
   notify:
-    - 'prometheus | phpfpm exporter | restart service'
+    - 'prometheus | phpfpm exporter | restart service'

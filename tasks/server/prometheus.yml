@@ -1,5 +1,5 @@
 ---
-- name: 'prometheus | server | assert | check mandatory vars are defined'
+- name: 'prometheus | server | assert | check mandatory vars are defined'
   assert:
     that:
       - "prometheus_server_monitor is defined"
@@ -12,7 +12,7 @@
   tags:
     - prometheus
 
-- name: 'prometheus | server | create docker volume data'
+- name: 'prometheus | server | create docker volume data'
   docker_volume:
     name: prometheus_data
   register: register_docker_volume_prometheus__prometheus_data
@@ -37,7 +37,7 @@
   tags:
     - prometheus
   notify:
-    - 'prometheus | server | restart container'
+    - 'prometheus | server | restart container'
 
 - name: 'prometheus | server | deploy container'
   docker_container:
@@ -67,4 +67,4 @@
   tags:
     - prometheus
   notify:
-    - 'prometheus | server | restart container'
+    - 'prometheus | server | restart container'

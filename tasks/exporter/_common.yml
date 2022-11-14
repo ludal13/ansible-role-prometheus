@@ -14,14 +14,14 @@
   register: stat_result
   tags: [ 'prometheus_{{ exporter }}' ]
 
-- name: '{{ exporter }} exporter | stop old version'
+- name: '{{ exporter }} exporter | stop old version'
   systemd:
     name: prometheus-{{ exporter }}-exporter.service
     state: stopped
   when: exporter_upgrade == "yes"
   tags: [ 'prometheus_{{ exporter }}' ]
 
-- name: '{{ exporter }} exporter | remove old version'
+- name: '{{ exporter }} exporter | remove old version'
   file:
     path: /usr/local/bin/prometheus-{{ exporter }}-exporter
     state: absent
@@ -79,7 +79,7 @@
 
 - name: '{{ exporter }} exporter | systemd | copy unit file'
   template:
-    src: systemd/prometheus-{{ exporter }}-exporter.service.j2
+    src: systemd/prometheus-{{ exporter }}-exporter.service.j2
     dest: /etc/systemd/system/prometheus-{{ exporter }}-exporter.service
     owner: root
     group: root

@@ -13,4 +13,4 @@
     - prometheus_mysqld_exporter_user is defined
   register: prometheus_mysqld_exporter_configuration
   notify:
-    - 'prometheus | mysqld exporter | restart service'
+    - 'prometheus | mysqld exporter | restart service'
