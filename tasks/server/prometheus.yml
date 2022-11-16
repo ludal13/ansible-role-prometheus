@@ -3,29 +3,25 @@
   assert:
     that:
       - "prometheus_server_monitor is defined"
-  tags:
-    - prometheus
+  tags: ['prometheus_server']
 
 - name: 'prometheus | server | create docker network'
   docker_network:
     name: 'prometheus'
-  tags:
-    - prometheus
+  tags: ['prometheus_server']
 
 - name: 'prometheus | server | create docker volume data'
   docker_volume:
     name: prometheus_data
   register: register_docker_volume_prometheus__prometheus_data
-  tags:
-    - prometheus
+  tags: ['prometheus_server']
 
 - name: 'prometheus | server | create prometheus directory to /etc'
   file:
     path: /etc/prometheus
     state: directory
     mode: '0755'
-  tags:
-    - prometheus
+  tags: ['prometheus_server']
 
 - name: 'prometheus | server | copy config prometheus yml'
   template:
@@ -34,8 +30,7 @@
     owner: root
     group: root
     mode: 0644
-  tags:
-    - prometheus
+  tags: ['prometheus_server']
   notify:
     - 'prometheus | server | restart container'
 
@@ -64,7 +59,6 @@
     restart_policy: 'unless-stopped'
     pull: '{{ prometheus_docker_pull }}'
     etc_hosts: '{{ prometheus_nodes_ip }}'
-  tags:
-    - prometheus
+  tags: ['prometheus_server']
   notify:
     - 'prometheus | server | restart container'
