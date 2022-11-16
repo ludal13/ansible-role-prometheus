@@ -1,6 +1,6 @@
 ---
 - include_tasks: _common.yml
-  tags: ['prometheus_phpfpm']
+  tags: ['prometheus_phpfpm_exporter']
 
 - name: 'phpfpm exporter | install startup script'
   template:
@@ -11,3 +11,4 @@
     mode: 0600
   notify:
     - 'prometheus | phpfpm exporter | restart service'
+  tags: ['prometheus_phpfpm_exporter']

@@ -1,6 +1,6 @@
 ---
 - include_tasks: _common.yml
-  tags: ['prometheus_mysqld']
+  tags: ['prometheus_mysqld_exporter']
 
 - name: 'mysqld exporter | configuration'
   template:
@@ -14,3 +14,4 @@
   register: prometheus_mysqld_exporter_configuration
   notify:
     - 'prometheus | mysqld exporter | restart service'
+  tags: ['prometheus_mysqld_exporter']

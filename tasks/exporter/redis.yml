@@ -1,6 +1,6 @@
 ---
 - include_tasks: _common.yml
-  tags: ['prometheus_redis']
+  tags: ['prometheus_redis_exporter']
 
 - name: 'redis exporter | configuration'
   template:
@@ -12,3 +12,4 @@
   register: prometheus_redis_exporter_configuration
   notify:
     - 'prometheus | redis exporter | restart service'
+  tags: ['prometheus_redis_exporter']

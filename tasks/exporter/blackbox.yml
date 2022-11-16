@@ -1,6 +1,6 @@
 ---
 - include_tasks: _common.yml
-  tags: ['prometheus_blackbox']
+  tags: ['prometheus_blackbox_exporter']
 
 - name: 'blackbox exporter | configuration'
   template:
@@ -12,3 +12,4 @@
   register: prometheus_blackbox_exporter_configuration
   notify:
     - 'prometheus | blackbox exporter | restart service'
+  tags: ['prometheus_blackbox_exporter']

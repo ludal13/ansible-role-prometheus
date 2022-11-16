@@ -1,6 +1,6 @@
 ---
 - include_tasks: _common.yml
-  tags: ['prometheus_opcache']
+  tags: ['prometheus_opcache_exporter']
 
 - name: 'opcache exporter | configuration'
   template:
@@ -12,3 +12,4 @@
   register: prometheus_opcache_exporter_configuration
   notify:
     - 'prometheus | opcache exporter | restart service'
+  tags: ['prometheus_opcache_exporter']

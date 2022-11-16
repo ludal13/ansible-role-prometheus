@@ -1,6 +1,6 @@
 ---
 - include_tasks: _common.yml
-  tags: ['prometheus_postgres']
+  tags: ['prometheus_postgres_exporter']
 
 - name: 'postgres exporter | configuration'
   template:
@@ -12,3 +12,4 @@
   register: prometheus_postgres_exporter_configuration
   notify:
     - 'prometheus | postgres exporter | restart service'
+  tags: ['prometheus_postgres_exporter']

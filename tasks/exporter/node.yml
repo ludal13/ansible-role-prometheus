@@ -1,3 +1,3 @@
 ---
 - include_tasks: _common.yml
-  tags: ['prometheus_node']
+  tags: ['prometheus_node_exporter']
