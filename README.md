@@ -57,6 +57,7 @@ Role variables
 | prometheus_mongodb_exporter_port             | string  |                                                                                    | 27017                   |                 |
 | prometheus_mongodb_exporter_user             | string  |                                                                                    |                         |                 |
 | prometheus_mongodb_exporter_pass             | string  |                                                                                    |                         |                 |
+| prometheus_opcache_exporter_fcgi_uri         | string  |                                                                                    | unix:///var/run/www.sock|                 |
 | prometheus_server_version                    | string  |                                                                                    |  latest                 |                 |
 | prometheus_redis_exporter_addr               | string  |                                                                                    | redis://localhost:6379  |                 |
 | prometheus_redis_exporter_user               | string  |                                                                                    |                         |                 |
