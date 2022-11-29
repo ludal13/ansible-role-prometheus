@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/prometheus-memcached-exporter
+ExecStart=/usr/local/bin/prometheus-memcached-exporter {% if prometheus_memcached_socket_path is defined %}--memcached.address="{{ prometheus_memcached_socket_path }}"{% endif %}
 
 [Install]
 WantedBy=multi-user.target
