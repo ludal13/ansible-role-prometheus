@@ -89,7 +89,7 @@
   when: not stat_result.stat.exists or exporter_upgrade == "yes"
   tags: [ 'prometheus_{{ exporter }}' ]
 
-- name: '{{ exporter }} exporter | systemd | enable {{ exporter }}'
+- name: '{{ exporter }} exporter | systemd | enable service'
   systemd:
     daemon_reload: yes
     enabled: yes
