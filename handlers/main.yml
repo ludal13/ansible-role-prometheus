@@ -81,3 +81,10 @@
     state: restarted
     enabled: yes
   tags: ['prometheus']
+
+- name: 'prometheus | cloudflare exporter | restart service'
+  systemd:
+    name: prometheus-cloudflare-exporter.service
+    state: restarted
+    enabled: yes
+  tags: ['prometheus']
