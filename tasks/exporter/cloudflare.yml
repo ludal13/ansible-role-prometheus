@@ -3,7 +3,7 @@
   assert:
     that:
       - cloudflare_api_key is defined
-  tags: ['prometheus_cloudflare_exporter']
+  tags: ['prometheus_cloudflare']
 
 - include_tasks: _docker.yml
-  tags: ['prometheus_cloudflare_exporter']
+  tags: ['prometheus_cloudflare']
