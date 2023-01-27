@@ -1,5 +1,5 @@
 ---
-- name: cloudflare | check vars are defined
+- name: 'cloudflare exporter | check vars are defined'
   assert:
     that:
       - cloudflare_api_key is defined
