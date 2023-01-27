@@ -1,4 +1,8 @@
 ---
+docker_compose_path: "/opt/docker-compose"
+
+prometheus_docker_network: prometheus
+
 prometheus_docker_pull: "no"
 
 exporter_upgrade: ""

@@ -1,0 +1,46 @@
+---
+- name: '{{ exporter }} exporter | check if docker is installed'
+  shell:
+    cmd: {{ item }} --help
+  register: result
+  check_mode: false
+  changed_when: false
+  failed_when: result.rc != 0 and result.rc != 127
+  with_items:
+    - docker
+    - docker-compose
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | create docker-compose directory'
+  file:
+    path: "{{ docker_compose_directory }}"
+    state: directory
+    mode: '0755'
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | copy docker-compose file'
+  template:
+    src: compose/{{ exporter }}.yml.j2
+    dest: /opt/docker-compose/{{ exporter }}/docker-compose.yml
+    owner: root
+    group: root
+    mode: 0644
+  notify: "{{ exporter }}-restart"
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | systemd | install unit file'
+  template:
+    src: systemd/docker-compose.service.j2
+    dest: /etc/systemd/system/docker-compose@{{ exporter }}.service
+    owner: root
+    group: root
+    mode: 0600
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | systemd | enable service'
+  systemd:
+    daemon_reload: yes
+    name: docker-compose@{{ exporter }}
+    enabled: true
+  ignore_errors: '{{ ansible_check_mode }}'
+  tags: [ 'prometheus_{{ exporter }}' ]

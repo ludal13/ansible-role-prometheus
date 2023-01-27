@@ -7,7 +7,7 @@
 
 - name: 'prometheus | server | create docker network'
   docker_network:
-    name: 'prometheus'
+    name: '{{ prometheus_docker_network }}'
   tags: ['prometheus_server']
 
 - name: 'prometheus | server | create docker volume data'
@@ -50,7 +50,7 @@
       - '--web.console.templates=/usr/share/prometheus/consoles'
       - '--web.enable-admin-api'
     networks:
-    - { name: prometheus }
+    - { name: {{ prometheus_docker_network }} }
     ports:
       - "9090:9090"
     log_driver: syslog

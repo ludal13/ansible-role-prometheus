@@ -371,3 +371,19 @@ scrape_configs:
         regex: '(.*):8080'
         replacement: '${1}'
 {% endif %}
+
+{% if prometheus_cloudflare_exporter_targets is defined %}
+  # cloudflare #
+  - job_name: cloudflare
+    scrape_interval: 30s
+    static_configs:
+      - targets:
+{% for target in prometheus_cloudflare_exporter_targets %}
+        - {{ target }}:8082
+  {% endfor %}
+  relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):8082'
+        replacement: '${1}'
+{% endif %}

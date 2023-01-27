@@ -1,0 +1,9 @@
+---
+- name: cloudflare | check vars are defined
+  assert:
+    that:
+      - cloudflare_api_key is defined
+  tags: ['prometheus_cloudflare_exporter']
+
+- include_tasks: _docker.yml
+  tags: ['prometheus_cloudflare_exporter']
