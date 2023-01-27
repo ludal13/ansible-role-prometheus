@@ -88,3 +88,10 @@
     state: restarted
     enabled: yes
   tags: ['prometheus']
+
+- name: 'prometheus | proxmox exporter | restart service'
+  systemd:
+    name: prometheus-proxmox-exporter.service
+    state: restarted
+    enabled: yes
+  tags: ['prometheus']

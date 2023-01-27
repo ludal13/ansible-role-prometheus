@@ -1,0 +1,11 @@
+[Unit]
+Description=Proxmox VE Prometheus Exporter
+After=network.target
+Wants=network.target
+
+[Service]
+Restart=on-failure
+ExecStart=/usr/local/bin/pve_exporter /etc/default/prometheus-pve-exporter {{ prometheus_proxmox_exporter_port | default('9221') }} {{ prometheus_proxmox_exporter_node }}
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+default:
+    user: {{ prometheus_proxmox_exporter_user }}
+    password: {{ prometheus_proxmox_exporter_password }}
+    verify_ssl: {{ prometheus_proxmox_exporter_verify_ssl | default('false') }}
