@@ -28,7 +28,7 @@
 
 - name: 'promox exporter | systemd | copy unit file'
   template:
-    src: systemd/prometheus-promox-exporter.service.j2
+    src: systemd/prometheus-proxmox-exporter.service.j2
     dest: /etc/systemd/system/prometheus-promox-exporter.service
     owner: root
     group: root
