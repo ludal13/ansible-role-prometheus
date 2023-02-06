@@ -26,19 +26,19 @@
     - 'prometheus | proxmox exporter | restart service'
   tags: ['prometheus_proxmox']
 
-- name: 'promox exporter | systemd | copy unit file'
+- name: 'proxmox exporter | systemd | copy unit file'
   template:
     src: systemd/prometheus-proxmox-exporter.service.j2
-    dest: /etc/systemd/system/prometheus-promox-exporter.service
+    dest: /etc/systemd/system/prometheus-proxmox-exporter.service
     owner: root
     group: root
     mode: 0600
   notify:
-    - 'prometheus | promox exporter | restart service'
+    - 'prometheus | proxmox exporter | restart service'
   #when: not stat_result.stat.exists or exporter_upgrade == "yes"
   tags: ['prometheus_proxmox']
 
-- name: 'promox exporter | systemd | enable service'
+- name: 'proxmox exporter | systemd | enable service'
   systemd:
     daemon_reload: yes
     enabled: yes
