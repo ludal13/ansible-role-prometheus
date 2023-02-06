@@ -18,7 +18,7 @@ prometheus_repo_memcached: prometheus
 prometheus_repo_mongodb: percona
 prometheus_repo_mysqld: prometheus
 prometheus_repo_node: prometheus
-prometheus_repo_opcache: MyOnlineStore
+prometheus_repo_opcache: tchivert
 prometheus_repo_phpfpm: Lusitaniae
 prometheus_repo_postgres: prometheus-community
 prometheus_repo_redis: oliver006
