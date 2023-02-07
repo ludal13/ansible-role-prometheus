@@ -1,7 +1,7 @@
 ---
 - name: '{{ exporter }} exporter | check if docker is installed'
   shell:
-    cmd: {{ item }} --help
+    cmd: "{{ item }} --help"
   register: result
   check_mode: false
   changed_when: false
@@ -21,7 +21,7 @@
 - name: '{{ exporter }} exporter | copy docker-compose file'
   template:
     src: compose/{{ exporter }}.yml.j2
-    dest: /opt/docker-compose/{{ exporter }}/docker-compose.yml
+    dest: "/opt/docker-compose/{{ exporter }}/docker-compose.yml"
     owner: root
     group: root
     mode: 0644
@@ -31,7 +31,7 @@
 - name: '{{ exporter }} exporter | systemd | install unit file'
   template:
     src: systemd/docker-compose.service.j2
-    dest: /etc/systemd/system/docker-compose@{{ exporter }}.service
+    dest: "/etc/systemd/system/docker-compose@{{ exporter }}.service"
     owner: root
     group: root
     mode: 0600
@@ -40,7 +40,7 @@
 - name: '{{ exporter }} exporter | systemd | enable service'
   systemd:
     daemon_reload: yes
-    name: docker-compose@{{ exporter }}
+    name: "docker-compose@{{ exporter }}"
     enabled: true
   ignore_errors: '{{ ansible_check_mode }}'
   tags: [ 'prometheus_{{ exporter }}' ]
