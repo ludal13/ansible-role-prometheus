@@ -84,7 +84,7 @@
 
 - name: 'prometheus | cloudflare exporter | restart service'
   systemd:
-    name: prometheus-cloudflare-exporter.service
+    name: docker-compose@cloudflare.service
     state: restarted
     enabled: yes
   tags: ['prometheus']

@@ -25,7 +25,8 @@
     owner: root
     group: root
     mode: 0644
-  notify: "{{ exporter }}-restart"
+  notify:
+    - 'prometheus | {{ exporter }} exporter | restart service'
   tags: [ 'prometheus_{{ exporter }}' ]
 
 - name: '{{ exporter }} exporter | systemd | install unit file'
@@ -35,6 +36,8 @@
     owner: root
     group: root
     mode: 0600
+  notify:
+    - 'prometheus | {{ exporter }} exporter | restart service'
   tags: [ 'prometheus_{{ exporter }}' ]
 
 - name: '{{ exporter }} exporter | systemd | enable service'
