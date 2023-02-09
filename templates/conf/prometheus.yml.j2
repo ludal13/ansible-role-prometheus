@@ -46,8 +46,8 @@ scrape_configs:
         target_label: instance
         regex: '(.*):9100'
         replacement: '${1}'
-{% endif %}
 
+{% endif %}
 {% if prometheus_mysqld_exporter_targets is defined %}
   # mysql exporter #
   - job_name: mysql
@@ -74,8 +74,8 @@ scrape_configs:
         target_label: instance
         regex: '(.*):9104'
         replacement: '${1}'
-{% endif %}
 
+{% endif %}
 {% if prometheus_mongodb_exporter_targets is defined %}
   # mongoDB exporter #
   - job_name: mongodb
@@ -97,8 +97,8 @@ scrape_configs:
         - {{ target }}:9216
 {% endfor %}
 {% endif %}
-{% endif %}
 
+{% endif %}
 {% if prometheus_postgres_exporter_targets is defined %}
   # postgresql exporter #
   - job_name: postgresql
@@ -120,8 +120,8 @@ scrape_configs:
         - {{ target }}:9187
 {% endfor %}
 {% endif %}
-{% endif %}
 
+{% endif %}
 {% if prometheus_phpfpm_exporter_targets is defined %}
   # PHP-FPM exporter #
   - job_name: phpfpm
@@ -137,8 +137,8 @@ scrape_configs:
         target_label: instance
         regex: '(.*):9253'
         replacement: '${1}'
-{% endif %}
 
+{% endif %}
 {% if prometheus_opcache_exporter_targets is defined %}
   # opcache exporter #
   - job_name: opcache
@@ -154,8 +154,8 @@ scrape_configs:
         target_label: instance
         regex: '(.*):9101'
         replacement: '${1}'
-{% endif %}
 
+{% endif %}
 {% if prometheus_apache_exporter_targets is defined %}
   # apache exporter #
   - job_name: apache
@@ -171,8 +171,8 @@ scrape_configs:
         target_label: instance
         regex: '(.*):9117'
         replacement: '${1}'
-{% endif %}
 
+{% endif %}
 {% if prometheus_haproxy_exporter_targets is defined %}
   # haproxy exporter #
   - job_name: haproxy
@@ -188,8 +188,8 @@ scrape_configs:
         target_label: instance
         regex: '(.*):8404'
         replacement: '${1}'
-{% endif %}
 
+{% endif %}
 {% if prometheus_varnish_exporter_targets is defined %}
   # Varnish exporter #
   - job_name: varnish
@@ -205,8 +205,8 @@ scrape_configs:
         target_label: instance
         regex: '(.*):9131'
         replacement: '${1}'
-{% endif %}
 
+{% endif %}
 {% if prometheus_blackbox_exporter is defined %}
   # blackbox #
 {% if prometheus_blackbox_exporter_http is defined %}
@@ -250,8 +250,8 @@ scrape_configs:
       - target_label: __address__
         replacement: {{ prometheus_blackbox_exporter_host }}:9115
 {% endif %}
-{% endif %}
 
+{% endif %}
 {% if prometheus_redis_multi_instances_exporter_targets is defined %}
   # Redis exporter #
   - job_name: 'redis_exporter_targets'
@@ -270,8 +270,8 @@ scrape_configs:
         target_label: __address__
         regex: 'redis://(.*):63..'
         replacement: '${1}:9121'
-{% endif %}
 
+{% endif %}
 {% if prometheus_redis_exporter_targets is defined %}
   # Redis exporter #
   - job_name: redis
@@ -287,8 +287,8 @@ scrape_configs:
         target_label: instance
         regex: '(.*):9121'
         replacement: '${1}'
-{% endif %}
 
+{% endif %}
 {% if prometheus_proxysql_exporter_targets is defined %}
   # ProxySQL exporter #
   - job_name: proxysql
@@ -304,8 +304,8 @@ scrape_configs:
         regex: '(.*):6070'
         replacement: '${1}'
 {% endfor %}
-{% endif %}
 
+{% endif %}
 {% if prometheus_kong_exporter_targets is defined %}
   # Kong exporter #
   - job_name: kong
@@ -320,8 +320,8 @@ scrape_configs:
 {% for target in prometheus_kong_exporter_targets %}
         - {{ target }}
 {% endfor %}
-{% endif %}
 
+{% endif %}
 {% if prometheus_memcached_exporter_targets is defined %}
   # Memcached exporter #
   - job_name: memcached
@@ -337,8 +337,8 @@ scrape_configs:
         target_label: instance
         regex: '(.*):9150'
         replacement: '${1}'
-{% endif %}
 
+{% endif %}
 {% if prometheus_docker_exporter_targets is defined %}
   # Docker exporter #
   - job_name: docker
@@ -354,8 +354,8 @@ scrape_configs:
         target_label: instance
         regex: '(.*):9323'
         replacement: '${1}'
-{% endif %}
 
+{% endif %}
 {% if prometheus_cadvisor_exporter_targets is defined %}
   # cadvisor #
   - job_name: cadvisor
@@ -370,8 +370,8 @@ scrape_configs:
         target_label: instance
         regex: '(.*):8080'
         replacement: '${1}'
-{% endif %}
 
+{% endif %}
 {% if prometheus_cloudflare_exporter_targets is defined %}
   # cloudflare #
   - job_name: cloudflare
@@ -386,8 +386,8 @@ scrape_configs:
         target_label: instance
         regex: '(.*):8082'
         replacement: '${1}'
-{% endif %}
 
+{% endif %}
 {% if prometheus_pve_exporter_targets is defined %}
   # proxmox #
   - job_name: pve

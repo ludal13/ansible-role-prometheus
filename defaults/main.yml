@@ -64,3 +64,15 @@ prometheus_postgres_exporter_port: 5432
 prometheus_redis_exporter_addr: "redis://localhost:6379"
 prometheus_redis_exporter_user: ""
 prometheus_redis_exporter_password: ""
+
+## grafana
+
+grafana_auth_anonymous_enabled: false
+grafana_auth_anonymous_org_role: Editor # Viewer
+grafana_auth_anonymous_org_name: 'Main Org.'
+grafana_auth_disable_login_form: false
+grafana_editors_can_admin: false
+grafana_users_viewers_can_edit: false
+grafana_log_level: error
+grafana_router_logging: false
+grafana_disable_sanitize_html: true

@@ -1,9 +1,10 @@
 ---
-- name: 'prometheus | server | restart container'
-  docker_container:
-    name: prometheus
-    restart: yes
-  tags: ['prometheus']
+- name: 'grafana-prometheus | server | restart container'
+  systemd:
+    name: docker-compose@grafana-prometheus.service
+    state: restarted
+    enabled: yes
+  tags: ['grafana-prometheus']
 
 - name: 'prometheus | node exporter | restart service'
   systemd:

@@ -1,0 +1,104 @@
+version: "3"
+
+networks:
+  grafana:
+    name: grafana
+{% if grafana_traefik_enable is defined %}
+  traefik:
+    external: true
+{% endif %}
+
+volumes:
+  prometheus-data:
+  grafana-data:
+
+services:
+  grafana:
+    image: grafana/grafana:{{ grafana_version | default('main') }}
+    container_name: grafana
+    user: "1000:1000"
+    restart: unless-stopped
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana.ini:/etc/grafana/grafana.ini
+      - ./dashboards:/etc/grafana/provisioning/dashboards/
+      - ./datasources:/etc/grafana/provisioning/datasources/
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "{{ grafana_auth_anonymous_enabled|string|lower }}"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: "{{ grafana_auth_anonymous_org_role }}"
+      GF_AUTH_ANONYMOUS_ORG_NAME: "{{ grafana_auth_anonymous_org_name }}"
+      GF_AUTH_DISABLE_LOGIN_FORM: "{{ grafana_auth_disable_login_form|string|lower }}"
+      GF_AUTH_EDITORS_CAN_ADMIN: "{{ grafana_editors_can_admin|string|lower }}"
+{% if grafana_admin_password is defined %}
+      GF_SECURITY_ADMIN_PASSWORD: "{{ grafana_admin_password }}"
+{% endif %}
+      GF_USERS_VIEWERS_CAN_EDIT: "{{ grafana_users_viewers_can_edit|string|lower }}"
+{% if grafana_admin_password is defined %}
+      GF_ROOT_URL: "{{ grafana_domain }}"
+{% endif %}
+      GF_LOG_LEVEL: "{{ grafana_log_level|string }}"
+      GF_ROUTER_LOGGING: "{{ grafana_router_logging|string|lower }}"
+      GF_PANELS_DISABLE_SANITIZE_HTML: "{{ grafana_disable_sanitize_html|string|lower }}"
+{% if grafana_install_plugins is defined %}
+      GF_INSTALL_PLUGINS: "{{ grafana_install_plugins|string|lower }}"
+{% endif %}
+{% if grafana_smtp_enabled is defined %}
+      GF_SMTP_ENABLED: "{{ grafana_smtp_enabled|string|lower }}"
+      GF_SMTP_HOST: "{{ grafana_smtp_host|string }}"
+      GF_SMTP_FROM_ADDRESS: "{{ grafana_smtp_from_address|string }}"
+      GF_SMTP_FROM_NAME: "{{ grafana_smtp_from_name|string }}"
+      GF_SMTP_SKIP_VERIFY: "{{ grafana_smtp_skip_verify|string|lower }}"
+{% else %}
+      GF_SMTP_ENABLED: "false"
+{% endif %}
+    networks:
+      - grafana
+{% if grafana_traefik_enable is defined %}
+      - traefik
+    labels:
+      traefik.enable: true
+      traefik.docker.network: traefik
+      traefik.http.routers.grafana.rule: Host(`{{ grafana_domain|default(omit) }}`)
+      traefik.http.routers.grafana.tls: true
+      traefik.http.routers.grafana.tls.certresolver: letsencrypt
+      traefik.http.routers.grafana.entrypoints: websecure
+      traefik.http.services.grafana.loadbalancer.server.port: 3000
+{% else %}
+    ports:
+      - "{{ grafana_port | default(3000) }}:3000"
+{% endif %}
+
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:{{ grafana_prometheus_version | default('latest') }}
+    volumes:
+      - /etc/prometheus/:/etc/prometheus/
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time={{ prometheus_retention_time }}'
+      - '--web.enable-lifecycle'
+    networks:
+      - grafana
+{% if grafana_traefik_enable is defined %}
+      - traefik
+    labels:
+      traefik.enable: true
+      traefik.docker.network: traefik
+      traefik.http.routers.prometheus.rule: Host(`{{ prometheus_domain|default(omit) }}`)
+      traefik.http.routers.prometheus.tls: true
+      traefik.http.routers.prometheus.tls.certresolver: letsencrypt
+      traefik.http.routers.prometheus.entrypoints: websecure
+      traefik.http.services.prometheus.loadbalancer.server.port: 9090
+{% else %}
+    ports:
+      - "{{ prometheus_port | default(9090) }}:9090"
+{% endif %}
+{% if prometheus_nodes_ip is defined %}
+    extra_hosts:
+{% for key, value in prometheus_nodes_ip.items() %}
+      - "{{ key }}:{{ value }}"
+{% endfor %}
+{% endif %}
+    restart: unless-stopped
