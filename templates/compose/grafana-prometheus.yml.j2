@@ -14,7 +14,7 @@ volumes:
 
 services:
   grafana:
-    image: grafana/grafana:{{ grafana_version | default('main') }}
+    image: grafana/grafana:{{ grafana_version | default('latest') }}
     container_name: grafana
     user: "1000:1000"
     restart: unless-stopped
