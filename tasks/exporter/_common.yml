@@ -46,6 +46,7 @@
   get_url:
     url: "https://github.com/{{ prometheus_repo }}/{{ exporter }}_exporter/releases/download/v{{ prometheus_exporter_latest_version.stdout }}/{{ exporter }}_exporter-{{ prometheus_exporter_latest_version.stdout }}.{{ prometheus_os }}-{{ prometheus_arch }}.tar.gz"
     dest: /tmp/prometheus_exporter/{{ exporter }}/
+  ignore_errors: '{{ ansible_check_mode }}'
   when: not stat_result.stat.exists or exporter_upgrade == "yes"
   tags: [ 'prometheus_{{ exporter }}' ]
 
@@ -55,6 +56,7 @@
     src: /tmp/prometheus_exporter/{{ exporter }}/{{ exporter }}_exporter-{{ prometheus_exporter_latest_version.stdout }}.{{ prometheus_os }}-{{ prometheus_arch }}.tar.gz
     dest: /tmp/prometheus_exporter/{{ exporter }}/
   when: not stat_result.stat.exists or exporter_upgrade == "yes"
+  ignore_errors: '{{ ansible_check_mode }}'
   tags: [ 'prometheus_{{ exporter }}' ]
 
 - name: '{{ exporter }} exporter | move to /usr/local/bin'
@@ -69,6 +71,7 @@
     - '{{ exporter }}-exporter-restart'
   when: not stat_result.stat.exists or exporter_upgrade == "yes"
   tags: [ 'prometheus_{{ exporter }}' ]
+  ignore_errors: '{{ ansible_check_mode }}'
 
 - name: '{{ exporter }} exporter | cleanup temp path'
   file:
@@ -85,6 +88,7 @@
   notify:
     - '{{ exporter }}-exporter-restart'
   when: not stat_result.stat.exists or exporter_upgrade == "yes"
+  ignore_errors: '{{ ansible_check_mode }}'
   tags: [ 'prometheus_{{ exporter }}' ]
 
 - name: '{{ exporter }} exporter | systemd | enable service'
