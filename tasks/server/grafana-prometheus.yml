@@ -3,25 +3,12 @@
   assert:
     that:
       - "prometheus_server_monitor is defined"
-  tags: ['prometheus_server']
-
-- name: 'prometheus | server | create docker network'
-  docker_network:
-    name: '{{ prometheus_docker_network }}'
-  tags: ['prometheus_server']
-
-- name: 'prometheus | server | create docker volume data'
-  docker_volume:
-    name: prometheus_data
-  register: register_docker_volume_prometheus__prometheus_data
-  tags: ['prometheus_server']
 
 - name: 'prometheus | server | create prometheus directory to /etc'
   file:
     path: /etc/prometheus
     state: directory
     mode: '0755'
-  tags: ['prometheus_server']
 
 - name: 'prometheus | server | copy config prometheus yml'
   template:
@@ -30,16 +17,14 @@
     owner: root
     group: root
     mode: 0644
-  tags: ['prometheus_server']
   notify:
-    - 'grafana-prometheus | server | restart container'
+    - 'grafana-prometheus-restart'
 
 - name: "grafana-prometheus | create docker-compose directory"
   file:
     path: /opt/docker-compose/grafana-prometheus
     state: directory
     mode: '0755'
-  tags: [ 'grafana-prometheus', 'prometheus_server' ]
 
 - name: "grafana-prometheus | copy docker-compose file"
   template:
@@ -48,8 +33,7 @@
     owner: root
     group: root
     mode: 0644
-  notify: "grafana-prometheus | server | restart container"
-  tags: [ 'grafana-prometheus' ]
+  notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | create grafana.ini file"
   file:
@@ -58,25 +42,8 @@
     group: '1000'
     mode: '0750'
     state: touch
-  notify: "grafana-prometheus | server | restart container"
-  tags: [ 'grafana-prometheus' ]
+  notify: "grafana-prometheus-restart"
   ignore_errors: '{{ ansible_check_mode }}'
-
-- name: "grafana-prometheus | import grafana provisioned datasources"
-  synchronize:
-    src: "{{ grafana_provisioned_datasources_path }}"
-    dest: /opt/docker-compose/grafana-prometheus/
-  when: grafana_provisioned_datasources_path is defined
-  notify: "grafana-prometheus | server | restart container"
-  tags: [ 'grafana-prometheus' ]
-
-- name: "grafana-prometheus | import grafana provisioned dashboards"
-  synchronize:
-    src: "{{ grafana_provisioned_dashboards_path }}"
-    dest: /opt/docker-compose/grafana-prometheus/
-  when: grafana_provisioned_datasources_path is defined
-  notify: "grafana-prometheus | server | restart container"
-  tags: [ 'grafana-prometheus' ]
 
 - name: "grafana-prometheus | install unit file to systemd"
   vars:
@@ -87,7 +54,6 @@
     owner: root
     group: root
     mode: 0600
-  tags: [ 'grafana-prometheus' ]
 
 - name: "grafana-prometheus | enable service"
   systemd:
@@ -95,4 +61,3 @@
     name: docker-compose@grafana-prometheus
     enabled: true
   ignore_errors: '{{ ansible_check_mode }}'
-  tags: [ 'grafana-prometheus' ]

@@ -1,96 +1,96 @@
 ---
-- name: 'grafana-prometheus | server | restart container'
+- name: 'grafana-prometheus-restart'
   systemd:
     name: docker-compose@grafana-prometheus.service
     state: restarted
     enabled: yes
   tags: ['grafana-prometheus']
 
-- name: 'prometheus | node exporter | restart service'
+- name: 'node-exporter-restart'
   systemd:
     name: prometheus-node-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | mysqld exporter | restart service'
+- name: 'mysqld-exporter-restart'
   systemd:
     name: prometheus-mysqld-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | mongodb exporter | restart service'
+- name: 'mongodb-exporter-restart'
   systemd:
     name: prometheus-mongodb-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | postgres exporter  restart service'
+- name: 'postgres-exporter-restart'
   systemd:
     name: prometheus-postgres-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | phpfpm exporter | restart service'
+- name: 'phpfpm-exporter-restart'
   systemd:
     name: prometheus-phpfpm-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | opcache exporter | restart service'
+- name: 'opcache-exporter-restart'
   systemd:
     name: prometheus-opcache-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | apache exporter | restart service'
+- name: 'apache-exporter-restart'
   systemd:
     name: prometheus-apache-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | varnish exporter | restart service'
+- name: 'varnish-exporter-restart'
   systemd:
     name: prometheus-varnish-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | blackbox exporter | restart service'
+- name: 'blackbox-exporter-restart'
   systemd:
     name: prometheus-blackbox-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | redis exporter | restart service'
+- name: 'redis-exporter-restart'
   systemd:
     name: prometheus-redis-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | memcached exporter | restart service'
+- name: 'memcached-exporter-restart'
   systemd:
     name: prometheus-memcached-exporter.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | cloudflare exporter | restart service'
+- name: 'cloudflare-exporter-restart'
   systemd:
     name: docker-compose@cloudflare.service
     state: restarted
     enabled: yes
   tags: ['prometheus']
 
-- name: 'prometheus | proxmox exporter | restart service'
+- name: 'proxmox-exporter-restart'
   systemd:
     name: prometheus-proxmox-exporter.service
     state: restarted

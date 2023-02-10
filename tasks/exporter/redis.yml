@@ -11,5 +11,5 @@
     mode: 0600
   register: prometheus_redis_exporter_configuration
   notify:
-    - 'prometheus | redis exporter | restart service'
+    - 'redis-exporter-restart'
   tags: ['prometheus_redis_exporter']

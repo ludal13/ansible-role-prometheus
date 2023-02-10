@@ -10,5 +10,5 @@
     group: root
     mode: 0600
   notify:
-    - 'prometheus | phpfpm exporter | restart service'
+    - 'phpfpm-exporter-restart'
   tags: ['prometheus_phpfpm_exporter']
