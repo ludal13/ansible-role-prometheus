@@ -81,7 +81,7 @@ services:
       - '--web.enable-lifecycle'
     networks:
       - grafana
-{% if grafana_traefik_enable is defined %}
+{% if prometheus_traefik_enable is defined %}
       - traefik
     labels:
       traefik.enable: true
