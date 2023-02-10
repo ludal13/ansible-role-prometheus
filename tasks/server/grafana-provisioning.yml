@@ -12,6 +12,19 @@
   when: grafana_provisioned_datasources_path is defined
   notify: "grafana-prometheus-restart"
 
+- name: "grafana-prometheus | create grafana provisioning directories"
+  file:
+    path: "/opt/docker-compose/grafana-prometheus/{{ item }}"
+    state: directory
+    owner: '1000'
+    group: '1000'
+    mode: '0755'
+  loop:
+    - datasources
+    - dashboards
+  when: grafana_provisioned_datasources_path is not defined
+  notify: "grafana-prometheus-restart"
+
 - name: "grafana-prometheus | import grafana provisioned datasources conf"
   copy:
     src: dashboards/datasources.yaml

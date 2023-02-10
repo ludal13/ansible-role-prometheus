@@ -7,8 +7,10 @@
 
 ## prometheus server install
 - name: 'server install'
-  include_tasks: server/grafana-prometheus.yml
-  include_tasks: server/grafana-provisioning.yml
+  include_tasks: "server/{{ item }}"
+  loop:
+    - grafana-prometheus.yml
+    - grafana-provisioning.yml
   when:
     - prometheus_server_enable == "true"
   tags:
