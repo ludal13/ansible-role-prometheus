@@ -22,7 +22,7 @@ prometheus_repo_opcache: tchivert
 prometheus_repo_phpfpm: Lusitaniae
 prometheus_repo_postgres: prometheus-community
 prometheus_repo_redis: oliver006
-prometheus_repo_varnish: jonnenauha
+prometheus_repo_varnish: tchivert
 
 ## server
 prometheus_nodes_ip:
