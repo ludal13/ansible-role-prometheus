@@ -11,5 +11,5 @@
     mode: 0600
   register: prometheus_blackbox_exporter_configuration
   notify:
-    - 'prometheus | blackbox exporter | restart service'
+    - 'blackbox-exporter-restart'
   tags: ['prometheus_blackbox_exporter']

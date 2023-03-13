@@ -23,7 +23,7 @@
     mode: 0600
   register: prometheus_proxmox_exporter_configuration
   notify:
-    - 'prometheus | proxmox exporter | restart service'
+    - 'proxmox-exporter-restart'
   tags: ['prometheus_proxmox']
 
 - name: 'proxmox exporter | systemd | copy unit file'
@@ -34,7 +34,7 @@
     group: root
     mode: 0600
   notify:
-    - 'prometheus | proxmox exporter | restart service'
+    - 'proxmox-exporter-restart'
   #when: not stat_result.stat.exists or exporter_upgrade == "yes"
   tags: ['prometheus_proxmox']
 

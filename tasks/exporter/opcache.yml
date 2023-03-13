@@ -11,5 +11,5 @@
     mode: 0600
   register: prometheus_opcache_exporter_configuration
   notify:
-    - 'prometheus | opcache exporter | restart service'
+    - 'opcache-exporter-restart'
   tags: ['prometheus_opcache_exporter']

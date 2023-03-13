@@ -1,0 +1,63 @@
+---
+- name: 'prometheus | server | assert | check mandatory vars are defined'
+  assert:
+    that:
+      - "prometheus_server_monitor is defined"
+
+- name: 'prometheus | server | create prometheus directory to /etc'
+  file:
+    path: /etc/prometheus
+    state: directory
+    mode: '0755'
+
+- name: 'prometheus | server | copy config prometheus yml'
+  template:
+    src: conf/prometheus.yml.j2
+    dest: /etc/prometheus/prometheus.yml
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - 'grafana-prometheus-restart'
+
+- name: "grafana-prometheus | create docker-compose directory"
+  file:
+    path: /opt/docker-compose/grafana-prometheus
+    state: directory
+    mode: '0755'
+
+- name: "grafana-prometheus | copy docker-compose file"
+  template:
+    src: compose/grafana-prometheus.yml.j2
+    dest: /opt/docker-compose/grafana-prometheus/docker-compose.yml
+    owner: root
+    group: root
+    mode: 0644
+  notify: "grafana-prometheus-restart"
+
+- name: "grafana-prometheus | create grafana.ini file"
+  file:
+    path: /opt/docker-compose/grafana-prometheus/grafana.ini
+    owner: '1000'
+    group: '1000'
+    mode: '0750'
+    state: touch
+  notify: "grafana-prometheus-restart"
+  ignore_errors: '{{ ansible_check_mode }}'
+
+- name: "grafana-prometheus | install unit file to systemd"
+  vars:
+    exporter: "grafana-prometheus"
+  template:
+    src: systemd/docker-compose.service.j2
+    dest: /etc/systemd/system/docker-compose@grafana-prometheus.service
+    owner: root
+    group: root
+    mode: 0600
+
+- name: "grafana-prometheus | enable service"
+  systemd:
+    daemon_reload: yes
+    name: docker-compose@grafana-prometheus
+    enabled: true
+  ignore_errors: '{{ ansible_check_mode }}'
