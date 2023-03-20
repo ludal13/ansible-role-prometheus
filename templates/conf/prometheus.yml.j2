@@ -414,6 +414,9 @@ scrape_configs:
 {% for target in prometheus_opensearch_exporter_targets %}
         - {{ target }}:9200
 {% endfor %}
+    basic_auth:
+      username: {{ opensearch_user }}
+      password: {{ opensearch_pass }}
     relabel_configs:
       - source_labels: [ __address__ ]
         target_label: instance
