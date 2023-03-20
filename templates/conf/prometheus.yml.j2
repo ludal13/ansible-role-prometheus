@@ -370,8 +370,6 @@ scrape_configs:
         target_label: instance
         regex: '(.*):8080'
         replacement: '${1}'
-        regex: '(.*):8081'
-        replacement: '${1}'
 {% endif %}
 {% if prometheus_cloudflare_exporter_targets is defined %}
   # cloudflare #
