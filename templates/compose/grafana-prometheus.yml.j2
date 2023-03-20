@@ -2,7 +2,6 @@ version: "3"
 
 networks:
   grafana:
-    name: grafana
 {% if grafana_traefik_enable is defined %}
   traefik:
     external: true
