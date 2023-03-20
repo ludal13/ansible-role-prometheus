@@ -404,3 +404,19 @@ scrape_configs:
         regex: '(.*):9221'
         replacement: '${1}'
 {% endif %}
+{% if prometheus_opensearch_exporter_targets is defined %}
+  # opensearch #
+  - job_name: opensearch
+    scrape_interval: 30s
+    metrics_path: "/_prometheus/metrics"
+    static_configs:
+      - targets:
+{% for target in prometheus_opensearch_exporter_targets %}
+        - {{ target }}:9200
+{% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9200'
+        replacement: '${1}'
+{% endif %}

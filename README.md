@@ -15,6 +15,7 @@ The present role :
     - mysql
     - postgres
     - mongodb
+    - opensearch (via plugin for opensearch https://github.com/aiven/prometheus-exporter-plugin-for-opensearch)
 
 Please note that Docker and Haproxy their own embedded exporters.
   - https://docs.docker.com/config/daemon/prometheus/
