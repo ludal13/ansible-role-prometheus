@@ -362,7 +362,7 @@ scrape_configs:
     scrape_interval: 30s
     static_configs:
       - targets:
-{% for target,port in prometheus_cadvisor_exporter_targets %}
+{% for target in prometheus_cadvisor_exporter_targets %}
         - {{ target }}
 {% endfor %}
     relabel_configs:
