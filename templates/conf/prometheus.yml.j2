@@ -427,7 +427,7 @@ scrape_configs:
 {% endif %}
 {% if prometheus_gitlab_exporter_targets is defined %}
   # gitlab #
- - job_name: gitlab-nginx
+  - job_name: gitlab-nginx
     static_configs:
       - targets:
 {% for target in prometheus_gitlab_exporter_targets %}
