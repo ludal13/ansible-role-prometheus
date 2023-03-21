@@ -425,3 +425,64 @@ scrape_configs:
         regex: '(.*):9200'
         replacement: '${1}'
 {% endif %}
+{% if prometheus_gitlab_exporter_targets is defined %}
+  # gitlab #
+ - job_name: gitlab-nginx
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:8060
+{% endfor %}
+  - job_name: gitlab-redis
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:9121
+{% endfor %}
+  - job_name: gitlab-postgres
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:9187
+{% endfor %}
+  - job_name: gitlab-workhorse
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:9229
+{% endfor %}
+  - job_name: gitlab-rails
+    metrics_path: "/-/metrics"
+    scheme: https
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}
+{% endfor %}
+  - job_name: gitlab-sidekiq
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:8082
+{% endfor %}
+  - job_name: gitlab_exporter_database
+    metrics_path: "/database"
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:9168
+{% endfor %}
+  - job_name: gitlab_exporter_sidekiq
+    metrics_path: "/sidekiq"
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:9168
+{% endfor %}
+  - job_name: gitaly
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:9236
+{% endfor %}
+{% endif %}
