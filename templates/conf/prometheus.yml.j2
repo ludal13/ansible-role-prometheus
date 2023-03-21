@@ -453,11 +453,10 @@ scrape_configs:
 {% endfor %}
   - job_name: gitlab-rails
     metrics_path: "/-/metrics"
-    scheme: https
     static_configs:
       - targets:
 {% for target in prometheus_gitlab_exporter_targets %}
-        - {{ target }}:8443
+        - {{ target }}:8880
 {% endfor %}
   - job_name: gitlab-sidekiq
     static_configs:
