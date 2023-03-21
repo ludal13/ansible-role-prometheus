@@ -433,6 +433,12 @@ scrape_configs:
 {% for target in prometheus_gitlab_exporter_targets %}
         - {{ target }}:8060
 {% endfor %}
+  - job_name: gitlab-node
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:9101
+{% endfor %}
   - job_name: gitlab-redis
     static_configs:
       - targets:
