@@ -173,6 +173,23 @@ scrape_configs:
         replacement: '${1}'
 
 {% endif %}
+{% if prometheus_nginx_exporter_targets is defined %}
+  # nginx exporter #
+  - job_name: nginx
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_nginx_exporter_targets %}
+        - {{ target }}:9113
+{% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9113'
+        replacement: '${1}'
+
+{% endif %}
 {% if prometheus_haproxy_exporter_targets is defined %}
   # haproxy exporter #
   - job_name: haproxy
@@ -402,6 +419,7 @@ scrape_configs:
         target_label: instance
         regex: '(.*):9221'
         replacement: '${1}'
+
 {% endif %}
 {% if prometheus_opensearch_exporter_targets is defined %}
   # opensearch #
@@ -424,6 +442,7 @@ scrape_configs:
         target_label: instance
         regex: '(.*):9200'
         replacement: '${1}'
+
 {% endif %}
 {% if prometheus_gitlab_exporter_targets is defined %}
   # gitlab #
@@ -490,4 +509,5 @@ scrape_configs:
 {% for target in prometheus_gitlab_exporter_targets %}
         - {{ target }}:9236
 {% endfor %}
+
 {% endif %}
