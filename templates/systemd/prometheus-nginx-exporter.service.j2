@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 ExecStart=/usr/local/bin/prometheus-nginx-exporter \
--nginx.scrape-uri {{ prometheus_nginx_scrape_uri }} \
+-nginx.scrape-uri {{ prometheus_nginx_scrape_uri | default("http://localhost/stub_status") }} \
 -web.listen-address=0.0.0.0:9113
 
 [Install]

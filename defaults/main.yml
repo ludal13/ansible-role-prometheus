@@ -50,8 +50,6 @@ prometheus_mongodb_exporter_database: "admin"
 prometheus_mongodb_exporter_host: "localhost"
 prometheus_mongodb_exporter_port: 27017
 
-prometheus_nginx_scrape_uri: "http://localhost/stub_status"
-
 prometheus_opcache_exporter_fcgi_uri: "unix:///var/run/www.sock"
 
 prometheus_phpfpm_sockets_directory: "/run/php/"
