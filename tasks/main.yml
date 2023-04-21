@@ -39,5 +39,6 @@
     - prometheus_opcache_exporter
     - prometheus_blackbox_exporter
     - prometheus_kong_exporter
+    - prometheus_nginx_exporter
   with_items:
     - "{{ prometheus_exporter_packages }}"

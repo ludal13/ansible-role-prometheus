@@ -1,0 +1,12 @@
+[Unit]
+Description=Prometheus Nginx Exporter
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/prometheus-nginx-exporter \
+-nginx.scrape-uri {{ prometheus_nginx_scrape_uri }} \
+-web.listen-address=0.0.0.0:9113
+
+[Install]
+WantedBy=multi-user.target

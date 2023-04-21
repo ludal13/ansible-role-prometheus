@@ -17,6 +17,7 @@ prometheus_repo_blackbox: prometheus
 prometheus_repo_memcached: prometheus
 prometheus_repo_mongodb: percona
 prometheus_repo_mysqld: prometheus
+prometheus_repo_nginx: tchivert
 prometheus_repo_node: prometheus
 prometheus_repo_opcache: tchivert
 prometheus_repo_phpfpm: Lusitaniae
@@ -48,6 +49,8 @@ prometheus_blackbox_exporter_host: localhost
 prometheus_mongodb_exporter_database: "admin"
 prometheus_mongodb_exporter_host: "localhost"
 prometheus_mongodb_exporter_port: 27017
+
+prometheus_nginx_scrape_uri: "http://localhost/stub_status"
 
 prometheus_opcache_exporter_fcgi_uri: "unix:///var/run/www.sock"
 
