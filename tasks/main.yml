@@ -28,7 +28,7 @@
   tags:
     - prometheus_node_exporter
     - prometheus_mysqld_exporter
-    - prometheus_postgresql_exporter
+    - prometheus_postgres_exporter
     - prometheus_mongodb_exporter
     - prometheus_apache_exporter
     - prometheus_haproxy_exporter
