@@ -97,6 +97,11 @@ scrape_configs:
         - {{ target }}:9216
 {% endfor %}
 {% endif %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9216'
+        replacement: '${1}'
 
 {% endif %}
 {% if prometheus_postgres_exporter_targets is defined %}
@@ -120,6 +125,11 @@ scrape_configs:
         - {{ target }}:9187
 {% endfor %}
 {% endif %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9187'
+        replacement: '${1}'
 
 {% endif %}
 {% if prometheus_phpfpm_exporter_targets is defined %}
