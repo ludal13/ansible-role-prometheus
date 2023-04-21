@@ -96,3 +96,10 @@
     state: restarted
     enabled: yes
   tags: ['prometheus']
+
+- name: 'nginx-exporter-restart'
+  systemd:
+    name: prometheus-nginx-exporter.service
+    state: restarted
+    enabled: yes
+  tags: ['prometheus']
