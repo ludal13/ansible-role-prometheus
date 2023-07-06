@@ -390,7 +390,7 @@ scrape_configs:
     static_configs:
       - targets:
 {% for target in prometheus_cadvisor_exporter_targets %}
-        - {{ target }}
+        - {{ target }}:8080
 {% endfor %}
     relabel_configs:
       - source_labels: [ __address__ ]
