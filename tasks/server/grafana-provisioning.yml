@@ -162,7 +162,21 @@
     owner: '1000'
     group: '1000'
     mode: '0750'
-  when: prometheus_node_exporter_targets is defined
+  when: >
+    prometheus_node_exporter_targets is defined and
+    prometheus_cloudflare_exporter_targets is not defined
+  notify: "grafana-prometheus-restart"
+
+- name: "grafana-prometheus | import grafana overview-cf dashboard"
+  copy:
+    src: dashboards/overview-cf.json
+    dest: /opt/docker-compose/grafana-prometheus/dashboards/overview.json
+    owner: '1000'
+    group: '1000'
+    mode: '0750'
+  when: >
+    prometheus_node_exporter_targets is defined and
+    prometheus_cloudflare_exporter_targets is defined
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana plateform-overview dashboard"
@@ -172,7 +186,21 @@
     owner: '1000'
     group: '1000'
     mode: '0750'
-  when: prometheus_node_exporter_targets is defined
+  when: >
+    prometheus_node_exporter_targets is defined and
+    prometheus_cloudflare_exporter_targets is not defined
+  notify: "grafana-prometheus-restart"
+
+- name: "grafana-prometheus | import grafana plateform-overview-cf dashboard"
+  copy:
+    src: dashboards/plateform-overview-cf.json
+    dest: /opt/docker-compose/grafana-prometheus/dashboards/plateform-overview.json
+    owner: '1000'
+    group: '1000'
+    mode: '0750'
+  when: >
+    prometheus_node_exporter_targets is defined and
+    prometheus_cloudflare_exporter_targets is defined
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana phpfpm dashboard"

@@ -24,10 +24,125 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 25,
   "links": [],
   "liveNow": false,
   "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "yPhvsDP7k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 30,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 28,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max",
+            "min"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.4.0-90864pre",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "yPhvsDP7k"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(cloudflare_zone_requests_total{}[$__interval]))",
+          "interval": "",
+          "intervalFactor": 10,
+          "legendFormat": "total",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "yPhvsDP7k"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(cloudflare_zone_requests_cached{}[$__interval]))",
+          "interval": "",
+          "intervalFactor": 10,
+          "legendFormat": "cached",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Cloudflare Requests / second",
+      "type": "timeseries"
+    },
     {
       "columns": [],
       "datasource": {
@@ -37,10 +152,10 @@
       "description": "\n\nCurrEstab: The number of TCP connections whose current status is ESTABLISHED or CLOSE-WAIT.",
       "fontSize": "80%",
       "gridPos": {
-        "h": 31,
+        "h": 24,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 8
       },
       "id": 24,
       "showHeader": true,
@@ -539,7 +654,6 @@
       ],
       "title": "Resource Overview",
       "transform": "table",
-      "transparent": true,
       "type": "table-old"
     }
   ],
@@ -602,6 +716,6 @@
   "timezone": "",
   "title": "Overview",
   "uid": "HHYqp7T4z",
-  "version": 1,
+  "version": 6,
   "weekStart": ""
 }

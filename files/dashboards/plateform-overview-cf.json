@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 5,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -77,7 +77,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.0-124838pre",
+      "pluginVersion": "9.4.0-102000pre",
       "targets": [
         {
           "datasource": {
@@ -151,7 +151,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.0-124838pre",
+      "pluginVersion": "9.4.0-102000pre",
       "targets": [
         {
           "datasource": {
@@ -226,7 +226,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.0-124838pre",
+      "pluginVersion": "9.4.0-102000pre",
       "targets": [
         {
           "datasource": {
@@ -311,7 +311,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.0-124838pre",
+      "pluginVersion": "9.4.0-102000pre",
       "targets": [
         {
           "datasource": {
@@ -378,7 +378,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.0-124838pre",
+      "pluginVersion": "9.4.0-102000pre",
       "targets": [
         {
           "datasource": {
@@ -445,7 +445,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.0-124838pre",
+      "pluginVersion": "9.4.0-102000pre",
       "targets": [
         {
           "datasource": {
@@ -512,7 +512,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.0-124838pre",
+      "pluginVersion": "9.4.0-102000pre",
       "targets": [
         {
           "datasource": {
@@ -579,7 +579,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.0-124838pre",
+      "pluginVersion": "9.4.0-102000pre",
       "targets": [
         {
           "datasource": {
@@ -635,7 +635,6 @@
               "tooltip": false,
               "viz": false
             },
-            "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 1,
             "pointSize": 5,
@@ -783,7 +782,6 @@
               "tooltip": false,
               "viz": false
             },
-            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineStyle": {
               "fill": "solid"
@@ -916,7 +914,6 @@
               "tooltip": false,
               "viz": false
             },
-            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1390,7 +1387,6 @@
               "tooltip": false,
               "viz": false
             },
-            "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1501,7 +1497,6 @@
               "tooltip": false,
               "viz": false
             },
-            "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1542,9 +1537,13 @@
       "id": 14,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
+          "calcs": [
+            "lastNotNull",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
           "showLegend": true,
           "sortBy": "Mean",
           "sortDesc": true
@@ -1596,7 +1595,6 @@
               "tooltip": false,
               "viz": false
             },
-            "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1685,7 +1683,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
-            "drawStyle": "bars",
+            "drawStyle": "line",
             "fillOpacity": 30,
             "gradientMode": "hue",
             "hideFrom": {
@@ -1693,7 +1691,6 @@
               "tooltip": false,
               "viz": false
             },
-            "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1738,15 +1735,18 @@
       "id": 28,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false,
-          "sortBy": "Mean",
-          "sortDesc": true
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max",
+            "min"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
+          "mode": "multi",
           "sort": "none"
         }
       },
@@ -1758,15 +1758,28 @@
             "uid": "yPhvsDP7k"
           },
           "editorMode": "code",
-          "expr": "sum by (socket_path) (rate(php_fpm_slow_requests{instance=~\"$production\"} [$__rate_interval]))",
+          "expr": "sum(rate(cloudflare_zone_requests_total{}[$__interval]))",
           "interval": "",
           "intervalFactor": 10,
-          "legendFormat": "{{ socket_path }} ",
+          "legendFormat": "total",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "yPhvsDP7k"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(cloudflare_zone_requests_cached{}[$__interval]))",
+          "interval": "",
+          "intervalFactor": 10,
+          "legendFormat": "cached",
+          "range": true,
+          "refId": "B"
         }
       ],
-      "title": "PHP-FPM Slow Requests Rate",
+      "title": "Cloudflare Requests / second",
       "transparent": true,
       "type": "timeseries"
     },
@@ -1795,7 +1808,6 @@
               "tooltip": false,
               "viz": false
             },
-            "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1908,12 +1920,14 @@
         "current": {
           "selected": true,
           "text": [
-            "cprprdcache1",
-            "cprprdcache2"
+            "emzhyp03",
+            "emzhyp04",
+            "emzhyp05"
           ],
           "value": [
-            "cprprdcache1",
-            "cprprdcache2"
+            "emzhyp03",
+            "emzhyp04",
+            "emzhyp05"
           ]
         },
         "datasource": {
@@ -1941,10 +1955,14 @@
         "current": {
           "selected": true,
           "text": [
+            "/VMs",
+            "/VMs_SSD",
             "/home",
             "/var/log"
           ],
           "value": [
+            "/VMs",
+            "/VMs_SSD",
             "/home",
             "/var/log"
           ]
@@ -2051,6 +2069,6 @@
   "timezone": "",
   "title": "Plateform Overview",
   "uid": "pyphZNNVz",
-  "version": 1,
+  "version": 18,
   "weekStart": ""
 }
