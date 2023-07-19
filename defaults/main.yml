@@ -1,5 +1,6 @@
 ---
 docker_compose_directory: "/opt/docker-compose"
+docker_compose_bin: "docker compose"
 
 prometheus_docker_network: prometheus
 
