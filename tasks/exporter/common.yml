@@ -5,8 +5,8 @@
   register: stat_result
   tags: [ 'prometheus_{{ exporter }}' ]
 
-- name '{{ exporter }} exporter | remove old exporter version'
-  include_tasks: "upgrade.yml"
+- name: '{{ exporter }} exporter | remove old exporter version'
+  include_tasks: "cleanup.yml"
   when: stat_result.stat.exists and exporter_upgrade == "yes"
   tags: [ 'prometheus_{{ exporter }}' ]
 
