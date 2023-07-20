@@ -1,5 +1,5 @@
 ---
-- include_tasks: _common.yml
+- include_tasks: ../common.yml
   tags: ['prometheus_redis_exporter']
 
 - name: 'redis exporter | configuration'

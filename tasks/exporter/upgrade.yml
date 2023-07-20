@@ -1,0 +1,12 @@
+---
+- name: '{{ exporter }} exporter | stop old version'
+  systemd:
+    name: prometheus-{{ exporter }}-exporter.service
+    state: stopped
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | remove old version'
+  file:
+    path: /usr/local/bin/prometheus-{{ exporter }}-exporter
+    state: absent
+  tags: [ 'prometheus_{{ exporter }}' ]

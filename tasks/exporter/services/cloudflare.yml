@@ -5,5 +5,5 @@
       - cloudflare_api_key is defined
   tags: ['prometheus_cloudflare']
 
-- include_tasks: _docker.yml
+- include_tasks: ../docker.yml
   tags: ['prometheus_cloudflare']

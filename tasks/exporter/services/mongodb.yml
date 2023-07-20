@@ -1,5 +1,5 @@
 ---
-- include_tasks: _common.yml
+- include_tasks: ../common.yml
   tags: ['prometheus_mongodb_exporter']
 
 - name: 'mongodb exporter < v0.2 | move to /usr/local/bin'

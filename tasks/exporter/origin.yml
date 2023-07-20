@@ -1,0 +1,50 @@
+---
+
+# to build prometheus repo for another var: https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#when-should-i-use-also-how-to-interpolate-variables-or-dynamic-variable-names
+- set_fact:
+    prometheus_repo: "{{ lookup('vars', 'prometheus_repo_' ~ exporter) }}"
+
+- name: '{{ exporter }} exporter | create temp path'
+  file:
+    state: directory
+    path: /tmp/prometheus_exporter/{{ exporter }}
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | get latest release from GitHub'
+  shell: curl --silent "https://api.github.com/repos/{{ prometheus_repo }}/{{ exporter }}_exporter/releases/latest" | jq -r .tag_name | sed "s/v//"
+  register: prometheus_exporter_latest_version
+  run_once: true
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | download from origin'
+  get_url:
+    url: "https://github.com/{{ prometheus_repo }}/{{ exporter }}_exporter/releases/download/v{{ prometheus_exporter_latest_version.stdout }}/{{ exporter }}_exporter-{{ prometheus_exporter_latest_version.stdout }}.{{ prometheus_os }}-{{ prometheus_arch }}.tar.gz"
+    dest: /tmp/prometheus_exporter/{{ exporter }}/
+  ignore_errors: '{{ ansible_check_mode }}'
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | unarchive'
+  unarchive:
+    remote_src: yes
+    src: /tmp/prometheus_exporter/{{ exporter }}/{{ exporter }}_exporter-{{ prometheus_exporter_latest_version.stdout }}.{{ prometheus_os }}-{{ prometheus_arch }}.tar.gz
+    dest: /tmp/prometheus_exporter/{{ exporter }}/
+  ignore_errors: '{{ ansible_check_mode }}'
+  tags: [ 'prometheus_{{ exporter }}' ]
+
+- name: '{{ exporter }} exporter | move to /usr/local/bin'
+  copy:
+    src: /tmp/prometheus_exporter/{{ exporter }}/{{ exporter }}_exporter-{{ prometheus_exporter_latest_version.stdout }}.{{ prometheus_os }}-{{ prometheus_arch }}/{{ exporter }}_exporter
+    dest: /usr/local/bin/prometheus-{{ exporter }}-exporter
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - '{{ exporter }}-exporter-restart'
+  tags: [ 'prometheus_{{ exporter }}' ]
+  ignore_errors: '{{ ansible_check_mode }}'
+
+- name: '{{ exporter }} exporter | cleanup temp path'
+  file:
+    state: absent
+    path: /tmp/prometheus_exporter/{{ exporter }}

@@ -8,7 +8,7 @@
   failed_when: result.rc != 0 and result.rc != 127
   with_items:
     - docker
-    - docker-compose
+    - docker-compose-plugin
   tags: [ 'prometheus_{{ exporter }}' ]
 
 - name: '{{ exporter }} exporter | create docker-compose directory'

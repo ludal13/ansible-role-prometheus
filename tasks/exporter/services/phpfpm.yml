@@ -1,5 +1,5 @@
 ---
-- include_tasks: _common.yml
+- include_tasks: ../common.yml
   tags: ['prometheus_phpfpm_exporter']
 
 - name: 'phpfpm exporter | install startup script'
