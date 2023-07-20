@@ -26,6 +26,11 @@ prometheus_repo_postgres: prometheus-community
 prometheus_repo_redis: tchivert
 prometheus_repo_varnish: tchivert
 
+prometheus_exporters_repo: "https://git.rznet.fr/tchivert/prometheus_exporters"
+prometheus_exporters_release: "latest"
+prometheus_exporters_sources: "repo"
+# prometheus_exporters_sources: "origin"
+
 ## server
 prometheus_nodes_ip:
   localhost: "127.0.0.1"
