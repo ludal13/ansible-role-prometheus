@@ -10,14 +10,14 @@
   when: stat_result.stat.exists and exporter_upgrade == "yes"
   tags: [ 'prometheus_{{ exporter }}' ]
 
-- name '{{ exporter }} exporter | install from origin'
+- name: '{{ exporter }} exporter | install from origin'
   include_tasks: "origin.yml"
   when: >
     (not stat_result.stat.exists or exporter_upgrade == "yes") and
     prometheus_exporters_sources == "origin"
   tags: [ 'prometheus_{{ exporter }}' ]
 
-- name '{{ exporter }} exporter | install from repo'
+- name: '{{ exporter }} exporter | install from repo'
   include_tasks: "repo.yml"
   when: >
     (not stat_result.stat.exists or exporter_upgrade == "yes") and
