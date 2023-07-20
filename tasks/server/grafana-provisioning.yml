@@ -272,3 +272,13 @@
     mode: '0750'
   when: prometheus_kong_exporter_targets is defined
   notify: "grafana-prometheus-restart"
+
+- name: "grafana-prometheus | import grafana nginx dashboard"
+  copy:
+    src: dashboards/nginx.json
+    dest: /opt/docker-compose/grafana-prometheus/dashboards/nginx.json
+    owner: '1000'
+    group: '1000'
+    mode: '0750'
+  when: prometheus_nginx_exporter_targets is defined
+  notify: "grafana-prometheus-restart"
