@@ -1,5 +1,5 @@
 ---
-- name: '{{ exporter }} exporter | check if exporter is already install'
+- name: '{{ exporter }} exporter | check if exporter is already installed'
   stat:
     path: /usr/local/bin/prometheus-{{ exporter }}-exporter
   register: stat_result
