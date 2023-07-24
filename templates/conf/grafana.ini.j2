@@ -4,7 +4,7 @@ root_url = %(protocol)s://%(domain)s
 
 [dashboards]
 {% if prometheus_cloudflare_exporter_targets is defined %}
-default_home_dashboard_path = /etc/grafana/provisionning/dashboards/overview_cf.json
+default_home_dashboard_path = /etc/grafana/provisioning/dashboards/overview_cf.json
 {% else %}
-default_home_dashboard_path = /etc/grafana/provisionning/dashboards/overview.json
+default_home_dashboard_path = /etc/grafana/provisioning/dashboards/overview.json
 {% endif %}
