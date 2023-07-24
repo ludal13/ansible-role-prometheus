@@ -323,7 +323,7 @@
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "\{\{instance\}\}",
           "range": true,
           "refId": "B",
           "step": 240
@@ -428,7 +428,7 @@
           "expr": "rate(apache_accesses_total{instance=~\"$host\"}[$__rate_interval])",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "\{\{ instance \}\}",
           "range": true,
           "refId": "A",
           "step": 240
@@ -531,7 +531,7 @@
           "expr": "sum(apache_scoreboard{instance=~\"$host\"}) by (state)",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{ state }}",
+          "legendFormat": "\{\{ state \}\}",
           "range": true,
           "refId": "A",
           "step": 240
@@ -634,7 +634,7 @@
           "expr": "sum(apache_workers{instance=~\"$host\"}) by (state)\n",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{ state }}",
+          "legendFormat": "\{\{ state \}\}",
           "range": true,
           "refId": "A",
           "step": 240
@@ -738,7 +738,7 @@
           "expr": "apache_cpuload{instance=~\"$host\"}",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "Load on {{instance}}",
+          "legendFormat": "Load on \{\{ instance \}\}",
           "range": true,
           "refId": "A",
           "step": 240
