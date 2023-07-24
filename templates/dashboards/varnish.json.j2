@@ -34,7 +34,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
         "h": 1,
@@ -50,7 +50,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "refId": "A"
         }
@@ -61,7 +61,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -125,7 +125,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(irate(varnish_main_client_req{instance=~\"^($host).*\"}[5m]))",
@@ -145,7 +145,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -209,7 +209,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(irate(varnish_main_backend_req{instance=~\"^$host.*\"}[5m]))",
@@ -229,7 +229,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -292,7 +292,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(varnish_main_vmods{instance=~\"^($host).*\"})",
@@ -311,7 +311,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -374,7 +374,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "min(varnish_main_uptime{instance=~\"$host\"})",
@@ -392,7 +392,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -461,7 +461,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "avg(( rate(varnish_main_cache_hit{instance=~\"^($host).*\"}[5m]) / rate(varnish_main_client_req{instance=~\"^($host).*\"}[5m]) ))",
@@ -483,7 +483,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
         "h": 1,
@@ -497,7 +497,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "refId": "A"
         }
@@ -508,7 +508,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -645,7 +645,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(irate(varnish_main_client_req{instance=~\"^($host).*\"}[5m]))",
@@ -661,7 +661,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(irate(varnish_main_backend_req{instance=~\"^($host).*\"}[5m]))",
@@ -676,7 +676,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(varnish_main_fetch_total{instance=~\"^($host).*\"})",
@@ -690,7 +690,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(irate(varnish_main_fetch_total{instance=~\"^($host).*\"}[5m]))",
@@ -708,7 +708,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -840,7 +840,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "avg(rate(varnish_main_cache_hit{instance=~\"^($host).*\"}[5m]) / rate(varnish_main_client_req{instance=~\"^($host).*\"}[5m]))",
@@ -856,7 +856,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "avg(1 - (rate(varnish_main_cache_hit{instance=~\"^($host).*\"}[5m]) / rate(varnish_main_client_req{instance=~\"^($host).*\"}[5m])))",
@@ -872,7 +872,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "avg(1 - (rate(varnish_main_cache_hitpass{instance=~\"^($host).*\"}[5m]) / rate(varnish_main_client_req{instance=~\"^($host).*\"}[5m])))",
@@ -893,7 +893,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
         "h": 1,
@@ -907,7 +907,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "refId": "A"
         }
@@ -918,7 +918,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1006,7 +1006,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(irate(varnish_main_s_resp_hdrbytes{instance=~\"^($host).*\"}[5m]) + irate(varnish_main_s_resp_bodybytes{instance=~\"^($host).*\"}[5m]))",
@@ -1022,7 +1022,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(irate(varnish_backend_beresp_hdrbytes{instance=~\"^($host).*\"}[5m]) + irate(varnish_backend_beresp_bodybytes{instance=~\"^($host).*\"}[5m]))",
@@ -1043,7 +1043,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1121,7 +1121,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(varnish_sma_g_bytes{instance=~\"$host\"})",
@@ -1137,7 +1137,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
         "h": 1,
@@ -1151,7 +1151,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "refId": "A"
         }
@@ -1162,7 +1162,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1249,7 +1249,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(varnish_main_backend_conn{instance=~\"^($host).*\"}[1m]))",
@@ -1262,7 +1262,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(varnish_main_backend_recycle{instance=~\"^($host).*\"}[1m]))",
@@ -1275,7 +1275,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(varnish_main_backend_reuse{instance=~\"^($host).*\"}[1m]))",
@@ -1288,7 +1288,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(varnish_main_backend_fail{instance=~\"^($host).*\"}[1m]))",
@@ -1301,7 +1301,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(varnish_main_backend_unhealthy{instance=~\"^($host).*\"}[1m]))",
@@ -1314,7 +1314,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(varnish_main_backend_busy{instance=~\"^($host).*\"}[1m]))",
@@ -1327,7 +1327,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(varnish_main_backend_req{instance=~\"^($host).*\"}[1m]))",
@@ -1340,7 +1340,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(varnish_main_backend_retry{instance=~\"^($host).*\"}[1m]))",
@@ -1353,7 +1353,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(varnish_backend_conn{instance=~\"^($host).*\"}[1m]))",
@@ -1370,7 +1370,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1456,7 +1456,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum by(type) (rate(varnish_main_sessions{instance=~\"^($host).*\"}[1m]))",
@@ -1473,7 +1473,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1557,7 +1557,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(varnish_main_threads_created{instance=~\"^($host).*\"})",
@@ -1571,7 +1571,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(varnish_main_threads_destroyed{instance=~\"^($host).*\"})",
@@ -1584,7 +1584,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(varnish_main_threads_failed{instance=~\"^($host).*\"})",
@@ -1597,7 +1597,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(varnish_main_threads_limited{instance=~\"^($host).*\"})",
@@ -1610,7 +1610,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(varnish_main_threads{instance=~\"^($host).*\"})",
@@ -1623,7 +1623,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(varnish_main_thread_queue_len{instance=~\"^($host).*\"})",
@@ -1636,7 +1636,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(varnish_main_pools{instance=~\"^($host).*\"})",
@@ -1668,7 +1668,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "{{ grafana_datasource_uid }}"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(varnish_up, instance)",
         "hide": 0,

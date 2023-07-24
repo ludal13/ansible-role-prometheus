@@ -33,7 +33,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
         "h": 1,
@@ -47,7 +47,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "refId": "A"
         }
@@ -58,7 +58,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -102,7 +102,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(increase(cloudflare_zone_requests_total{zone=~\"$zone\"}[$__range]))",
@@ -118,7 +118,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -162,7 +162,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(increase(cloudflare_zone_bandwidth_total{zone=~\"$zone\"}[$__range]))",
@@ -178,7 +178,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -222,7 +222,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(cloudflare_zone_requests_total{zone=~\"$zone\"}[$__interval]))",
@@ -239,7 +239,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -283,7 +283,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(cloudflare_zone_bandwidth_total{zone=~\"$zone\"}[$__interval]))",
@@ -300,7 +300,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -344,7 +344,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(increase(cloudflare_zone_uniques_total{zone=~\"$zone\"}[$__range]))",
@@ -360,7 +360,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -404,7 +404,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(cloudflare_zone_uniques_total{zone=~\"$zone\"}[$__interval]))",
@@ -421,7 +421,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -506,7 +506,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(cloudflare_zone_uniques_total{zone=~\"$zone\"}[$__interval]))",
@@ -524,7 +524,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
         "h": 1,
@@ -538,7 +538,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "refId": "A"
         }
@@ -549,7 +549,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -634,7 +634,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(cloudflare_zone_requests_total{zone=~\"$zone\"}[$__interval]))",
@@ -647,7 +647,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(cloudflare_zone_requests_cached{zone=~\"$zone\"}[$__interval]))",
@@ -664,7 +664,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -751,7 +751,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(cloudflare_zone_requests_country{zone=~\"$zone\"}[$__interval]) > 0) by (country)",
@@ -768,7 +768,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -855,7 +855,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(cloudflare_zone_requests_status{zone=~\"$zone\", status!~\"5..\"}[$__interval])) by (status)",
@@ -872,7 +872,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -959,7 +959,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(increase(cloudflare_zone_requests_status{zone=~\"$zone\", status!~\"2..\"}[$__interval])) by (status)",
@@ -976,7 +976,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1064,7 +1064,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(cloudflare_zone_requests_status{zone=~\"$zone\", status=~\"5..\"}[$__interval])) by (status)",
@@ -1081,7 +1081,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1137,7 +1137,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "avg(cloudflare_zone_requests_ssl_encrypted{zone=~\"$zone\"} / cloudflare_zone_requests_total{zone=~\"$zone\"})",
@@ -1149,7 +1149,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "avg((cloudflare_zone_requests_total{zone=~\"$zone\"} - cloudflare_zone_requests_ssl_encrypted{zone=~\"$zone\"}) / cloudflare_zone_requests_total{zone=~\"$zone\"})",
@@ -1165,7 +1165,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1223,7 +1223,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "avg(cloudflare_zone_requests_cached{zone=~\"$zone\"} / cloudflare_zone_requests_total{zone=~\"$zone\"})",
@@ -1235,7 +1235,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "avg((cloudflare_zone_requests_total{zone=~\"$zone\"} - cloudflare_zone_requests_cached{zone=~\"$zone\"}) / cloudflare_zone_requests_total{zone=~\"$zone\"})",
@@ -1251,7 +1251,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1308,7 +1308,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "expr": "increase(cloudflare_zone_requests_status{zone=~\"$zone\"}[$__range])",
           "interval": "",
@@ -1322,7 +1322,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1381,7 +1381,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "expr": "increase(cloudflare_zone_requests_content_type{zone=~\"$zone\"}[$__range])",
           "instant": true,
@@ -1396,7 +1396,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1453,7 +1453,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "expr": "increase(cloudflare_zone_requests_country{zone=~\"$zone\"}[$__range])",
           "instant": true,
@@ -1469,7 +1469,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
         "h": 1,
@@ -1486,7 +1486,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1533,7 +1533,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "{{ grafana_datasource_uid }}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "rate(cloudflare_zone_bandwidth_total{zone=~\"$zone\"}[$__interval])",
               "interval": "5m",
@@ -1544,7 +1544,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "{{ grafana_datasource_uid }}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "rate(cloudflare_zone_bandwidth_cached{zone=~\"$zone\"}[$__interval])",
               "interval": "5m",
@@ -1594,7 +1594,7 @@
           },
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1625,7 +1625,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "{{ grafana_datasource_uid }}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "cloudflare_zone_bandwidth_cached{zone=~\"$zone\"} / cloudflare_zone_bandwidth_total{zone=~\"$zone\"}",
               "interval": "",
@@ -1635,7 +1635,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "{{ grafana_datasource_uid }}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "(cloudflare_zone_bandwidth_total{zone=~\"$zone\"} - cloudflare_zone_bandwidth_cached{zone=~\"$zone\"}) / cloudflare_zone_bandwidth_total{zone=~\"$zone\"}",
               "interval": "",
@@ -1656,7 +1656,7 @@
           },
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1690,7 +1690,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "{{ grafana_datasource_uid }}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "rate(cloudflare_zone_bandwidth_content_type{zone=~\"$zone\"}[5m])",
               "interval": "",
@@ -1707,7 +1707,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "refId": "A"
         }
@@ -1719,7 +1719,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
         "h": 1,
@@ -1736,7 +1736,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1785,7 +1785,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "{{ grafana_datasource_uid }}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "sum by (region)(rate(cloudflare_zone_requests_country{zone=~\"$zone\"}[$__interval]))",
               "format": "time_series",
@@ -1835,7 +1835,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1884,7 +1884,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "{{ grafana_datasource_uid }}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "sum by (region)(rate(cloudflare_zone_bandwidth_country{zone=~\"$zone\"}[$__interval]))",
               "interval": "5m",
@@ -1932,7 +1932,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1984,7 +1984,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "{{ grafana_datasource_uid }}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "rate(cloudflare_zone_requests_country{zone=~\"$zone\", region=~\"$regions\"}[$__interval]) > 10",
               "interval": "5m",
@@ -2030,7 +2030,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "refId": "A"
         }
@@ -2042,7 +2042,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
         "h": 1,
@@ -2059,7 +2059,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2105,7 +2105,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "{{ grafana_datasource_uid }}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "rate(cloudflare_zone_threats_total{zone=~\"$zone\"}[1m])",
               "interval": "",
@@ -2152,7 +2152,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2198,7 +2198,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "{{ grafana_datasource_uid }}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "rate(cloudflare_zone_threats_country{zone=~\"$zone\"}[1m])",
               "interval": "",
@@ -2245,7 +2245,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2291,7 +2291,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "{{ grafana_datasource_uid }}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "rate(cloudflare_zone_threats_type{zone=~\"$zone\"}[1m])",
               "interval": "",
@@ -2336,7 +2336,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "refId": "A"
         }
@@ -2348,7 +2348,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "{{ grafana_datasource_uid }}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
         "h": 1,
@@ -2365,7 +2365,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2411,7 +2411,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "{{ grafana_datasource_uid }}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "expr": "rate(cloudflare_zone_colocation_visits{zone=\"$zone\"}[$__interval]) > 0",
               "interval": "",
@@ -2457,7 +2457,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "{{ grafana_datasource_uid }}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "refId": "A"
         }
@@ -2483,7 +2483,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "{{ grafana_datasource_uid }}"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(cloudflare_zone_requests_total, zone)",
         "hide": 0,
@@ -2517,7 +2517,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "{{ grafana_datasource_uid }}"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(cloudflare_zone_requests_country, region)",
         "hide": 2,
