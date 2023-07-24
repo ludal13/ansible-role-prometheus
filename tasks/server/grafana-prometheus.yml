@@ -36,12 +36,12 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | create grafana.ini file"
-  file:
-    path: /opt/docker-compose/grafana-prometheus/grafana.ini
+  template:
+    src: conf/grafani.ini.j2
+    dest: /opt/docker-compose/grafana-prometheus/grafana.ini
     owner: '1000'
     group: '1000'
     mode: '0750'
-    state: touch
   notify: "grafana-prometheus-restart"
   ignore_errors: '{{ ansible_check_mode }}'
 
