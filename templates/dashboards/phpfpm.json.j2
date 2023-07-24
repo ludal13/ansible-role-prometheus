@@ -102,7 +102,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{socket_path}}",
+          "legendFormat": "\{\{socket_path\}\}",
           "metric": "php_fpm_start_time_seconds",
           "refId": "A",
           "step": 1
@@ -204,7 +204,7 @@
           "expr": "sum by (socket_path) (php_fpm_active_processes{instance=~\"^$host\", socket_path=~\"$pool\"}) / sum by (socket_path) ( php_fpm_max_active_processes{instance=~\"^$host\", socket_path=~\"$pool\"})",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{ socket_path }}",
+          "legendFormat": "\{\{ socket_path \}\}",
           "refId": "A"
         }
       ],
@@ -306,7 +306,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{socket_path}}",
+          "legendFormat": "\{\{socket_path\}\}",
           "refId": "A",
           "step": 2
         }
@@ -411,7 +411,7 @@
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{ socket_path }} ",
+          "legendFormat": "\{\{ socket_path \}\} ",
           "refId": "A",
           "step": 2
         }
@@ -516,7 +516,7 @@
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{ socket_path }} ",
+          "legendFormat": "\{\{ socket_path \}\} ",
           "metric": "php_fpm_active_processes",
           "refId": "B",
           "step": 2
@@ -622,7 +622,7 @@
           "hide": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{ socket_path }} ",
+          "legendFormat": "\{\{ socket_path \}\} ",
           "refId": "A",
           "step": 2
         }
@@ -725,7 +725,7 @@
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
-          "legendFormat": "{{ socket_path }} ",
+          "legendFormat": "\{\{ socket_path \}\} ",
           "metric": "php_fpm_max_children_reached",
           "refId": "D",
           "step": 2
@@ -829,7 +829,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{ socket_path }} ",
+          "legendFormat": "\{\{ socket_path \}\} ",
           "metric": "php_fpm_idle_processes",
           "refId": "C",
           "step": 2
@@ -871,7 +871,7 @@
           "refId": "prometheus-Host-Variable-Query"
         },
         "refresh": 1,
-        "regex": "{{ grafana_dashboard_regex | default('') }}",
+        "regex": "{{ grafana_dashboard_regex | default('') \}\}",
         "skipUrlSync": false,
         "sort": 1,
         "tagValuesQuery": "",

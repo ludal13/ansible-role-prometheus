@@ -1461,7 +1461,7 @@
           "editorMode": "code",
           "expr": "sum by(type) (rate(varnish_main_sessions{instance=~\"^($host).*\"}[1m]))",
           "intervalFactor": 2,
-          "legendFormat": "session - {{type}}",
+          "legendFormat": "session - \{\{type\}\}",
           "range": true,
           "refId": "A",
           "step": 60

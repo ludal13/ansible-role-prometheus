@@ -493,7 +493,7 @@
           "expr": "increase(node_network_receive_bytes_total{instance=~\"$node\",device=~\"$device\"}[60m])",
           "interval": "60m",
           "intervalFactor": 1,
-          "legendFormat": "{{device}}_receive",
+          "legendFormat": "\{\{device\}\}_receive",
           "metric": "",
           "refId": "A",
           "step": 600,
@@ -508,7 +508,7 @@
           "hide": false,
           "interval": "60m",
           "intervalFactor": 1,
-          "legendFormat": "{{device}}_transmit",
+          "legendFormat": "\{\{device\}\}_transmit",
           "refId": "B",
           "step": 600
         }
@@ -632,7 +632,7 @@
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{device}}",
+          "legendFormat": "\{\{device\}\}",
           "refId": "A"
         }
       ],
@@ -737,7 +737,7 @@
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{device}}",
+          "legendFormat": "\{\{device\}\}",
           "refId": "A"
         }
       ],

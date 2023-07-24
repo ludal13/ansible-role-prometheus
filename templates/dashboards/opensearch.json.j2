@@ -825,7 +825,7 @@
           "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode=\"system\",instance=~\".*$node.*\",job=\"$job\"}[5m])) * 100",
           "interval": "",
           "intervalFactor": 4,
-          "legendFormat": "Busy System {{instance}}",
+          "legendFormat": "Busy System \{\{instance\}\}",
           "refId": "A"
         },
         {
@@ -835,7 +835,7 @@
           "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode='user',instance=~\".*$node.*\",job=\"$job\"}[5m])) * 100",
           "interval": "",
           "intervalFactor": 4,
-          "legendFormat": "Busy User {{instance}}",
+          "legendFormat": "Busy User \{\{instance\}\}",
           "refId": "B"
         },
         {
@@ -845,7 +845,7 @@
           "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode='iowait',instance=~\".*$node.*\",job=\"$job\"}[5m])) * 100",
           "interval": "",
           "intervalFactor": 4,
-          "legendFormat": "Busy Iowait {{instance}}",
+          "legendFormat": "Busy Iowait \{\{instance\}\}",
           "refId": "C"
         },
         {
@@ -855,7 +855,7 @@
           "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode=~\".*irq\",instance=~\".*$node.*\",job=\"$job\"}[5m])) * 100",
           "interval": "",
           "intervalFactor": 4,
-          "legendFormat": "Busy IRQs {{instance}}",
+          "legendFormat": "Busy IRQs \{\{instance\}\}",
           "refId": "D"
         },
         {
@@ -968,7 +968,7 @@
           "expr": "irate(node_network_receive_bytes_total{instance=~\".*$node.*\",job=\"$job\"}[5m])*8",
           "interval": "",
           "intervalFactor": 4,
-          "legendFormat": "recv {{device}} {{instance}}",
+          "legendFormat": "recv \{\{device\}\} \{\{instance\}\}",
           "refId": "A"
         },
         {
@@ -978,7 +978,7 @@
           "expr": "irate(node_network_transmit_bytes_total{instance=~\".*$node.*\",job=\"$job\"}[5m])*8",
           "interval": "",
           "intervalFactor": 4,
-          "legendFormat": "trans {{device}} {{instance}}",
+          "legendFormat": "trans \{\{device\}\} \{\{instance\}\}",
           "refId": "B"
         }
       ],
@@ -1290,7 +1290,7 @@
           "exemplar": true,
           "expr": "rate(opensearch_indices_indexing_index_count{cluster=~\"$cluster\"}[1h])",
           "interval": "",
-          "legendFormat": "{{ node }}",
+          "legendFormat": "\{\{ node \}\}",
           "refId": "A"
         }
       ],
@@ -1385,7 +1385,7 @@
           "exemplar": true,
           "expr": "rate(opensearch_indices_search_fetch_count{cluster=~\"$cluster\"}[1h])",
           "interval": "",
-          "legendFormat": "{{ node }}",
+          "legendFormat": "\{\{ node \}\}",
           "refId": "A"
         }
       ],
@@ -1484,7 +1484,7 @@
           "expr": "sum(opensearch_threadpool_tasks_number{cluster=~\"$cluster\", name!=\"management\", type=\"queue\"}) by (name)",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "Name: {{ name }}",
+          "legendFormat": "Name: \{\{ name \}\}",
           "refId": "A",
           "step": 240
         }
@@ -1919,7 +1919,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "Name: {{ name }}",
+          "legendFormat": "Name: \{\{ name \}\}",
           "refId": "A",
           "step": 240
         }
@@ -2018,7 +2018,7 @@
           "expr": "rate(opensearch_threadpool_threads_count{cluster=~\"$cluster\", name!=\"management\", type=\"rejected\"}[5m])",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{ node }} {{ name }}",
+          "legendFormat": "\{\{ node \}\} \{\{ name \}\}",
           "refId": "A",
           "step": 240
         }
@@ -2125,7 +2125,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 4,
-          "legendFormat": "{{ mode }}",
+          "legendFormat": "\{\{ mode \}\}",
           "metric": "elasticsearch_breakers_tripped",
           "metrics": [
             {
@@ -2236,7 +2236,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{ node }}",
+          "legendFormat": "\{\{ node \}\}",
           "refId": "A",
           "step": 240
         }
@@ -2452,7 +2452,7 @@
           "expr": "irate(opensearch_jvm_gc_collection_time_seconds{cluster=~\"$cluster\"}[5m])",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{ node }} {{ gc }}",
+          "legendFormat": "\{\{ node \}\} \{\{ gc \}\}",
           "refId": "A",
           "step": 240
         }
