@@ -37,7 +37,7 @@
 
 - name: "grafana-prometheus | create grafana.ini file"
   template:
-    src: conf/grafani.ini.j2
+    src: conf/grafana.ini.j2
     dest: /opt/docker-compose/grafana-prometheus/grafana.ini
     owner: '1000'
     group: '1000'
