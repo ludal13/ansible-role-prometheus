@@ -257,7 +257,7 @@
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
-          "legendFormat": "\{\{instance\}\} accepted",
+          "legendFormat": "{{ '{{' }}instance{{ '}}' }} accepted",
           "refId": "A"
         },
         {
@@ -269,7 +269,7 @@
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
-          "legendFormat": "\{\{instance\}\} handled",
+          "legendFormat": "{{ '{{' }}instance{{ '}}' }} handled",
           "refId": "B"
         }
       ],
@@ -362,7 +362,7 @@
           "expr": "nginx_connections_active{instance=~\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "\{\{instance\}\} active",
+          "legendFormat": "{{ '{{' }}instance{{ '}}' }} active",
           "refId": "A"
         },
         {
@@ -373,7 +373,7 @@
           "expr": "nginx_connections_reading{instance=~\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "\{\{instance\}\} reading",
+          "legendFormat": "{{ '{{' }}instance{{ '}}' }} reading",
           "refId": "B"
         },
         {
@@ -384,7 +384,7 @@
           "expr": "nginx_connections_waiting{instance=~\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "\{\{instance\}\} waiting",
+          "legendFormat": "{{ '{{' }}instance{{ '}}' }} waiting",
           "refId": "C"
         },
         {
@@ -395,7 +395,7 @@
           "expr": "nginx_connections_writing{instance=~\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "\{\{instance\}\} writing",
+          "legendFormat": "{{ '{{' }}instance{{ '}}' }} writing",
           "refId": "D"
         }
       ],
@@ -484,7 +484,7 @@
           "expr": "irate(nginx_http_requests_total{instance=~\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "\{\{instance\}\} total requests",
+          "legendFormat": "{{ '{{' }}instance{{ '}}' }} total requests",
           "refId": "A"
         }
       ],

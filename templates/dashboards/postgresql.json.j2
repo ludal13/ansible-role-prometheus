@@ -77,7 +77,7 @@
           },
           "editorMode": "code",
           "expr": "sum by (short_version) (pg_static{instance=~\"$host\"})",
-          "legendFormat": "\{\{short_version\}\}",
+          "legendFormat": "{{ '{{' }}short_version{{ '}}' }}",
           "range": true,
           "refId": "A"
         }
@@ -594,7 +594,7 @@
           },
           "editorMode": "builder",
           "expr": "sum by(instance) (rate(pg_stat_database_xact_commit{instance=~\"$host\"}[$__rate_interval]))",
-          "legendFormat": "\{\{instance\}\} commits",
+          "legendFormat": "{{ '{{' }}instance{{ '}}' }} commits",
           "range": true,
           "refId": "A"
         },
@@ -606,7 +606,7 @@
           "editorMode": "builder",
           "expr": "sum by(instance) (rate(pg_stat_database_xact_commit{instance=~\"$host\"}[$__rate_interval]))",
           "hide": false,
-          "legendFormat": "\{\{instance\}\} rollbacks",
+          "legendFormat": "{{ '{{' }}instance{{ '}}' }} rollbacks",
           "range": true,
           "refId": "B"
         }
@@ -699,7 +699,7 @@
           },
           "editorMode": "builder",
           "expr": "sum by(instance) (rate(pg_locks_count{instance=~\"$host\"}[$__rate_interval]))",
-          "legendFormat": "\{\{instance\}\} locks",
+          "legendFormat": "{{ '{{' }}instance{{ '}}' }} locks",
           "range": true,
           "refId": "A"
         }
@@ -792,7 +792,7 @@
           },
           "editorMode": "builder",
           "expr": "sum by(instance) (rate(pg_stat_activity_count{instance=~\"$host\", state=\"active\"}[$__rate_interval]))",
-          "legendFormat": "\{\{instance\}\}",
+          "legendFormat": "{{ '{{' }}instance{{ '}}' }}",
           "range": true,
           "refId": "A"
         }
@@ -885,7 +885,7 @@
           },
           "editorMode": "builder",
           "expr": "sum by(instance) (rate(pg_stat_activity_count{instance=~\"$host\", state=~\"idle|idle in transaction|idle in transaction (aborted)\"}[$__rate_interval]))",
-          "legendFormat": "\{\{instance\}\}",
+          "legendFormat": "{{ '{{' }}instance{{ '}}' }}",
           "range": true,
           "refId": "A"
         }

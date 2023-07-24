@@ -1338,7 +1338,7 @@
           "expr": "sum(rate(node_network_receive_bytes_total{instance=~\"$host\",job=\"$job\"}[$__rate_interval])*8)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "recv \{\{device\}\}",
+          "legendFormat": "recv {{ '{{' }}device{{ '}}' }}",
           "range": true,
           "refId": "A",
           "step": 240
@@ -1352,7 +1352,7 @@
           "expr": "sum(rate(node_network_transmit_bytes_total{instance=~\"$host\",job=\"$job\"}[$__rate_interval])*8)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "trans \{\{device\}\} ",
+          "legendFormat": "trans {{ '{{' }}device{{ '}}' }} ",
           "range": true,
           "refId": "B",
           "step": 240
@@ -1451,7 +1451,7 @@
           },
           "editorMode": "code",
           "expr": "avg(100 - ((node_filesystem_avail_bytes{instance=~\"$host\",mountpoint=~\"$mountpoints\"} * 100) / node_filesystem_size_bytes{instance=~\"$host\",mountpoint=~\"$mountpoints\"})) by (mountpoint)",
-          "legendFormat": "\{\{instance\}\} \{\{mountpoint\}\}",
+          "legendFormat": "{{ '{{' }}instance{{ '}}' }} {{ '{{' }}mountpoint{{ '}}' }}",
           "range": true,
           "refId": "A"
         }
@@ -1561,7 +1561,7 @@
           },
           "editorMode": "code",
           "expr": "sum(rate(haproxy_frontend_http_responses_total{instance=~\"$production\"}[$__rate_interval])) by (code)",
-          "legendFormat": "\{\{ code \}\}",
+          "legendFormat": "{{ '{{' }} code {{ '}}' }}",
           "range": true,
           "refId": "A"
         }
