@@ -33,7 +33,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -96,7 +96,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "expr": "min(php_fpm_up{instance=~\"^$host\", socket_path=~\"$pool\"})",
           "format": "time_series",
@@ -114,7 +114,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -199,7 +199,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "expr": "sum by (socket_path) (php_fpm_active_processes{instance=~\"^$host\", socket_path=~\"$pool\"}) / sum by (socket_path) ( php_fpm_max_active_processes{instance=~\"^$host\", socket_path=~\"$pool\"})",
           "format": "time_series",
@@ -214,7 +214,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "description": "Total number of accepted connections",
       "fieldConfig": {
@@ -300,7 +300,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "expr": "sum by (socket_path) (rate(php_fpm_accepted_connections_total{instance=~\"^$host\", socket_path=~\"$pool\"} [$__rate_interval]))",
           "format": "time_series",
@@ -317,7 +317,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "description": "Number of requests that exceed request_slowlog_timeout",
       "fieldConfig": {
@@ -404,7 +404,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "expr": "sum by (socket_path) (rate(php_fpm_slow_requests{instance=~\"^$host\", socket_path=~\"$pool\"} [$__rate_interval]))",
           "format": "time_series",
@@ -422,7 +422,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -509,7 +509,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "expr": "sum(php_fpm_active_processes{instance=~\"^$host\", socket_path=~\"$pool\"}) by (socket_path )",
           "format": "time_series",
@@ -528,7 +528,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -615,7 +615,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "expr": "sum by (socket_path) (php_fpm_max_active_processes{instance=~\"^$host\", socket_path=~\"$pool\"})",
           "format": "time_series",
@@ -633,7 +633,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -719,7 +719,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "expr": "sum by (socket_path) (php_fpm_max_children_reached{instance=~\"^$host\", socket_path=~\"$pool\"})",
           "format": "time_series",
@@ -737,7 +737,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -823,7 +823,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "expr": "sum by (socket_path) (php_fpm_idle_processes{instance=~\"^$host\", socket_path=~\"$pool\"})",
           "format": "time_series",
@@ -857,7 +857,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "{{ grafana_datasource_uid }}"
         },
         "definition": "",
         "hide": 0,
@@ -887,7 +887,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "{{ grafana_datasource_uid }}"
         },
         "definition": "label_values(php_fpm_accepted_connections_total{instance=~\"$host\"}, socket_path)",
         "hide": 0,

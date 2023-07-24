@@ -32,7 +32,7 @@
       "columns": [],
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "description": "\n\nCurrEstab: The number of TCP connections whose current status is ESTABLISHED or CLOSE-WAIT.",
       "fontSize": "80%",
@@ -345,7 +345,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "node_uname_info{job=~\"$job\"} - 0",
@@ -358,7 +358,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "sum(time() - node_boot_time_seconds{job=~\"$job\"})by(instance)",
@@ -372,7 +372,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "node_memory_MemTotal_bytes{job=~\"$job\"} - 0",
@@ -386,7 +386,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "count(node_cpu_seconds_total{job=~\"$job\",mode='system'}) by (instance)",
@@ -400,7 +400,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "node_load5{job=~\"$job\"}",
@@ -413,7 +413,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "(1 - avg(rate(node_cpu_seconds_total{job=~\"$job\",mode=\"idle\"}[$__rate_interval])) by (instance)) * 100",
@@ -427,7 +427,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "(1 - (node_memory_MemAvailable_bytes{job=~\"$job\"} / (node_memory_MemTotal_bytes{job=~\"$job\"})))* 100",
@@ -441,7 +441,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "max((node_filesystem_size_bytes{job=~\"$job\",fstype=~\"ext.?|xfs\"}-node_filesystem_free_bytes{job=~\"$job\",fstype=~\"ext.?|xfs\"}) *100/(node_filesystem_avail_bytes {job=~\"$job\",fstype=~\"ext.?|xfs\"}+(node_filesystem_size_bytes{job=~\"$job\",fstype=~\"ext.?|xfs\"}-node_filesystem_free_bytes{job=~\"$job\",fstype=~\"ext.?|xfs\"})))by(instance)",
@@ -455,7 +455,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "max(rate(node_disk_read_bytes_total{job=~\"$job\"}[$__rate_interval])) by (instance)",
@@ -469,7 +469,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "max(rate(node_disk_written_bytes_total{job=~\"$job\"}[$__rate_interval])) by (instance)",
@@ -483,7 +483,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "node_netstat_Tcp_CurrEstab{job=~\"$job\"} - 0",
@@ -497,7 +497,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "node_sockstat_TCP_tw{job=~\"$job\"} - 0",
@@ -511,7 +511,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "max(rate(node_network_receive_bytes_total{job=~\"$job\"}[$__rate_interval])*8) by (instance)",
@@ -525,7 +525,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "max(rate(node_network_transmit_bytes_total{job=~\"$job\"}[$__rate_interval])*8) by (instance)",
@@ -560,7 +560,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "{{ grafana_datasource_uid }}"
         },
         "definition": "label_values(node_uname_info, job)",
         "hide": 2,

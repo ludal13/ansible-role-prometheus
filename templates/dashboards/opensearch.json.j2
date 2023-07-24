@@ -34,7 +34,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "gridPos": {
         "h": 1,
@@ -48,7 +48,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "refId": "A"
         }
@@ -59,7 +59,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "description": "",
       "fieldConfig": {
@@ -135,7 +135,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "exemplar": true,
           "expr": "sum(opensearch_cluster_status{cluster=~\"$cluster\"}) / count(opensearch_cluster_nodes_number{cluster=~\"$cluster\"})",
@@ -152,7 +152,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "description": "",
       "fieldConfig": {
@@ -202,7 +202,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "exemplar": true,
           "expr": "sum(opensearch_cluster_nodes_number{cluster=~\"$cluster\"}) / count(opensearch_cluster_nodes_number{cluster=~\"$cluster\"})",
@@ -218,7 +218,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -267,7 +267,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "exemplar": true,
           "expr": "sum(opensearch_cluster_datanodes_number{cluster=~\"$cluster\"}) / count(opensearch_cluster_datanodes_number{cluster=~\"$cluster\"})",
@@ -283,7 +283,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -336,7 +336,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "exemplar": true,
           "expr": "sum(opensearch_cluster_pending_tasks_number{cluster=~\"$cluster\"}) / count(opensearch_cluster_pending_tasks_number{cluster=~\"$cluster\"})",
@@ -353,7 +353,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "gridPos": {
         "h": 1,
@@ -367,7 +367,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "refId": "A"
         }
@@ -378,7 +378,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "description": "",
       "fieldConfig": {
@@ -428,7 +428,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "exemplar": true,
           "expr": "sum(opensearch_cluster_shards_number{cluster=~\"$cluster\",type=\"active\"}) / count(opensearch_cluster_shards_number{cluster=~\"$cluster\",type=\"active\"})",
@@ -444,7 +444,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -493,7 +493,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "exemplar": true,
           "expr": "sum(opensearch_cluster_shards_number{cluster=~\"$cluster\",type=\"active_primary\"}) / count(opensearch_cluster_shards_number{cluster=~\"$cluster\",type=\"active_primary\"})",
@@ -509,7 +509,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "description": "",
       "fieldConfig": {
@@ -563,7 +563,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "exemplar": true,
           "expr": "sum(opensearch_cluster_shards_number{cluster=~\"$cluster\",type=\"initializing\"}) / count(opensearch_cluster_shards_number{cluster=~\"$cluster\",type=\"initializing\"})",
@@ -579,7 +579,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -632,7 +632,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "exemplar": true,
           "expr": "sum(opensearch_cluster_shards_number{cluster=~\"$cluster\",type=\"relocating\"}) / count(opensearch_cluster_shards_number{cluster=~\"$cluster\",type=\"relocating\"})",
@@ -648,7 +648,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "description": "",
       "fieldConfig": {
@@ -706,7 +706,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "exemplar": true,
           "expr": "sum(opensearch_cluster_shards_number{cluster=~\"$cluster\",type=\"unassigned\"}) / count(opensearch_cluster_shards_number{cluster=~\"$cluster\",type=\"unassigned\"})",
@@ -723,7 +723,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "gridPos": {
         "h": 1,
@@ -737,7 +737,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "refId": "A"
         }
@@ -1016,7 +1016,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "gridPos": {
         "h": 1,
@@ -1030,7 +1030,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "refId": "A"
         }
@@ -1045,7 +1045,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -1086,7 +1086,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "exemplar": true,
           "expr": "sum(opensearch_indices_merges_total_docs_count{cluster=~\"$cluster\"})",
@@ -1526,7 +1526,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "gridPos": {
         "h": 1,
@@ -1540,7 +1540,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "refId": "A"
         }
@@ -2525,7 +2525,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "{{ grafana_datasource_uid }}"
         },
         "definition": "label_values(opensearch_cluster_status{}, cluster)",
         "hide": 0,
@@ -2555,7 +2555,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "{{ grafana_datasource_uid }}"
         },
         "definition": "label_values(node_uname_info{job=~\".*kubernetes.*|.*node_exporters.*\"}, job)",
         "hide": 0,
@@ -2586,7 +2586,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "{{ grafana_datasource_uid }}"
         },
         "definition": "label_values(node_uname_info{job=\"$job\"}, nodename)",
         "hide": 0,
@@ -2617,7 +2617,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "{{ grafana_datasource_uid }}"
         },
         "definition": "label_values(node_uname_info{job=\"$job\", nodename=\"$nodename\"}, instance)",
         "hide": 0,

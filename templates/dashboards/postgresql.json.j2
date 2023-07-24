@@ -31,7 +31,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -73,7 +73,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "sum by (short_version) (pg_static{instance=~\"$host\"})",
@@ -88,7 +88,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -132,7 +132,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "builder",
           "expr": "sum(pg_settings_shared_buffers_bytes{instance=~\"$host\"})",
@@ -147,7 +147,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -202,7 +202,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "sum(pg_settings_effective_cache_size_bytes{instance=~\"$host\"})",
@@ -217,7 +217,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -261,7 +261,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "sum(pg_settings_maintenance_work_mem_bytes{instance=~\"$host\"})",
@@ -276,7 +276,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -320,7 +320,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "sum(pg_settings_max_wal_size_bytes{instance=~\"$host\"})",
@@ -335,7 +335,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -379,7 +379,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "sum(pg_settings_max_worker_processes{instance=~\"$host\"})",
@@ -394,7 +394,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -438,7 +438,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "sum(pg_settings_max_parallel_workers{instance=~\"$host\"})",
@@ -453,7 +453,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -497,7 +497,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "code",
           "expr": "sum(pg_settings_max_connections{instance=~\"$host\"})",
@@ -512,7 +512,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -590,7 +590,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "builder",
           "expr": "sum by(instance) (rate(pg_stat_database_xact_commit{instance=~\"$host\"}[$__rate_interval]))",
@@ -601,7 +601,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "builder",
           "expr": "sum by(instance) (rate(pg_stat_database_xact_commit{instance=~\"$host\"}[$__rate_interval]))",
@@ -617,7 +617,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -695,7 +695,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "builder",
           "expr": "sum by(instance) (rate(pg_locks_count{instance=~\"$host\"}[$__rate_interval]))",
@@ -710,7 +710,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -788,7 +788,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "builder",
           "expr": "sum by(instance) (rate(pg_stat_activity_count{instance=~\"$host\", state=\"active\"}[$__rate_interval]))",
@@ -803,7 +803,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -881,7 +881,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "builder",
           "expr": "sum by(instance) (rate(pg_stat_activity_count{instance=~\"$host\", state=~\"idle|idle in transaction|idle in transaction (aborted)\"}[$__rate_interval]))",
@@ -896,7 +896,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -978,7 +978,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "builder",
           "expr": "sum by(instance) (rate(pg_stat_database_tup_fetched{instance=~\"$host\"}[$__rate_interval]))",
@@ -993,7 +993,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "{{ grafana_datasource_uid }}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1075,7 +1075,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "{{ grafana_datasource_uid }}"
           },
           "editorMode": "builder",
           "expr": "sum by(instance) (rate(pg_stat_database_tup_returned{instance=~\"$host\"}[$__rate_interval]))",
@@ -1103,7 +1103,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "{{ grafana_datasource_uid }}"
         },
         "definition": "label_values(pg_up, instance)",
         "hide": 0,
