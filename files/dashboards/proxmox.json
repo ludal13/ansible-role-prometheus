@@ -1260,8 +1260,8 @@
       {
         "current": {
           "selected": false,
-          "text": "emzhyp03",
-          "value": "emzhyp03"
+          "text": "sv3",
+          "value": "sv3"
         },
         "datasource": {
           "type": "prometheus",
@@ -1289,8 +1289,8 @@
       {
         "current": {
           "selected": false,
-          "text": "emzhyp05",
-          "value": "emzhyp05"
+          "text": "sv5",
+          "value": "sv5"
         },
         "datasource": {
           "type": "prometheus",

@@ -1358,12 +1358,12 @@
         "current": {
           "selected": true,
           "text": [
-            "emzprdcache01",
-            "emzprdcache02"
+            "sv1",
+            "sv2"
           ],
           "value": [
-            "emzprdcache01",
-            "emzprdcache02"
+            "sv1",
+            "sv2"
           ]
         },
         "datasource": {

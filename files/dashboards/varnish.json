@@ -364,7 +364,7 @@
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "/^min\\(varnish_main_uptime\\{instance=~\"\\(emzprdrpc01\\|emzprdrpc02\\)\"\\}\\)$/",
+          "fields": "/^min\\(varnish_main_uptime\\{instance=~\"\\(sv1\\|sv2\\)\"\\}\\)$/",
           "values": false
         },
         "textMode": "auto"
@@ -1664,12 +1664,12 @@
         "current": {
           "selected": true,
           "text": [
-            "emzprdrpc01",
-            "emzprdrpc02"
+            "sv1",
+            "sv2"
           ],
           "value": [
-            "emzprdrpc01",
-            "emzprdrpc02"
+            "sv1",
+            "sv2"
           ]
         },
         "datasource": {

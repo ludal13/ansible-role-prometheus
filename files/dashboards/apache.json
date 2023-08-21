@@ -761,14 +761,14 @@
         "current": {
           "selected": true,
           "text": [
-            "emzprdfront01",
-            "emzprdfront02",
-            "emzprdfront03"
+            "sv1",
+            "sv2",
+            "sv3"
           ],
           "value": [
-            "emzprdfront01",
-            "emzprdfront02",
-            "emzprdfront03"
+            "sv1",
+            "sv2",
+            "sv3"
           ]
         },
         "datasource": {

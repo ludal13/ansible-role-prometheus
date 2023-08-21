@@ -1099,12 +1099,12 @@
         "current": {
           "selected": true,
           "text": [
-            "keoprdbdd01:9187",
-            "keoprdbdd02:9187"
+            "sv1:9187",
+            "sv2:9187"
           ],
           "value": [
-            "keoprdbdd01:9187",
-            "keoprdbdd02:9187"
+            "sv1:9187",
+            "sv2:9187"
           ]
         },
         "datasource": {

@@ -14338,8 +14338,8 @@
       {
         "current": {
           "selected": false,
-          "text": "emzsvc01",
-          "value": "emzsvc01"
+          "text": "sv1",
+          "value": "sv1"
         },
         "datasource": {
           "type": "prometheus",

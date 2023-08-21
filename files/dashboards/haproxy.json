@@ -6199,12 +6199,12 @@
         "current": {
           "selected": true,
           "text": [
-            "emzprdrpc01",
-            "emzprdrpc02"
+            "sv1",
+            "sv2"
           ],
           "value": [
-            "emzprdrpc01",
-            "emzprdrpc02"
+            "sv1",
+            "sv2"
           ]
         },
         "datasource": {

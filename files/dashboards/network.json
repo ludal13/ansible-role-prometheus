@@ -757,8 +757,8 @@
       {
         "current": {
           "selected": false,
-          "text": "emzhc01",
-          "value": "emzhc01"
+          "text": "sv1",
+          "value": "sv1"
         },
         "datasource": {
           "type": "prometheus",
