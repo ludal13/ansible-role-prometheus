@@ -26,7 +26,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana provisioned datasources conf"
-  template:
+  copy:
     src: dashboards/datasources.yaml.j2
     dest: /opt/docker-compose/grafana-prometheus/datasources/datasources.yaml
     owner: '1000'
@@ -36,7 +36,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana provisioned dashboards conf"
-  template:
+  copy:
     src: dashboards/dashboard.yaml.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/dashboard.yaml
     owner: '1000'
@@ -46,7 +46,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana apache dashboard"
-  template:
+  copy:
     src: dashboards/apache.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/apache.json
     owner: '1000'
@@ -56,7 +56,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana cloudflare dashboard"
-  template:
+  copy:
     src: dashboards/cloudflare.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/cloudflare.json
     owner: '1000'
@@ -66,7 +66,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana docker dashboard"
-  template:
+  copy:
     src: dashboards/docker.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/docker.json
     owner: '1000'
@@ -76,7 +76,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana docker dashboard"
-  template:
+  copy:
     src: dashboards/docker.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/docker.json
     owner: '1000'
@@ -86,7 +86,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana opensearch dashboard"
-  template:
+  copy:
     src: dashboards/opensearch.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/opensearch.json
     owner: '1000'
@@ -96,7 +96,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana haproxy dashboard"
-  template:
+  copy:
     src: dashboards/haproxy.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/haproxy.json
     owner: '1000'
@@ -106,7 +106,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana memcached dashboard"
-  template:
+  copy:
     src: dashboards/memcached.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/memcached.json
     owner: '1000'
@@ -116,7 +116,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana mysqld dashboard"
-  template:
+  copy:
     src: dashboards/mysqld.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/mysqld.json
     owner: '1000'
@@ -126,7 +126,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana network dashboard"
-  template:
+  copy:
     src: dashboards/network.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/network.json
     owner: '1000'
@@ -136,7 +136,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana node-exporter dashboard"
-  template:
+  copy:
     src: dashboards/node-exporter.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/node-exporter.json
     owner: '1000'
@@ -146,7 +146,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana opcache dashboard"
-  template:
+  copy:
     src: dashboards/opcache.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/opcache.json
     owner: '1000'
@@ -156,7 +156,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana overview dashboard"
-  template:
+  copy:
     src: dashboards/overview.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/overview.json
     owner: '1000'
@@ -168,7 +168,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana overview-cf dashboard"
-  template:
+  copy:
     src: dashboards/overview-cf.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/overview.json
     owner: '1000'
@@ -180,7 +180,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana plateform-overview dashboard"
-  template:
+  copy:
     src: dashboards/plateform-overview.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/plateform-overview.json
     owner: '1000'
@@ -192,7 +192,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana plateform-overview-cf dashboard"
-  template:
+  copy:
     src: dashboards/plateform-overview-cf.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/plateform-overview.json
     owner: '1000'
@@ -204,7 +204,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana phpfpm dashboard"
-  template:
+  copy:
     src: dashboards/phpfpm.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/phpfpm.json
     owner: '1000'
@@ -214,7 +214,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana proxmox dashboard"
-  template:
+  copy:
     src: dashboards/proxmox.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/proxmox.json
     owner: '1000'
@@ -224,7 +224,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana redis dashboard"
-  template:
+  copy:
     src: dashboards/redis.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/redis.json
     owner: '1000'
@@ -234,7 +234,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana varnish dashboard"
-  template:
+  copy:
     src: dashboards/varnish.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/varnish.json
     owner: '1000'
@@ -244,7 +244,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana gitlab dashboard"
-  template:
+  copy:
     src: dashboards/gitlab.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/gitlab.json
     owner: '1000'
@@ -254,7 +254,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana postgresql dashboard"
-  template:
+  copy:
     src: dashboards/postgresql.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/postgresql.json
     owner: '1000'
@@ -264,7 +264,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana kong dashboard"
-  template:
+  copy:
     src: dashboards/kong.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/kong.json
     owner: '1000'
@@ -274,7 +274,7 @@
   notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | import grafana nginx dashboard"
-  template:
+  copy:
     src: dashboards/nginx.json.j2
     dest: /opt/docker-compose/grafana-prometheus/dashboards/nginx.json
     owner: '1000'
