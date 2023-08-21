@@ -3546,7 +3546,7 @@
           "datasourceErrors": {},
           "editorMode": "code",
           "errors": {},
-          "expr": "mysql_slave_status_seconds_behind_master{instance=~\"sv4\"}",
+          "expr": "mysql_slave_status_seconds_behind_master{instance=~\"$host\"}",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "{{ instance }}",
