@@ -1,16 +1,16 @@
-# - name: "grafana-prometheus | import grafana provisioned datasources"
-#   synchronize:
-#     src: "{{ grafana_provisioned_datasources_path }}"
-#     dest: /opt/docker-compose/grafana-prometheus/
-#   when: grafana_provisioned_datasources_path is defined
-#   notify: "grafana-prometheus-restart"
-#
-# - name: "grafana-prometheus | import grafana provisioned dashboards"
-#   synchronize:
-#     src: "{{ grafana_provisioned_dashboards_path }}"
-#     dest: /opt/docker-compose/grafana-prometheus/
-#   when: grafana_provisioned_datasources_path is defined
-#   notify: "grafana-prometheus-restart"
+- name: "grafana-prometheus | import grafana provisioned datasources"
+  synchronize:
+    src: "{{ grafana_provisioned_datasources_path }}"
+    dest: /opt/docker-compose/grafana-prometheus/
+  when: grafana_provisioned_datasources_path is defined
+  notify: "grafana-prometheus-restart"
+
+- name: "grafana-prometheus | import grafana provisioned dashboards"
+  synchronize:
+    src: "{{ grafana_provisioned_dashboards_path }}"
+    dest: /opt/docker-compose/grafana-prometheus/
+  when: grafana_provisioned_datasources_path is defined
+  notify: "grafana-prometheus-restart"
 
 - name: "grafana-prometheus | create grafana provisioning directories"
   file:
@@ -27,7 +27,7 @@
 
 - name: "grafana-prometheus | import grafana provisioned datasources conf"
   copy:
-    src: dashboards/datasources.yaml.j2
+    src: dashboards/datasources.yaml
     dest: /opt/docker-compose/grafana-prometheus/datasources/datasources.yaml
     owner: '1000'
     group: '1000'
@@ -37,7 +37,7 @@
 
 - name: "grafana-prometheus | import grafana provisioned dashboards conf"
   copy:
-    src: dashboards/dashboard.yaml.j2
+    src: dashboards/dashboard.yaml
     dest: /opt/docker-compose/grafana-prometheus/dashboards/dashboard.yaml
     owner: '1000'
     group: '1000'
@@ -47,7 +47,7 @@
 
 - name: "grafana-prometheus | import grafana apache dashboard"
   copy:
-    src: dashboards/apache.json.j2
+    src: dashboards/apache.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/apache.json
     owner: '1000'
     group: '1000'
@@ -57,7 +57,7 @@
 
 - name: "grafana-prometheus | import grafana cloudflare dashboard"
   copy:
-    src: dashboards/cloudflare.json.j2
+    src: dashboards/cloudflare.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/cloudflare.json
     owner: '1000'
     group: '1000'
@@ -67,7 +67,7 @@
 
 - name: "grafana-prometheus | import grafana docker dashboard"
   copy:
-    src: dashboards/docker.json.j2
+    src: dashboards/docker.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/docker.json
     owner: '1000'
     group: '1000'
@@ -77,7 +77,7 @@
 
 - name: "grafana-prometheus | import grafana docker dashboard"
   copy:
-    src: dashboards/docker.json.j2
+    src: dashboards/docker.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/docker.json
     owner: '1000'
     group: '1000'
@@ -87,7 +87,7 @@
 
 - name: "grafana-prometheus | import grafana opensearch dashboard"
   copy:
-    src: dashboards/opensearch.json.j2
+    src: dashboards/opensearch.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/opensearch.json
     owner: '1000'
     group: '1000'
@@ -97,7 +97,7 @@
 
 - name: "grafana-prometheus | import grafana haproxy dashboard"
   copy:
-    src: dashboards/haproxy.json.j2
+    src: dashboards/haproxy.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/haproxy.json
     owner: '1000'
     group: '1000'
@@ -107,7 +107,7 @@
 
 - name: "grafana-prometheus | import grafana memcached dashboard"
   copy:
-    src: dashboards/memcached.json.j2
+    src: dashboards/memcached.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/memcached.json
     owner: '1000'
     group: '1000'
@@ -117,7 +117,7 @@
 
 - name: "grafana-prometheus | import grafana mysqld dashboard"
   copy:
-    src: dashboards/mysqld.json.j2
+    src: dashboards/mysqld.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/mysqld.json
     owner: '1000'
     group: '1000'
@@ -127,7 +127,7 @@
 
 - name: "grafana-prometheus | import grafana network dashboard"
   copy:
-    src: dashboards/network.json.j2
+    src: dashboards/network.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/network.json
     owner: '1000'
     group: '1000'
@@ -137,7 +137,7 @@
 
 - name: "grafana-prometheus | import grafana node-exporter dashboard"
   copy:
-    src: dashboards/node-exporter.json.j2
+    src: dashboards/node-exporter.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/node-exporter.json
     owner: '1000'
     group: '1000'
@@ -147,7 +147,7 @@
 
 - name: "grafana-prometheus | import grafana opcache dashboard"
   copy:
-    src: dashboards/opcache.json.j2
+    src: dashboards/opcache.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/opcache.json
     owner: '1000'
     group: '1000'
@@ -157,7 +157,7 @@
 
 - name: "grafana-prometheus | import grafana overview dashboard"
   copy:
-    src: dashboards/overview.json.j2
+    src: dashboards/overview.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/overview.json
     owner: '1000'
     group: '1000'
@@ -169,7 +169,7 @@
 
 - name: "grafana-prometheus | import grafana overview-cf dashboard"
   copy:
-    src: dashboards/overview-cf.json.j2
+    src: dashboards/overview-cf.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/overview.json
     owner: '1000'
     group: '1000'
@@ -181,7 +181,7 @@
 
 - name: "grafana-prometheus | import grafana plateform-overview dashboard"
   copy:
-    src: dashboards/plateform-overview.json.j2
+    src: dashboards/plateform-overview.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/plateform-overview.json
     owner: '1000'
     group: '1000'
@@ -193,7 +193,7 @@
 
 - name: "grafana-prometheus | import grafana plateform-overview-cf dashboard"
   copy:
-    src: dashboards/plateform-overview-cf.json.j2
+    src: dashboards/plateform-overview-cf.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/plateform-overview.json
     owner: '1000'
     group: '1000'
@@ -205,7 +205,7 @@
 
 - name: "grafana-prometheus | import grafana phpfpm dashboard"
   copy:
-    src: dashboards/phpfpm.json.j2
+    src: dashboards/phpfpm.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/phpfpm.json
     owner: '1000'
     group: '1000'
@@ -215,7 +215,7 @@
 
 - name: "grafana-prometheus | import grafana proxmox dashboard"
   copy:
-    src: dashboards/proxmox.json.j2
+    src: dashboards/proxmox.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/proxmox.json
     owner: '1000'
     group: '1000'
@@ -225,7 +225,7 @@
 
 - name: "grafana-prometheus | import grafana redis dashboard"
   copy:
-    src: dashboards/redis.json.j2
+    src: dashboards/redis.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/redis.json
     owner: '1000'
     group: '1000'
@@ -235,7 +235,7 @@
 
 - name: "grafana-prometheus | import grafana varnish dashboard"
   copy:
-    src: dashboards/varnish.json.j2
+    src: dashboards/varnish.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/varnish.json
     owner: '1000'
     group: '1000'
@@ -245,7 +245,7 @@
 
 - name: "grafana-prometheus | import grafana gitlab dashboard"
   copy:
-    src: dashboards/gitlab.json.j2
+    src: dashboards/gitlab.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/gitlab.json
     owner: '1000'
     group: '1000'
@@ -255,7 +255,7 @@
 
 - name: "grafana-prometheus | import grafana postgresql dashboard"
   copy:
-    src: dashboards/postgresql.json.j2
+    src: dashboards/postgresql.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/postgresql.json
     owner: '1000'
     group: '1000'
@@ -265,7 +265,7 @@
 
 - name: "grafana-prometheus | import grafana kong dashboard"
   copy:
-    src: dashboards/kong.json.j2
+    src: dashboards/kong.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/kong.json
     owner: '1000'
     group: '1000'
@@ -275,7 +275,7 @@
 
 - name: "grafana-prometheus | import grafana nginx dashboard"
   copy:
-    src: dashboards/nginx.json.j2
+    src: dashboards/nginx.json
     dest: /opt/docker-compose/grafana-prometheus/dashboards/nginx.json
     owner: '1000'
     group: '1000'

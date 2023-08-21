@@ -84,6 +84,3 @@ grafana_log_level: error
 grafana_router_logging: false
 grafana_disable_sanitize_html: true
 grafana_traefik_entrypoint: 'websecure'
-
-grafana_datasource_uid: 'yPhvsDP7k'
-grafana_dashboard_regex: ''
