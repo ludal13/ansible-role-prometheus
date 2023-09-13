@@ -9,6 +9,5 @@
     name:
       - curl
       - jq
-      - docker-compose-plugin
     state: present
   tags: ['prometheus']
