@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/prometheus-mongodb-exporter --compatible-mode --collect-all --discovering-mode
+ExecStart=/usr/local/bin/prometheus-mongodb-exporter --compatible-mode --collect-all
 EnvironmentFile=/etc/default/prometheus-mongodb-exporter
 
 [Install]

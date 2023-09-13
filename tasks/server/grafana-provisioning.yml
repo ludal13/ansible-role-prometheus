@@ -125,6 +125,16 @@
   when: prometheus_mysqld_exporter_targets is defined
   notify: "grafana-prometheus-restart"
 
+- name: "grafana-prometheus | import grafana mongodb dashboard"
+  copy:
+    src: dashboards/mongodb.json
+    dest: /opt/docker-compose/grafana-prometheus/dashboards/mongodb.json
+    owner: '1000'
+    group: '1000'
+    mode: '0750'
+  when: prometheus_mongodb_exporter_targets is defined
+  notify: "grafana-prometheus-restart"
+
 - name: "grafana-prometheus | import grafana network dashboard"
   copy:
     src: dashboards/network.json
