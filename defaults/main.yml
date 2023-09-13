@@ -45,6 +45,8 @@ prometheus_server_scrape_interval: 5
 prometheus_server_scrape_timeout: 5
 prometheus_server_version: "latest"
 
+prometheus_use_victoriametrics: false
+
 ## exporter
 prometheus_exporter_packages: []
 
