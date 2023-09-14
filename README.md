@@ -2,8 +2,8 @@ prometheus
 ==========
 
 The present role :
-  - installs prometheus server inside a Docker container
-  - installs various prometheus exporter
+  - Installs Prometheus server inside a docker container.
+  - Installs various Prometheus exporter.
     - node
     - blackbox
     - apache
@@ -16,6 +16,8 @@ The present role :
     - postgres
     - mongodb
     - opensearch (via plugin for opensearch https://github.com/aiven/prometheus-exporter-plugin-for-opensearch)
+  - Deploys Grafana with a dashboard for each exporter configured.
+  - Supports deploying VictoriaMetrics as the Prometheus backend.
 
 Please note that Docker and Haproxy their own embedded exporters.
   - https://docs.docker.com/config/daemon/prometheus/

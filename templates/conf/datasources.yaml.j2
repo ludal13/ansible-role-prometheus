@@ -5,5 +5,9 @@ datasources:
     uid: yPhvsDP7k
     type: prometheus
     access: proxy
+{% if prometheus_use_victoriametrics == false %}
     url: http://prometheus:9090
+{% else %}
+    url: http://victoriametrics:8428
+{% endif %}
     isDefault: true

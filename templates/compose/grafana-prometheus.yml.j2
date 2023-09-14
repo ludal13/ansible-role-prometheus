@@ -8,7 +8,11 @@ networks:
 {% endif %}
 
 volumes:
+{% if prometheus_use_victoriametrics == false %}
   prometheus-data:
+{% else %}
+  victoria-metrics-data:
+{% endif %}
   grafana-data:
 
 services:
@@ -67,6 +71,7 @@ services:
       - "{{ grafana_port | default(3000) }}:3000"
 {% endif %}
 
+{% if prometheus_use_victoriametrics == false %}
   prometheus:
     container_name: prometheus
     image: prom/prometheus:{{ grafana_prometheus_version | default('latest') }}
@@ -101,3 +106,49 @@ services:
 {% endfor %}
 {% endif %}
     restart: unless-stopped
+{% else %}
+  victoriametrics:
+    image: victoriametrics/victoria-metrics
+    container_name: victoriametrics
+    restart: always
+    command:
+      - '-storageDataPath=/victoria-metrics-data'
+      - '-retentionPeriod={{ prometheus_retention_time }}'
+    volumes:
+      - victoria-metrics-data:/victoria-metrics-data
+{% if prometheus_traefik_enable is defined %}
+      - traefik
+    labels:
+      traefik.enable: true
+      traefik.docker.network: traefik
+      traefik.http.routers.prometheus.rule: Host(`{{ prometheus_domain|default(omit) }}`)
+      traefik.http.routers.prometheus.tls: true
+      traefik.http.routers.prometheus.tls.certresolver: letsencrypt
+      traefik.http.routers.prometheus.entrypoints: "{{ grafana_traefik_entrypoint }}"
+      traefik.http.services.prometheus.loadbalancer.server.port: 8428
+{% else %}
+    ports:
+      - "{{ prometheus_port | default(8428) }}:8428"
+{% endif %}
+    networks:
+      - grafana
+
+  vmagent:
+    image: victoriametrics/vmagent
+    container_name: vmagent
+    restart: always
+    command:
+      - '-promscrape.config=/etc/vmagent/vmagent.yml'
+      - '-remoteWrite.url=http://victoriametrics:8428/api/v1/write'
+      - '-loggerLevel=ERROR'
+    volumes:
+      - /etc/prometheus:/etc/vmagent
+    networks:
+      - grafana
+{% if prometheus_nodes_ip is defined %}
+    extra_hosts:
+{% for key, value in prometheus_nodes_ip.items() %}
+      - "{{ key }}:{{ value }}"
+{% endfor %}
+{% endif %}
+{% endif %}

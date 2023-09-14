@@ -1,0 +1,517 @@
+# {{ ansible_managed }}
+
+global:
+  scrape_interval:     {{ prometheus_server_global_scrape_interval }}s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+
+{% if prometheus_server_rules is defined %}
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+        - 'rules.yml'
+{% endif %}
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'vmagent'
+
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: {{ prometheus_server_scrape_interval }}s
+    scrape_timeout:  {{ prometheus_server_scrape_timeout }}s
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ['victoriametrics:8428']
+
+{% if prometheus_node_exporter_targets is defined %}
+  # node exporter #
+  - job_name: node
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_node_exporter_targets %}
+        - {{ target }}:9100
+{% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9100'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_mysqld_exporter_targets is defined %}
+  # mysql exporter #
+  - job_name: mysql
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+{% if prometheus_mysqld_exporter_custom is defined %}
+{% for target in prometheus_mysqld_exporter_custom.values() %}
+      - targets: ['{{ target.node_name }}:9104']
+        labels:
+          environment: '{{ target.environment }}'
+          node_name: '{{ target.node_name }}'
+          service_name: '{{ target.service_name }}'
+          cluster: '{{ target.cluster }}'
+{% endfor %}
+{% else %}
+      - targets:
+{% for target in prometheus_mysqld_exporter_targets %}
+        - {{ target }}:9104
+{% endfor %}
+{% endif %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9104'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_mongodb_exporter_targets is defined %}
+  # mongoDB exporter #
+  - job_name: mongodb
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+{% if prometheus_mongodb_exporter_custom is defined %}
+{% for target in prometheus_mongodb_exporter_custom.values() %}
+      - targets: ['{{ target.node_name }}:9216']
+        labels:
+          environment: '{{ target.environment }}'
+          node_name: '{{ target.node_name }}'
+          service_name: '{{ target.service_name }}'
+          cluster: '{{ target.cluster }}'
+{% endfor %}
+{% else %}
+      - targets:
+{% for target in prometheus_mongodb_exporter_targets %}
+        - {{ target }}:9216
+{% endfor %}
+{% endif %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9216'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_postgres_exporter_targets is defined %}
+  # postgresql exporter #
+  - job_name: postgresql
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+{% if prometheus_postgres_exporter_custom is defined %}
+{% for target in prometheus_postgres_exporter_custom.values() %}
+      - targets: ['{{ target.node_name }}:9187']
+        labels:
+          environment: '{{ target.environment }}'
+          node_name: '{{ target.node_name }}'
+          service_name: '{{ target.service_name }}'
+          cluster: '{{ target.cluster }}'
+{% endfor %}
+{% else %}
+      - targets:
+{% for target in prometheus_postgres_exporter_targets %}
+        - {{ target }}:9187
+{% endfor %}
+{% endif %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9187'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_phpfpm_exporter_targets is defined %}
+  # PHP-FPM exporter #
+  - job_name: phpfpm
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_phpfpm_exporter_targets %}
+        - {{ target }}:9253
+{% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9253'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_opcache_exporter_targets is defined %}
+  # opcache exporter #
+  - job_name: opcache
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_opcache_exporter_targets %}
+        - {{ target }}:9101
+{% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9101'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_apache_exporter_targets is defined %}
+  # apache exporter #
+  - job_name: apache
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_apache_exporter_targets %}
+        - {{ target }}:9117
+{% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9117'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_nginx_exporter_targets is defined %}
+  # nginx exporter #
+  - job_name: nginx
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_nginx_exporter_targets %}
+        - {{ target }}:9113
+{% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9113'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_haproxy_exporter_targets is defined %}
+  # haproxy exporter #
+  - job_name: haproxy
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_haproxy_exporter_targets %}
+        - {{ target }}:8404
+{% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):8404'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_varnish_exporter_targets is defined %}
+  # Varnish exporter #
+  - job_name: varnish
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_varnish_exporter_targets %}
+        - {{ target }}:9131
+{% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9131'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_blackbox_exporter is defined %}
+  # blackbox #
+{% if prometheus_blackbox_exporter_http is defined %}
+  ## http check ##
+  - job_name: blackbox - url
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+{% for target in prometheus_blackbox_exporter_http %}
+        - {{target }}
+{% endfor %}
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: {{ prometheus_blackbox_exporter_host }}:9115
+{% endif %}
+{% if prometheus_blackbox_exporter_ping is defined %}
+  ## ping ##
+  - job_name: blackbox - ping
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    params:
+      module: [icmp]
+    static_configs:
+      - targets:
+{% for target in prometheus_blackbox_exporter_ping %}
+         - {{ target }}
+{% endfor %}
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: {{ prometheus_blackbox_exporter_host }}:9115
+{% endif %}
+
+{% endif %}
+{% if prometheus_redis_multi_instances_exporter_targets is defined %}
+  # Redis exporter #
+  - job_name: 'redis_exporter_targets'
+    static_configs:
+      - targets:
+{% for target in prometheus_redis_multi_instances_exporter_targets %}
+        - {{ target }}
+{% endfor %}
+    metrics_path: /scrape
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - source_labels: [instance]
+        target_label: __address__
+        regex: 'redis://(.*):63..'
+        replacement: '${1}:9121'
+
+{% endif %}
+{% if prometheus_redis_exporter_targets is defined %}
+  # Redis exporter #
+  - job_name: redis
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_redis_exporter_targets %}
+        - {{ target }}:9121
+{% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9121'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_proxysql_exporter_targets is defined %}
+  # ProxySQL exporter #
+  - job_name: proxysql
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_proxysql_exporter_targets %}
+        - {{ target }}:6070
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):6070'
+        replacement: '${1}'
+{% endfor %}
+
+{% endif %}
+{% if prometheus_kong_exporter_targets is defined %}
+  # Kong exporter #
+  - job_name: kong
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    honor_labels: false
+    honor_timestamps: true
+    sample_limit: 0
+    static_configs:
+      - targets:
+{% for target in prometheus_kong_exporter_targets %}
+        - {{ target }}
+{% endfor %}
+
+{% endif %}
+{% if prometheus_memcached_exporter_targets is defined %}
+  # Memcached exporter #
+  - job_name: memcached
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_memcached_exporter_targets %}
+        - {{ target }}:9150
+{% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9150'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_docker_exporter_targets is defined %}
+  # Docker exporter #
+  - job_name: docker
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+{% for target in prometheus_docker_exporter_targets %}
+        - {{ target }}:9323
+{% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9323'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_cadvisor_exporter_targets is defined %}
+  # cadvisor #
+  - job_name: cadvisor
+    scrape_interval: 30s
+    static_configs:
+      - targets:
+{% for target in prometheus_cadvisor_exporter_targets %}
+        - {{ target }}:8080
+{% endfor %}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):8080'
+        replacement: '${1}'
+{% endif %}
+{% if prometheus_cloudflare_exporter_targets is defined %}
+  # cloudflare #
+  - job_name: cloudflare
+    scrape_interval: 30s
+    static_configs:
+      - targets:
+{% for target in prometheus_cloudflare_exporter_targets %}
+        - {{ target }}:8082
+  {% endfor %}
+  relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):8082'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_pve_exporter_targets is defined %}
+  # proxmox #
+  - job_name: pve
+    scrape_interval: 30s
+    static_configs:
+      - targets:
+{% for target in prometheus_pve_exporter_targets %}
+        - {{ target }}:9221
+{% endfor %}
+    metrics_path: /pve
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9221'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_opensearch_exporter_targets is defined %}
+  # opensearch #
+  - job_name: opensearch
+    scrape_interval: 30s
+    metrics_path: "/_prometheus/metrics"
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+      - targets:
+{% for target in prometheus_opensearch_exporter_targets %}
+        - {{ target }}:9200
+{% endfor %}
+    basic_auth:
+      username: {{ opensearch_user }}
+      password: {{ opensearch_pass }}
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        regex: '(.*):9200'
+        replacement: '${1}'
+
+{% endif %}
+{% if prometheus_gitlab_exporter_targets is defined %}
+  # gitlab #
+  - job_name: gitlab-nginx
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:8060
+{% endfor %}
+  - job_name: gitlab-node
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:9101
+{% endfor %}
+  - job_name: gitlab-redis
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:9121
+{% endfor %}
+  - job_name: gitlab-postgres
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:9187
+{% endfor %}
+  - job_name: gitlab-workhorse
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:9229
+{% endfor %}
+  - job_name: gitlab-rails
+    metrics_path: "/-/metrics"
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:8880
+{% endfor %}
+  - job_name: gitlab-sidekiq
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:8082
+{% endfor %}
+  - job_name: gitlab_exporter_database
+    metrics_path: "/database"
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:9168
+{% endfor %}
+  - job_name: gitlab_exporter_sidekiq
+    metrics_path: "/sidekiq"
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:9168
+{% endfor %}
+  - job_name: gitaly
+    static_configs:
+      - targets:
+{% for target in prometheus_gitlab_exporter_targets %}
+        - {{ target }}:9236
+{% endfor %}
+
+{% endif %}

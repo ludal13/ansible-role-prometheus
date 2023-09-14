@@ -45,6 +45,8 @@ prometheus_server_scrape_interval: 5
 prometheus_server_scrape_timeout: 5
 prometheus_server_version: "latest"
 
+prometheus_use_victoriametrics: false
+
 ## exporter
 prometheus_exporter_packages: []
 
@@ -75,7 +77,7 @@ prometheus_redis_exporter_password: ""
 ## grafana
 
 grafana_auth_anonymous_enabled: false
-grafana_auth_anonymous_org_role: Editor # Viewer
+grafana_auth_anonymous_org_role: Viewer
 grafana_auth_anonymous_org_name: 'Main Org.'
 grafana_auth_disable_login_form: false
 grafana_editors_can_admin: false
