@@ -19,6 +19,7 @@
 | prometheus_nodes_ip | The IP addresses of Prometheus nodes | Dictionary | localhost: "127.0.0.1" |
 | prometheus_retention_time | The retention time for Prometheus data | String | "15d" |
 | prometheus_server_enable | Whether to enable the Prometheus server | Boolean | false |
+| prometheus_use_victoriametrics | Use VictoriaMetrics as prometheus backend | Boolean | false |
 | prometheus_server_global_evaluation_interval | The global evaluation interval for Prometheus server | Integer | 15 |
 | prometheus_server_global_scrape_interval | The global scrape interval for Prometheus server | Integer | 15 |
 | prometheus_server_job_name | The job name for Prometheus server | String | "prometheus" |
