@@ -3,7 +3,6 @@
   get_url:
     url: "{{prometheus_exporters_repo}}/releases/download/{{prometheus_exporters_release}}/{{exporter}}_exporter"
     dest: /usr/local/bin/prometheus-{{ exporter }}-exporter
-    remote_src: yes
     owner: root
     group: root
     mode: 0755
