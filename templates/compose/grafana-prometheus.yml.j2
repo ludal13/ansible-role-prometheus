@@ -67,6 +67,10 @@ services:
       traefik.http.routers.grafana.entrypoints: "{{ grafana_traefik_entrypoint }}"
       traefik.http.services.grafana.loadbalancer.server.port: 3000
 {% else %}
+{% if grafana_traefik_ipwhitelist is defined %}
+      traefik.http.middlewares.grafana-clientips.ipwhitelist.sourcerange: {{ grafana_traefik_ipwhitelist }}
+      traefik.http.routers.grafana.middlewares: "grafana-clientips@docker"
+{% else %}
     ports:
       - "{{ grafana_port | default(3000) }}:3000"
 {% endif %}
@@ -95,6 +99,10 @@ services:
       traefik.http.routers.prometheus.tls.certresolver: letsencrypt
       traefik.http.routers.prometheus.entrypoints: "{{ grafana_traefik_entrypoint }}"
       traefik.http.services.prometheus.loadbalancer.server.port: 9090
+{% else %}
+{% if prometheus_traefik_ipwhitelist is defined %}
+      traefik.http.middlewares.prometheus-clientips.ipwhitelist.sourcerange: {{ prometheus_traefik_ipwhitelist }}
+      traefik.http.routers.prometheus.middlewares: "prometheus-clientips@docker"
 {% else %}
     ports:
       - "{{ prometheus_port | default(9090) }}:9090"
