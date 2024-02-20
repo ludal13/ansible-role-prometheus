@@ -70,7 +70,7 @@ services:
 {% if grafana_traefik_ipwhitelist is defined %}
       traefik.http.middlewares.grafana-clientips.ipwhitelist.sourcerange: {{ grafana_traefik_ipwhitelist }}
       traefik.http.routers.grafana.middlewares: "grafana-clientips@docker"
-{% else %}
+{% endif %}
     ports:
       - "{{ grafana_port | default(3000) }}:3000"
 {% endif %}
@@ -103,7 +103,7 @@ services:
 {% if prometheus_traefik_ipwhitelist is defined %}
       traefik.http.middlewares.prometheus-clientips.ipwhitelist.sourcerange: {{ prometheus_traefik_ipwhitelist }}
       traefik.http.routers.prometheus.middlewares: "prometheus-clientips@docker"
-{% else %}
+{% endif %}
     ports:
       - "{{ prometheus_port | default(9090) }}:9090"
 {% endif %}
