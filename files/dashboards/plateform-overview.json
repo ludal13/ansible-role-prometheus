@@ -1908,12 +1908,12 @@
         "current": {
           "selected": true,
           "text": [
-            "cprprdcache1",
-            "cprprdcache2"
+            "sv1",
+            "sv2"
           ],
           "value": [
-            "cprprdcache1",
-            "cprprdcache2"
+            "sv1",
+            "sv2"
           ]
         },
         "datasource": {
