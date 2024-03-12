@@ -757,10 +757,10 @@
         ]
       },
       "gridPos": {
-        "h": 11,
+        "h": 24,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 0
       },
       "id": 54,
       "options": {
@@ -773,7 +773,13 @@
           ],
           "countRows": false,
           "fields": ""
-        }
+        },
+        "sortBy": [
+          {
+            "displayName": "Hostname",
+            "desc": false
+          }
+        ]
       },
       "pluginVersion": "10.4.0",
       "targets": [
