@@ -71,6 +71,7 @@ services:
       traefik.http.middlewares.grafana-clientips.ipwhitelist.sourcerange: {{ grafana_traefik_ipwhitelist }}
       traefik.http.routers.grafana.middlewares: "grafana-clientips@docker"
 {% endif %}
+      com.centurylinklabs.watchtower.enable: {{ grafana_watchtower_enable | default('true') }}
     ports:
       - "{{ grafana_port | default(3000) }}:3000"
 {% endif %}
@@ -91,7 +92,10 @@ services:
       - grafana
 {% if prometheus_traefik_enable is defined %}
       - traefik
+{% endif %}
     labels:
+      com.centurylinklabs.watchtower.enable: {{ prometheus_watchtower_enable | default('true') }}
+{% if prometheus_traefik_enable is defined %}
       traefik.enable: true
       traefik.docker.network: traefik
       traefik.http.routers.prometheus.rule: Host(`{{ prometheus_domain|default(omit) }}`)
@@ -126,7 +130,10 @@ services:
       - victoria-metrics-data:/victoria-metrics-data
 {% if prometheus_traefik_enable is defined %}
       - traefik
+{% endif %}
     labels:
+      com.centurylinklabs.watchtower.enable: {{ prometheus_watchtower_enable | default('true') }}
+{% if prometheus_traefik_enable is defined %}
       traefik.enable: true
       traefik.docker.network: traefik
       traefik.http.routers.prometheus.rule: Host(`{{ prometheus_domain|default(omit) }}`)

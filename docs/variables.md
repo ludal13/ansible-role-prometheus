@@ -26,6 +26,7 @@
 | prometheus_server_scrape_interval | The scrape interval for Prometheus server | Integer | 5 |
 | prometheus_server_scrape_timeout | The scrape timeout for Prometheus server | Integer | 5 |
 | prometheus_server_version | The version of Prometheus server to install | String | "latest" |
+| prometheus_watchtower_enable | Whether to enable watchtower on this container | Boolean | true |
 
 ## Prometheus Exporters
 
@@ -79,3 +80,4 @@
 | grafana_router_logging | Whether to enable router logging in Grafana | Boolean | false |
 | grafana_disable_sanitize_html | Whether to disable HTML sanitization in Grafana | Boolean | true |
 | grafana_traefik_entrypoint | The Traefik entrypoint for Grafana | String | 'websecure' |
+| grafana_watchtower_enable | Whether to enable watchtower on this container | Boolean | true |

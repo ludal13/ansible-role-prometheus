@@ -12,6 +12,8 @@ services:
     environment:
       - CF_API_TOKEN={{ cloudflare_api_key }}
       - CF_API_EMAIL={{ cloudflare_api_email }}
+    labels:
+      com.centurylinklabs.watchtower.enable: {{ cloudflare_exporter_watchtower_enable | default('true') }}
     ports:
       - 8082:8080
     networks:
