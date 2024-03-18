@@ -1971,7 +1971,7 @@
           "type": "prometheus",
           "uid": "yPhvsDP7k"
         },
-        "definition": "label_values(node_filesystem_avail_bytes{instance=~\"$host\",fstype!=\"nfs\"}, mountpoint)",
+        "definition": "label_values(node_filesystem_avail_bytes{instance=~\"$host\"}, mountpoint)",
         "hide": 0,
         "includeAll": false,
         "label": "Mountpoints",
@@ -1979,7 +1979,7 @@
         "name": "mountpoints",
         "options": [],
         "query": {
-          "query": "label_values(node_filesystem_avail_bytes{instance=~\"$host\",fstype!=\"nfs\"}, mountpoint)",
+          "query": "label_values(node_filesystem_avail_bytes{instance=~\"$host\"}, mountpoint)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
