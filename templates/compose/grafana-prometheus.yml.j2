@@ -58,7 +58,10 @@ services:
       - grafana
 {% if grafana_traefik_enable is defined %}
       - traefik
+{% endif %}
     labels:
+      com.centurylinklabs.watchtower.enable: {{ grafana_watchtower_enable | default('true') }}
+{% if grafana_traefik_enable is defined %}
       traefik.enable: true
       traefik.docker.network: traefik
       traefik.http.routers.grafana.rule: Host(`{{ grafana_domain|default(omit) }}`)
@@ -66,12 +69,11 @@ services:
       traefik.http.routers.grafana.tls.certresolver: letsencrypt
       traefik.http.routers.grafana.entrypoints: "{{ grafana_traefik_entrypoint }}"
       traefik.http.services.grafana.loadbalancer.server.port: 3000
-{% else %}
 {% if grafana_traefik_ipwhitelist is defined %}
       traefik.http.middlewares.grafana-clientips.ipwhitelist.sourcerange: {{ grafana_traefik_ipwhitelist }}
       traefik.http.routers.grafana.middlewares: "grafana-clientips@docker"
 {% endif %}
-      com.centurylinklabs.watchtower.enable: {{ grafana_watchtower_enable | default('true') }}
+{% else %}
     ports:
       - "{{ grafana_port | default(3000) }}:3000"
 {% endif %}
