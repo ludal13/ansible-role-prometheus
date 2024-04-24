@@ -18,11 +18,11 @@
     cmd: python3 -m venv "{{ prometheus_proxmox_venv_path | default('/opt/venv/prometheus-pve-exporter') }}"
   tags: ['prometheus_proxmox']
 
-- name: 'proxmox exporter | install package through pip3'
+- name: 'proxmox exporter | install package into a dedicated venv'
   pip:
     name:
       - prometheus-pve-exporter
-    venv: "{{ prometheus_proxmox_venv_path | default('/opt/venv/prometheus-pve-exporter') }}"
+    virtualenv: "{{ prometheus_proxmox_venv_path | default('/opt/venv/prometheus-pve-exporter') }}"
   tags: ['prometheus_proxmox']
 
 - name: 'proxmox exporter | configuration'
