@@ -160,6 +160,8 @@ services:
       - '-loggerLevel=ERROR'
     volumes:
       - /etc/prometheus:/etc/vmagent
+    labels:
+      com.centurylinklabs.watchtower.enable: {{ prometheus_watchtower_enable | default('true') }}
     networks:
       - grafana
 {% if prometheus_nodes_ip is defined %}
