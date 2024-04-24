@@ -70,6 +70,8 @@ prometheus_postgres_exporter_user: "postgres"
 prometheus_postgres_exporter_password: "changeme_"
 prometheus_postgres_exporter_port: 5432
 
+prometheus_proxmox_venv_path: "/opt/venv/prometheus-pve-exporter"
+
 prometheus_redis_exporter_addr: "redis://localhost:6379"
 prometheus_redis_exporter_user: ""
 prometheus_redis_exporter_password: ""

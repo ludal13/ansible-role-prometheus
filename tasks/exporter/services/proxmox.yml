@@ -7,11 +7,22 @@
       - prometheus_proxmox_exporter_node is defined
   tags: ['prometheus_proxmox']
 
+- name: 'proxmox exporter | create dedicated venv path'
+  file:
+    path: "{{ prometheus_proxmox_venv_path | default('/opt/venv/prometheus-pve-exporter') }}"
+    state: directory
+  tags: ['prometheus_proxmox']
+
+- name: 'proxmox exporter | create dedicated venv'
+  command:
+    cmd: python3 -m venv "{{ prometheus_proxmox_venv_path | default('/opt/venv/prometheus-pve-exporter') }}"
+  tags: ['prometheus_proxmox']
+
 - name: 'proxmox exporter | install package through pip3'
   pip:
     name:
       - prometheus-pve-exporter
-    executable: pip3
+    venv: "{{ prometheus_proxmox_venv_path | default('/opt/venv/prometheus-pve-exporter') }}"
   tags: ['prometheus_proxmox']
 
 - name: 'proxmox exporter | configuration'
