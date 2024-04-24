@@ -5,6 +5,6 @@ Wants=network.target
 
 [Service]
 Restart=on-failure
-ExecStart="{{ prometheus_proxmox_venv_path | default('/opt/venv/prometheus-pve-exporter') }}"/bin/pve_exporter --config.file /etc/default/prometheus-proxmox-exporter --web.listen-address {{ prometheus_proxmox_exporter_node }}:{{ prometheus_proxmox_exporter_port | default('9221') }} 
+ExecStart="{{ prometheus_proxmox_venv_path | default('/opt/venv/prometheus-pve-exporter') }}"/bin/pve_exporter --config.file /etc/default/prometheus-proxmox-exporter --web.listen-address {{ prometheus_proxmox_exporter_node }}:{{ prometheus_proxmox_exporter_port | default('9221') }} 
 [Install]
 WantedBy=multi-user.target
