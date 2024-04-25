@@ -62,6 +62,9 @@
 | prometheus_postgres_exporter_user | The user for Postgres exporter | String | "postgres" |
 | prometheus_postgres_exporter_password | The password for Postgres exporter | String | "changeme_" |
 | prometheus_postgres_exporter_port | The port for Postgres exporter | Integer | 5432 |
+| prometheus_proxmox_exporter_user | Username used to contact Proxmox API | String | "" |
+| prometheus_proxmox_exporter_password | Password for previous username | String | "" |
+| prometheus_proxmox_exporter_node | Proxmox node to metrics from | String | "" |
 | prometheus_redis_exporter_addr | The address for Redis exporter | String | "redis://localhost:6379" |
 | prometheus_redis_exporter_user | The user for Redis exporter | String | "" |
 | prometheus_redis_exporter_password | The password for Redis exporter | String | "" |

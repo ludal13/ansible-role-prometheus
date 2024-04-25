@@ -414,13 +414,13 @@ scrape_configs:
         replacement: '${1}'
 
 {% endif %}
-{% if prometheus_pve_exporter_targets is defined %}
+{% if prometheus_proxmox_exporter_targets is defined %}
   # proxmox #
   - job_name: pve
     scrape_interval: 30s
     static_configs:
       - targets:
-{% for target in prometheus_pve_exporter_targets %}
+{% for target in prometheus_proxmox_exporter_targets %}
         - {{ target }}:9221
 {% endfor %}
     metrics_path: /pve
