@@ -88,3 +88,7 @@ grafana_log_level: error
 grafana_router_logging: false
 grafana_disable_sanitize_html: true
 grafana_traefik_entrypoint: 'websecure'
+
+# cloudflare
+
+prometheus_cloudflare_dns: "1.1.1.1"

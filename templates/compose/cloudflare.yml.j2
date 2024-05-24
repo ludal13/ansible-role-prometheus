@@ -18,3 +18,5 @@ services:
       - 8082:8080
     networks:
       - {{ prometheus_docker_network }}
+    dns:
+      - "{{ prometheus_cloudflare_dns }}"
