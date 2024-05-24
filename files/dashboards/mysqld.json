@@ -33,7 +33,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 7362,
   "graphTooltip": 1,
-  "id": 11,
+  "id": 13,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -104,7 +104,6 @@
       },
       "id": 12,
       "interval": "$interval",
-      "links": [],
       "maxDataPoints": 100,
       "options": {
         "colorMode": "value",
@@ -118,9 +117,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "10.0.3",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "calculatedInterval": "10m",
@@ -208,9 +209,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "10.0.3",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "calculatedInterval": "10m",
@@ -297,9 +300,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "10.0.3",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "calculatedInterval": "10m",
@@ -386,9 +391,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "10.0.3",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "calculatedInterval": "10m",
@@ -451,6 +458,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -464,6 +472,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -619,6 +628,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "Threads",
@@ -632,6 +642,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -732,7 +743,6 @@
         "y": 6
       },
       "id": 10,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -811,6 +821,118 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "yPhvsDP7k"
+      },
+      "description": "\n\nThe query cache has huge scalability problems in that only one thread can do an operation in the query cache at the same time. This serialization is true not only for SELECTs, but also for INSERT/UPDATE/DELETE.\n\nThis also means that the larger the `query_cache_size` is set to, the slower those operations become. In concurrent environments, the MySQL Query Cache quickly becomes a contention point, decreasing performance. MariaDB and AWS Aurora have done work to try and eliminate the query cache contention in their flavors of MySQL, while MySQL 8.0 has eliminated the query cache feature.\n\nThe recommended settings for most environments is to set:\n  ``query_cache_type=0``\n  ``query_cache_size=0``\n\nNote that while you can dynamically change these values, to completely remove the contention point you have to restart the database.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": 3600000,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 398,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "min"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.0.3",
+      "targets": [
+        {
+          "calculatedInterval": "2m",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "yPhvsDP7k"
+          },
+          "datasourceErrors": {},
+          "editorMode": "code",
+          "errors": {},
+          "expr": "mysql_info_schema_processlist_processes_by_user{instance=~\"$host\",mysql_user=~\"$mysqluser\"}",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{ mysql_user }}",
+          "metric": "",
+          "range": true,
+          "refId": "F",
+          "step": 20
+        }
+      ],
+      "title": "MySQL Processes Per User",
+      "type": "timeseries"
+    },
+    {
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
@@ -820,7 +942,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 20
       },
       "id": 384,
       "panels": [],
@@ -841,13 +963,14 @@
         "type": "prometheus",
         "uid": "yPhvsDP7k"
       },
-      "description": "**MySQL Questions**\n\nThe number of statements executed by the server. This includes only statements sent to the server by clients and not statements executed within stored programs, unlike the Queries used in the QPS calculation. \n\nThis variable does not count the following commands:\n* ``COM_PING``\n* ``COM_STATISTICS``\n* ``COM_STMT_PREPARE``\n* ``COM_STMT_CLOSE``\n* ``COM_STMT_RESET``",
+	  "description": "Number of MySQL processes per user over time.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -861,6 +984,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -900,7 +1024,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 14
+        "y": 21
       },
       "id": 53,
       "links": [
@@ -963,6 +1087,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -976,6 +1101,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -1028,7 +1154,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 14
+        "y": 21
       },
       "id": 11,
       "links": [
@@ -1126,7 +1252,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 28
       },
       "id": 385,
       "panels": [],
@@ -1153,6 +1279,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1166,6 +1293,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -1205,10 +1333,9 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 22
+        "y": 29
       },
       "id": 22,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -1297,6 +1424,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1310,6 +1438,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -1370,10 +1499,9 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 22
+        "y": 29
       },
       "id": 311,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -1501,7 +1629,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 36
       },
       "id": 386,
       "panels": [],
@@ -1529,6 +1657,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1542,6 +1671,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -1602,10 +1732,9 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 30
+        "y": 37
       },
       "id": 30,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -1716,6 +1845,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1729,6 +1859,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -1768,10 +1899,9 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 30
+        "y": 37
       },
       "id": 48,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -1823,7 +1953,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 37
+        "y": 44
       },
       "id": 387,
       "panels": [],
@@ -1851,6 +1981,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1864,6 +1995,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -1903,10 +2035,9 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 38
+        "y": 45
       },
       "id": 47,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -1980,6 +2111,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1993,6 +2125,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -2032,10 +2165,9 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 38
+        "y": 45
       },
       "id": 32,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -2106,7 +2238,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 52
       },
       "id": 388,
       "panels": [],
@@ -2134,6 +2266,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -2147,6 +2280,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -2186,10 +2320,9 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 46
+        "y": 53
       },
       "id": 9,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -2262,6 +2395,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -2275,6 +2409,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -2314,10 +2449,9 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 46
+        "y": 53
       },
       "id": 381,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -2389,7 +2523,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 53
+        "y": 60
       },
       "id": 389,
       "panels": [],
@@ -2417,6 +2551,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -2430,6 +2565,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -2529,7 +2665,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 54
+        "y": 61
       },
       "id": 50,
       "links": [
@@ -2705,7 +2841,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 61
+        "y": 68
       },
       "id": 390,
       "panels": [],
@@ -2733,6 +2869,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -2746,6 +2883,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -2785,7 +2923,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 62
+        "y": 69
       },
       "id": 14,
       "links": [
@@ -2848,6 +2986,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -2861,6 +3000,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -2900,7 +3040,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 69
+        "y": 76
       },
       "id": 39,
       "links": [
@@ -2963,6 +3103,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -2976,135 +3117,7 @@
               "tooltip": false,
               "viz": false
             },
-            "lineInterpolation": "linear",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byValue",
-              "options": {
-                "op": "gte",
-                "reducer": "allIsZero",
-                "value": 0
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": true,
-                  "tooltip": true,
-                  "viz": false
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 24,
-        "x": 0,
-        "y": 76
-      },
-      "id": 8,
-      "links": [],
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "min"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "10.0.3",
-      "targets": [
-        {
-          "calculatedInterval": "2m",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "yPhvsDP7k"
-          },
-          "datasourceErrors": {},
-          "editorMode": "code",
-          "errors": {},
-          "expr": "rate(mysql_global_status_handlers_total{instance=~\"$host\", handler!~\"commit|rollback|savepoint.*|prepare\"}[$interval]) or irate(mysql_global_status_handlers_total{instance=~\"$host\", handler!~\"commit|rollback|savepoint.*|prepare\"}[5m])",
-          "format": "time_series",
-          "interval": "$interval",
-          "intervalFactor": 1,
-          "legendFormat": "{{ instance }} {{ handler }}",
-          "metric": "",
-          "range": true,
-          "refId": "J",
-          "step": 20
-        }
-      ],
-      "title": "MySQL Handlers",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "yPhvsDP7k"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -3167,8 +3180,137 @@
         "x": 0,
         "y": 83
       },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "min"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.0.3",
+      "targets": [
+        {
+          "calculatedInterval": "2m",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "yPhvsDP7k"
+          },
+          "datasourceErrors": {},
+          "editorMode": "code",
+          "errors": {},
+          "expr": "rate(mysql_global_status_handlers_total{instance=~\"$host\", handler!~\"commit|rollback|savepoint.*|prepare\"}[$interval]) or irate(mysql_global_status_handlers_total{instance=~\"$host\", handler!~\"commit|rollback|savepoint.*|prepare\"}[5m])",
+          "format": "time_series",
+          "interval": "$interval",
+          "intervalFactor": 1,
+          "legendFormat": "{{ instance }} {{ handler }}",
+          "metric": "",
+          "range": true,
+          "refId": "J",
+          "step": 20
+        }
+      ],
+      "title": "MySQL Handlers",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "yPhvsDP7k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byValue",
+              "options": {
+                "op": "gte",
+                "reducer": "allIsZero",
+                "value": 0
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 90
+      },
       "id": 28,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -3228,7 +3370,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 90
+        "y": 97
       },
       "hiddenSeries": false,
       "id": 40,
@@ -3248,13 +3390,12 @@
       },
       "lines": true,
       "linewidth": 2,
-      "links": [],
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.0.3",
+      "pluginVersion": "10.4.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3332,7 +3473,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 97
+        "y": 104
       },
       "hiddenSeries": false,
       "id": 49,
@@ -3352,13 +3493,12 @@
       },
       "lines": false,
       "linewidth": 2,
-      "links": [],
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.0.3",
+      "pluginVersion": "10.4.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3424,7 +3564,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 104
+        "y": 111
       },
       "id": 396,
       "panels": [],
@@ -3442,6 +3582,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -3455,6 +3596,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -3515,10 +3657,9 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 105
+        "y": 112
       },
       "id": 397,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -3569,7 +3710,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 112
+        "y": 119
       },
       "id": 391,
       "panels": [],
@@ -3597,6 +3738,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -3610,6 +3752,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -3649,10 +3792,9 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 113
+        "y": 120
       },
       "id": 46,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -3725,6 +3867,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -3738,6 +3881,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -3777,10 +3921,9 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 113
+        "y": 120
       },
       "id": 45,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -3908,7 +4051,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 120
+        "y": 127
       },
       "id": 392,
       "panels": [],
@@ -3935,6 +4078,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -3948,6 +4092,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -3987,10 +4132,9 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 121
+        "y": 128
       },
       "id": 43,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -4042,6 +4186,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -4055,6 +4200,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -4094,10 +4240,9 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 121
+        "y": 128
       },
       "id": 41,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [
@@ -4180,7 +4325,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 128
+        "y": 135
       },
       "id": 393,
       "panels": [],
@@ -4208,6 +4353,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -4221,6 +4367,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -4273,7 +4420,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 129
+        "y": 136
       },
       "id": 44,
       "links": [
@@ -4395,6 +4542,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -4408,6 +4556,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -4447,7 +4596,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 129
+        "y": 136
       },
       "id": 42,
       "links": [
@@ -4526,7 +4675,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 136
+        "y": 143
       },
       "id": 394,
       "panels": [],
@@ -4554,6 +4703,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -4567,6 +4717,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 5,
@@ -4606,7 +4757,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 137
+        "y": 144
       },
       "id": 54,
       "links": [
@@ -4693,8 +4844,7 @@
   ],
   "refresh": "1m",
   "revision": 1,
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [
     "mysql"
   ],
@@ -4805,6 +4955,38 @@
         "refresh": 2,
         "skipUrlSync": false,
         "type": "interval"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "yPhvsDP7k"
+        },
+        "definition": "label_values(mysql_user)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "User",
+        "multi": true,
+        "name": "mysqluser",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(mysql_user)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
       }
     ]
   },
@@ -4847,6 +5029,6 @@
   "timezone": "browser",
   "title": "MySQL",
   "uid": "MQWgroiiz",
-  "version": 3,
+  "version": 2,
   "weekStart": ""
 }
